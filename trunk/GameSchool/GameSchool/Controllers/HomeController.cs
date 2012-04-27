@@ -10,7 +10,7 @@ namespace GameSchool.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Welcome to ASP.NET MVC!";
+            ViewBag.Message = "Welcome to G4M35CH001";
 
             return View();
         }
