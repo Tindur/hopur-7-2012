@@ -3,8 +3,9 @@ The base color for this template is #5c87b2. If you'd like
 to use a different color start by replacing all instances of
 #5c87b2 with your new color.
 ----------------------------------------------------------*/
-body {
-    background-color: #5c87b2;
+body 
+{
+    background-image: url('carbon.png');
     font-size: .85em;
     font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
     margin: 0;
@@ -77,18 +78,43 @@ h5, h6 {
 /* you can specify a greater or lesser percentage for the 
 page width. Or, you can specify an exact pixel width. */
 .page {
-    width: 90%;
+    width: 60%;
     margin-left: auto;
     margin-right: auto;
 }
-
-header, #header {
-    position: relative;
+#user
+{
+    width: 15%;
+    position: fixed;
+    margin-right: auto;
+    margin-top: 9.5em;
+    padding: 30px 30px 15px 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    z-index: 2;
+}
+header, #header 
+{
+    width: 100%;
+    margin-right: 90px;
     margin-bottom: 0px;
     color: #000;
-    padding: 0;
+    padding: 10px;
 }
-
+header p, #header p
+{
+    font-style: italic;
+    padding: 1px 0;
+    margin: 0;
+    color: #fff;
+    border: none; 
+    line-height: 2em;
+    font-size: px !important;
+    text-shadow: 1px 1px 2px #111;
+    
+}
 header h1, #header h1 {
     font-weight: bold;
     padding: 5px 0;
@@ -103,14 +129,13 @@ header h1, #header h1 {
 #main {
     padding: 30px 30px 15px 30px;
     background-color: #fff;
-    border-radius: 4px 0 0 0;
-    -webkit-border-radius: 4px 0 0 0;
-    -moz-border-radius: 4px 0 0 0;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
 }
 
 footer, 
 #footer {
-    background-color: #fff;
     color: #999;
     padding: 10px 0;
     text-align: center;
@@ -125,8 +150,7 @@ footer,
 /* TAB MENU   
 ----------------------------------------------------------*/
 ul#menu {
-    border-bottom: 1px #5C87B2 solid;
-    padding: 0 0 2px;
+    padding: 0 0 0px;
     position: relative;
     margin: 0;
     text-align: right;
@@ -146,19 +170,20 @@ ul#menu li#greeting {
 }
 
 ul#menu li a {
-    padding: 10px 20px;
+    padding: 6px 15px;
     font-weight: bold;
+    color: #282828;
     text-decoration: none;
     line-height: 2.8em;
-    background-color: #e8eef4;
+    background-color: #EEEEEE;
     color: #034af3;
-    border-radius: 4px 4px 0 0;
-    -webkit-border-radius: 4px 4px 0 0;
-    -moz-border-radius: 4px 4px 0 0;
+    border-radius: 12px 12px 0 0;
+    -webkit-border-radius: 12px 12px 0 0;
+    -moz-border-radius: 12px 12px 0 0;
 }
 
 ul#menu li a:hover {
-    background-color: #fff;
+    background-color: #ff0;
     text-decoration: none;
 }
 

@@ -8,10 +8,17 @@
     <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
 </head>
 <body>
+    <section id="user">
+        <h3>Tómas Svali Kall</h3>
+        <progress max="100" value="60">
+            <strong>Progress: 60% done.</strong>
+        </progress>
+    </section>
     <div class="page">
         <header>
             <div id="title">
                 <h1>GameSchool</h1>
+                <p id="slogan">Death is the solution to all problems</p>
             </div>
             <div id="logindisplay">
                 @Html.Partial("_LogOnPartial")
