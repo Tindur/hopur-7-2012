@@ -9,16 +9,7 @@
 </head>
 <body>
   
-    <section id="namskeid">
-        <ul>
-            <li><a href="#">Námskeið 1</a></li>
-            <li><a href="#">Námskeið 2</a></li>
-            <li><a href="#">Námskeið 3</a></li>
-            <li><a href="#">Námskeið 4</a></li>
-            <li><a href="#">Námskeið 5</a></li>
-            <li><a href="#">Námskeið 6</a></li>
-        </ul>
-    </section>
+
     <div class="page">
         <header>
             <div id="title">
@@ -28,14 +19,7 @@
             <div id="logindisplay">
                 @Html.Partial("_LogOnPartial")
             </div>
-            <nav>
-                <ul id="menu">
-                    <li>@Html.ActionLink("Heim", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Um okkur", "About", "Home")</li>
-                    <li>@Html.ActionLink("Glósur", "Glosur", "Home")</li>
-                    <li>@Html.ActionLink("Fyrirlestrar", "Fyrirlestrar", "Home")</li>
-                </ul>
-            </nav>
+
         </header>
         <section id="main">
             @RenderBody()
@@ -43,19 +27,5 @@
         <footer>
         </footer>
     </div>
-    <div id="accordion">
-        <h3><a href="#">First header</a></h3>
-        <div>First content</div>
-        <h3><a href="#">Second header</a></h3>
-        <div>Second content</div>
-    </div>
-    <script type="text/javascript">
-        jQuery(document).ready(function () {
-            $('.accordion .head').click(function () {
-                $(this).next().toggle('slow');
-                return false;
-            }).next().hide();
-        });
-    </script>
 </body>
 </html>
