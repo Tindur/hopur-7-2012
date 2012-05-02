@@ -43,7 +43,7 @@ namespace GameSchool.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                    ModelState.AddModelError("", "Vitlaust lykilorð eða notandanafn.");
                 }
             }
 

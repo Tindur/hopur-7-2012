@@ -79,6 +79,11 @@
     </Compile>
     <Compile Include="Models\GlossaryRepository.cs" />
     <Compile Include="Models\IGlossaryRepository.cs" />
+    <Compile Include="Models\LevelDB.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LevelDB.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Models\TestDB.designer.cs" />
     <Compile Include="Models\TestRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -171,6 +176,12 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Admin\AdminIndex.cshtml" />
     <Content Include="Views\Teacher\TeacherIndex.cshtml" />
+    <None Include="Models\LevelDB.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>LevelDB.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\Admin\StudentList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -178,6 +189,11 @@
   <ItemGroup>
     <None Include="Models\GlossaryDB.dbml.layout">
       <DependentUpon>GlossaryDB.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\LevelDB.dbml.layout">
+      <DependentUpon>LevelDB.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
