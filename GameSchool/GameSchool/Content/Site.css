@@ -95,6 +95,19 @@ page width. Or, you can specify an exact pixel width. */
     -moz-border-radius: 10px;
     z-index: 2;
 }
+#namskeid
+{
+    width: 15%;
+    position: fixed;
+    margin-right: auto;
+    margin-top: 9.5em;
+    padding: 30px 30px 15px 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    z-index: 2;
+}
 header, #header 
 {
     width: 100%;
