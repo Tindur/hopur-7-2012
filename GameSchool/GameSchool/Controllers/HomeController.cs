@@ -13,7 +13,7 @@ namespace GameSchool.Controllers
         {
             ViewBag.Message = "Welcome to G4M35CH001";
             if (User.IsInRole("Student"))
-                return Redirect("'Student/StudentIndex/");
+                return Redirect("Student/StudentIndex/");
             else if (User.IsInRole("Teacher"))
                 return Redirect("Teacher/TeacherIndex/");
             else
