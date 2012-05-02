@@ -76,6 +76,8 @@
     </Compile>
     <Compile Include="Models\GlossaryRepository.cs" />
     <Compile Include="Models\IGlossaryRepository.cs" />
+    <Compile Include="Models\TestDB.designer.cs" />
+    <Compile Include="Models\TestRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
