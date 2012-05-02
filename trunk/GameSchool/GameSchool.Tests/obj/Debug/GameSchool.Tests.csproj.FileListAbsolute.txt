@@ -1,0 +1,8 @@
+C:\Veffsíður\GameSchool\GameSchool.Tests\bin\Debug\GameSchool.Tests.dll.config
+C:\Veffsíður\GameSchool\GameSchool.Tests\bin\Debug\GameSchool.Tests.dll
+C:\Veffsíður\GameSchool\GameSchool.Tests\bin\Debug\GameSchool.Tests.pdb
+C:\Veffsíður\GameSchool\GameSchool.Tests\bin\Debug\GameSchool.dll
+C:\Veffsíður\GameSchool\GameSchool.Tests\bin\Debug\GameSchool.pdb
+C:\Veffsíður\GameSchool\GameSchool.Tests\obj\Debug\ResolveAssemblyReference.cache
+C:\Veffsíður\GameSchool\GameSchool.Tests\obj\Debug\GameSchool.Tests.dll
+C:\Veffsíður\GameSchool\GameSchool.Tests\obj\Debug\GameSchool.Tests.pdb

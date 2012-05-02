@@ -1,0 +1,7 @@
+C:\Veffsíður\GameSchool\GameSchool\bin\GameSchool.dll
+C:\Veffsíður\GameSchool\GameSchool\bin\GameSchool.pdb
+C:\Veffsíður\GameSchool\GameSchool\bin\EntityFramework.dll
+C:\Veffsíður\GameSchool\GameSchool\bin\EntityFramework.xml
+C:\Veffsíður\GameSchool\GameSchool\obj\Debug\ResolveAssemblyReference.cache
+C:\Veffsíður\GameSchool\GameSchool\obj\Debug\GameSchool.dll
+C:\Veffsíður\GameSchool\GameSchool\obj\Debug\GameSchool.pdb
