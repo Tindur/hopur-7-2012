@@ -2,10 +2,10 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="GlossaryDB">
   <DataContextMoniker Name="/GlossaryDBDataContext" />
   <nestedChildShapes>
-    <classShape Id="b4ef03d6-d70e-4b06-bca4-0e807735134a" absoluteBounds="2.25, 1.375, 2, 1.7708968098958331">
+    <classShape Id="b4ef03d6-d70e-4b06-bca4-0e807735134a" absoluteBounds="0.5, 0.5, 2, 1.7708968098958331">
       <DataClassMoniker Name="/GlossaryDBDataContext/GlossaryModel" />
       <nestedChildShapes>
-        <elementListCompartment Id="bb9d51ce-b29b-432b-898f-2a0fdcc88083" absoluteBounds="2.265, 1.835, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="bb9d51ce-b29b-432b-898f-2a0fdcc88083" absoluteBounds="0.51500000000000012, 0.96, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
