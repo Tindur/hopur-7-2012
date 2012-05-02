@@ -8,11 +8,17 @@ namespace GameSchool.Controllers
 {
     public class HomeController : Controller
     {
+        [Authorize]
         public ActionResult Index()
         {
             ViewBag.Message = "Welcome to G4M35CH001";
-
-            return View();
+            if (User.IsInRole("Student"))
+                return Redirect("'Student/StudentIndex/");
+            else if (User.IsInRole("Teacher"))
+                return Redirect("Teacher/TeacherIndex/");
+            else
+                return Redirect("Admin/AdminIndex/");
+            
         }
 
         public ActionResult About()
