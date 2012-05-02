@@ -8,21 +8,21 @@ namespace GameSchool.Models
     public class TestRepository
     {
         TestDBDataContext m_testDB = new TestDBDataContext();
-        public List<TestModel> GetAllTestsForLevel(int? id) 
+        public List<TestModel> GetAllTestsForLevel(int? id)
         {
             throw new NotImplementedException();
         }
-        public List<QuestionModel>GetAllQuestionsForTest() 
+        public List<QuestionModel> GetAllQuestionsForTest()
         {
-             throw new NotImplementedException();
+            throw new NotImplementedException();
         }
-        public List<AnswerModel>GetAllAnswersForQuestions()
+        public List<AnswerModel> GetAllAnswersForQuestions()
         {
             throw new NotImplementedException();
         }
         public void AddTest(TestModel test)
         {
-            throw new NotImplementedException(); 
+            throw new NotImplementedException();
         }
         public void AddQuestions(QuestionModel question)
         {
@@ -40,4 +40,5 @@ namespace GameSchool.Models
         {
             throw new NotImplementedException();
         }
+    }
 }
