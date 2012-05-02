@@ -9,12 +9,10 @@ namespace GameSchool.Models
     {
         GlossaryDBDataContext m_glossaryDB = new GlossaryDBDataContext();
 
-        /*public List<GlossaryModel> GetGlossaryForCourse(int? id)
+        public List<GlossaryModel> GetGlossaryForCourse(int? id)
         {
-            if( id.HasValue)
-            {
-            }
-        }*/
+            throw new NotImplementedException();
+        }
 
         public void AddGlossaryForCourse(int? id)
         {
