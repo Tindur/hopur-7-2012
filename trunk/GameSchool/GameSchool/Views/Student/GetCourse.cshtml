@@ -1,6 +1,7 @@
-﻿@model IEnumerable<GameSchool.Models.dbLINQ.CourseModel>
+﻿@model GameSchool.Models.dbLINQ.CourseModel
 
+@{
+    ViewBag.Title = "GetCourse";
+}
 
-
-@Html.Partial("StudentIndex")
-
+<h2>@Model.Name</h2>

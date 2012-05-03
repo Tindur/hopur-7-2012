@@ -1,0 +1,11 @@
+﻿@model IEnumerable<GameSchool.Models.dbLINQ.CourseModel>
+           
+<nav id="courseNav">
+    <ul>
+    @foreach (var item in Model)
+    {
+        <li>@Html.ActionLink(item.Name, "GetCourse/" + item.ID, "Student")</li>
+    }
+    </ul>
+</nav>
+    
