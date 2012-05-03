@@ -10,7 +10,7 @@ using GameSchool.Controllers;
 namespace GameSchool.Tests.Controllers
 {
     [TestClass]
-    public class HomeControllerTest
+    public class StudentControllerTest
     {
         [TestMethod]
         public void Index()

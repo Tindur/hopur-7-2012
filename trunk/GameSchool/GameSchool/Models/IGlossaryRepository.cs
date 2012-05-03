@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GameSchool.Models
 {
-    interface IGlossaryRepository
+    public interface IGlossaryRepository
     {
         List<GlossaryModel> GetGlossaryForCourse(int? id);
         void AddGlossaryForCourse(int? id);
