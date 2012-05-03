@@ -1,15 +1,6 @@
-﻿@model  IEnumerable<GameSchool.Models.dbLINQ.CourseModel>
+﻿@model IEnumerable<GameSchool.Models.dbLINQ.CourseModel>
 @{
     ViewBag.Title = "GameSchool";
 }
 
 <h2>@ViewBag.Message</h2>
-
-<nav id="courseNav">
-    <ul>
-    @foreach (var item in Model)
-    {
-        <li>@Html.ActionLink(item.Name, "GetCourse/" + item.ID, "Student")</li>
-    }
-    </ul>
-</nav>

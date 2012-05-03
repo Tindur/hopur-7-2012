@@ -17,8 +17,7 @@ namespace GameSchool.Controllers
             else if (User.IsInRole("Teacher"))
                 return Redirect("Teacher/TeacherIndex/");
             else
-                return Redirect("Admin/AdminIndex/");
-            
+                return Redirect("Admin/AdminIndex/");   
         }
 
         public ActionResult About()
