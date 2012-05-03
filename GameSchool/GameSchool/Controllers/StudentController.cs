@@ -40,9 +40,10 @@ namespace GameSchool.Controllers
             {
                 IEnumerable<LevelModel> levels = m_lvlRepo.GetAllLevelsForCourse(id.Value);
 
-                return View(new CourseView(m_CourseRepo.GetCourseById(id.Value), 
+                /*return View(new CourseView(m_CourseRepo.GetCourseById(id.Value), 
                                             levels,
-                                             m_lvlRepo.GetFinishedLevelsForStudent(User.Identity.Name)));
+                                             m_lvlRepo.GetFinishedLevelsForStudent(User.Identity.Name)));*/
+                return View();
             }
             else
             {
