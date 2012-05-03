@@ -28,6 +28,7 @@ namespace GameSchool.Models.Repositories
             var result = (from x in m_usersDB.aspnet_Users
                           where x.UserId.ToString() == id
                           select x).SingleOrDefault();
+
             return result;
         }
 
