@@ -12,6 +12,7 @@ namespace GameSchool.Controllers
     public class AdminController : Controller
     {
         UsersRepository m_UsersRepo = new UsersRepository();
+        CourseRepository m_CourseRepo = new CourseRepository();
         //
         // GET: /Admin/
         
@@ -33,13 +34,8 @@ namespace GameSchool.Controllers
         [HttpGet]
         public ActionResult EditUser(string id)
         {
-            //if (id.HasValue)
-            //{
-                aspnet_User TheUser = m_UsersRepo.GetUserById(id);
-               // if (TheUser != null)
-                    return View(TheUser);
-            
-            //return View("NotFound");
+            aspnet_User TheUser = m_UsersRepo.GetUserById(id);
+            return View(TheUser);
         }
         [HttpPost]
         public ActionResult EditUser(string id, FormCollection FormData)
@@ -49,12 +45,52 @@ namespace GameSchool.Controllers
             if(TheUser != null)
             {
                 UpdateModel(TheUser);
-                m_UsersRepo.UpdateUser(TheUser);
+                m_UsersRepo.Save();
 
-                return RedirectToAction("AdminIndex");
+                return RedirectToAction("GetUsers");
             }
             else
-                return View("AdminIndex");
+                return View("GetUsers");
+        }
+        public ActionResult CreateUser()
+        {
+            
+            return View();
+        }
+        public ActionResult GetCourses()
+        {
+            var model = m_CourseRepo.GetAllCourses();
+            return View(model);
+        }
+        public ActionResult CreateCourse()
+        {
+            return View(new CourseModel());
+        }
+        [HttpPost]
+        public ActionResult CreateCourse(FormCollection FormData)
+        {
+            CourseModel Course = new CourseModel();
+            UpdateModel(Course);
+            m_CourseRepo.AddCourse(Course);
+            m_CourseRepo.Save();
+            return RedirectToAction("GetCourses");
+        }
+        public ActionResult EditCourse(int id)
+        {
+            CourseModel Course = m_CourseRepo.GetCourseById(id);
+            return View(Course);
+        }
+        [HttpPost]
+        public ActionResult EditCourse(int id, FormCollection FormData)
+        {
+            CourseModel Course = m_CourseRepo.GetCourseById(id);
+            if (Course != null)
+            {
+                UpdateModel(Course);
+                m_CourseRepo.Save();
+                return RedirectToAction("GetCourses");
+            }
+            return RedirectToAction("GetCourses");
         }
     }
 }

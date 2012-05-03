@@ -1,0 +1,9 @@
+﻿@model IEnumerable<GameSchool.Models.dbLINQ.CourseModel>
+
+@{
+    ViewBag.Title = "GetCourses";
+}
+
+<h2>Áfangar</h2>
+@Html.Partial("CourseListPartial")
+@Html.ActionLink("Nýr áfangi", "CreateCourse", "Admin")

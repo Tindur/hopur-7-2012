@@ -34,14 +34,18 @@ namespace GameSchool.Models.Repositories
                 return result;
         }
 
-        public void AddCourse(CourseModel course)
+        public void AddCourse(CourseModel Course)
         {
-            //TODO
+            m_courseDB.CourseModels.InsertOnSubmit(Course);
         }
 
-        public void UpdateCourse(CourseRegistration registration)
+        public void UpdateCourse(int id, CourseRegistration registration)
         {
-            //TODO
+            
+        }
+        public void Save()
+        {
+            m_courseDB.SubmitChanges();
         }
     }
 }

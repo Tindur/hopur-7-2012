@@ -40,7 +40,7 @@ namespace GameSchool.Models.Repositories
 
         }
 
-        public IQueryable<int> GetFinishedLevelsForStudent(string userName)  //Added by Björn
+        public IQueryable<int> GetFinishedLevelsForStudent(int userName)  //Added by Björn
         {
             //TODO breyta LevelCompletion þannig hún hafi StudentUsername í stað StudentID
             /*var result = from levelID in m_levelDB.LevelCompletions
