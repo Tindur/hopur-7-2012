@@ -1,0 +1,26 @@
+﻿@model IEnumerable<GameSchool.Models.dbLINQ.aspnet_User>
+           
+<table>
+    <caption>Nemendalisti</caption>
+    <thead>
+        <tr>
+            <th>Nafn</th>
+            <th>Kennitala</th>
+            <th>Heimilisfang</th>
+            <th>Sími</th>
+            <th>Aðgerð</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model )
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.SSN</td>
+                <td>@item.Address</td>
+                <td>@item.Phone</td>       
+                <td>@Html.ActionLink( "Breyta", "EditUser/" + item.UserId , "Admin" ) </td>
+            </tr>  
+        }
+        </tbody>
+        </table>
