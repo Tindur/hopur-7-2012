@@ -33,9 +33,6 @@ namespace GameSchool.Models.dbLINQ
     partial void InsertLevelModel(LevelModel instance);
     partial void UpdateLevelModel(LevelModel instance);
     partial void DeleteLevelModel(LevelModel instance);
-    partial void InsertLevelCompletion(LevelCompletion instance);
-    partial void UpdateLevelCompletion(LevelCompletion instance);
-    partial void DeleteLevelCompletion(LevelCompletion instance);
     #endregion
 		
 		public LevelDBDataContext() : 
@@ -244,35 +241,20 @@ namespace GameSchool.Models.dbLINQ
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LevelCompletion")]
-	public partial class LevelCompletion : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class LevelCompletion
 	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _ID;
 		
-		private System.Guid _StudentID;
+		private string _StudentName;
 		
 		private int _LevelID;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnStudentIDChanging(System.Guid value);
-    partial void OnStudentIDChanged();
-    partial void OnLevelIDChanging(int value);
-    partial void OnLevelIDChanged();
-    #endregion
-		
 		public LevelCompletion()
 		{
-			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
 		public int ID
 		{
 			get
@@ -283,31 +265,23 @@ namespace GameSchool.Models.dbLINQ
 			{
 				if ((this._ID != value))
 				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
 					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StudentID", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid StudentID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StudentName", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string StudentName
 		{
 			get
 			{
-				return this._StudentID;
+				return this._StudentName;
 			}
 			set
 			{
-				if ((this._StudentID != value))
+				if ((this._StudentName != value))
 				{
-					this.OnStudentIDChanging(value);
-					this.SendPropertyChanging();
-					this._StudentID = value;
-					this.SendPropertyChanged("StudentID");
-					this.OnStudentIDChanged();
+					this._StudentName = value;
 				}
 			}
 		}
@@ -323,32 +297,8 @@ namespace GameSchool.Models.dbLINQ
 			{
 				if ((this._LevelID != value))
 				{
-					this.OnLevelIDChanging(value);
-					this.SendPropertyChanging();
 					this._LevelID = value;
-					this.SendPropertyChanged("LevelID");
-					this.OnLevelIDChanged();
 				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

@@ -27,10 +27,10 @@ namespace GameSchool.Models.Repositories
             m_levelDB.SubmitChanges();
         }
 
-        public bool HasStudentFinishedLevel(int userID)
+        public bool HasStudentFinishedLevel(string userName)
         {
             var result = (from student in m_levelDB.LevelCompletions
-                          where student.StudentID.ToString() == userID.ToString()
+                          where student.StudentName == userName
                           select student).SingleOrDefault();
 
             if (result != null)
@@ -40,21 +40,20 @@ namespace GameSchool.Models.Repositories
 
         }
 
-        public IQueryable<int> GetFinishedLevelsForStudent(int userName)  //Added by Björn
+        public IQueryable<int> GetFinishedLevelsForStudent(string userName)  //Added by Björn
         {
             //TODO breyta LevelCompletion þannig hún hafi StudentUsername í stað StudentID
-            /*var result = from levelID in m_levelDB.LevelCompletions
-                         where levelID.StudentID.ToString() == userName
+            var result = from levelID in m_levelDB.LevelCompletions
+                         where levelID.StudentName == userName
                          select levelID.LevelID;
 
-            return result.ToList();*/
-            return null;
+            return result;
         }
 
-        public void RegisterLevelCompletion(int idLevel, Guid studentID)
+        public void RegisterLevelCompletion(int idLevel, string studentName)
         {
             LevelCompletion complete = new LevelCompletion();
-            complete.StudentID = studentID;
+            complete.StudentName = studentName;
             complete.LevelID = idLevel;
             m_levelDB.LevelCompletions.InsertOnSubmit(complete);
         }

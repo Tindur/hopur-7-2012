@@ -6,7 +6,7 @@ using GameSchool.Models.dbLINQ;
 
 namespace GameSchool.Models.Interfaces
 {
-    /*interface ILevelRepository
+    interface ILevelRepository
     {
        // #region Getters
         IQueryable<LevelModel> GetAllLevelsForCourse(int courseID);
@@ -35,5 +35,5 @@ namespace GameSchool.Models.Interfaces
        void RegisterLectureCompletion(int idLecture);*/
         void RegisterLevelCompletion(int idLevel, Guid studentID);
         //#endregion*/
-    }*/
+    }
 }
