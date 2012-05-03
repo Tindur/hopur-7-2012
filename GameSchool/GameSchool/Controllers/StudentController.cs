@@ -13,7 +13,7 @@ namespace GameSchool.Controllers
     {
         CourseRepository m_CourseRepo = new CourseRepository();
 
-        public ActionResult Navigation()
+        public ActionResult StudentIndex()
         {
             string user = User.Identity.Name;
             var courses = m_CourseRepo.GetCoursesForStudent(user);
@@ -25,9 +25,9 @@ namespace GameSchool.Controllers
             return View(model);
         }
 
-        public ActionResult StudentIndex()
+        public ActionResult Navigation()
         {
-            return View();
+            return PartialView("Navigation", m_CourseRepo.GetAllCourses().ToList());
         }
 
         public ActionResult GetCourse(int? id)
