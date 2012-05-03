@@ -10,8 +10,8 @@ namespace GameSchool.Models.Interfaces
     {
         IQueryable<aspnet_User> GetAllStudents();
         aspnet_User GetUserById(string id);
-        void AddStudent(aspnet_User Student);
-        void UpdateStudent(aspnet_User Student);
+        void AddUser(aspnet_User User);
+        void UpdateUser(aspnet_User User);
         IQueryable<aspnet_User> GetAllTeachers();
     }
 }
