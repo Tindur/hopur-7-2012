@@ -20,6 +20,7 @@
                 
             </div>
         </header>
+        <nav id="courseNav" style="margin:5em;">
              @if (User.IsInRole("Student"))
              {
                  @Html.Action("Navigation", "Student")
@@ -28,7 +29,9 @@
              {
                     @Html.ActionLink("Nemendur", "GetStudents", "Admin")
                     @Html.ActionLink("Kennarar", "GetTeachers", "Admin")
+                    @Html.ActionLink("Áfangar", "GetCourses", "Admin")
              }
+        </nav>
         <section id="main">
             @RenderBody()
         </section>

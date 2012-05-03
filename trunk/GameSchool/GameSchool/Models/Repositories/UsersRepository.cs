@@ -37,9 +37,9 @@ namespace GameSchool.Models.Repositories
             throw new NotImplementedException();
         }
 
-        public void UpdateUser(aspnet_User User)
+        public void Save()
         {
-
+            m_usersDB.SubmitChanges();
         }
         public IQueryable<aspnet_User> GetAllTeachers()
         {
