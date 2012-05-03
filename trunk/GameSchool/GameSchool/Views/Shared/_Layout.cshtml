@@ -15,10 +15,20 @@
                 <p id="slogan">Death is the solution to all problems</p>
             </div>
             <div id="logindisplay">
-                @Html.Partial("_LogOnPartial")
+       
+                    @Html.Partial("_LogOnPartial")
+                
             </div>
         </header>
-            @Html.Action("Navigation", "Student")
+             @if (User.IsInRole("Student"))
+             {
+                 @Html.Action("Navigation", "Student")
+             }
+             @if (User.IsInRole("Admin"))
+             {
+                    @Html.ActionLink("Nemendur", "GetStudents", "Admin")
+                    @Html.ActionLink("Kennarar", "GetTeachers", "Admin")
+             }
         <section id="main">
             @RenderBody()
         </section>
