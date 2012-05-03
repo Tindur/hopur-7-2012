@@ -9,6 +9,11 @@
 <ul style="list-style-type:none;">
     @foreach (var lvl in Model.m_theLevels)
     {   
-        <li>Borð @lvl.NumberInCourse: @Html.ActionLink(lvl.Name, "/Assignment/" + lvl.ID, "Student")</li>
+        <li>Borð @lvl.NumberInCourse: @Html.ActionLink(lvl.Name, "/Assignment/" + lvl.ID, "Student")
+        @if (Model.m_finishedLvlID.Contains(lvl.ID))
+        {
+            @Html.Raw(" (Klárað!)");
+        }
+        </li>
     }
 </ul>

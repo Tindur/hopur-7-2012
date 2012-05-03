@@ -17,16 +17,9 @@ namespace GameSchool.Controllers
 
         public ActionResult StudentIndex()
         {
-            /*string user = User.Identity.Name;
-            var courses = m_CourseRepo.GetCoursesForStudent(user);
-            List<CourseModel> model = new List<CourseModel>();
-            foreach (var item in courses)
-            {
-                model.Add(m_CourseRepo.GetCourseById(item.ID));
-            }*/
-            List<CourseModel> model = m_CourseRepo.GetCoursesForStudent(User.Identity.Name).ToList();
+            ViewBag.Message = "Welcome to GameSchool 0.1";
 
-            return View(model);
+            return View();
         }
 
         public ActionResult Navigation()
@@ -40,10 +33,9 @@ namespace GameSchool.Controllers
             {
                 IEnumerable<LevelModel> levels = m_lvlRepo.GetAllLevelsForCourse(id.Value);
 
-                /*return View(new CourseView(m_CourseRepo.GetCourseById(id.Value), 
+                return View(new CourseView(m_CourseRepo.GetCourseById(id.Value), 
                                             levels,
-                                             m_lvlRepo.GetFinishedLevelsForStudent(User.Identity.Name)));*/
-                return View();
+                                             m_lvlRepo.GetFinishedLevelsForStudent(User.Identity.Name).ToList()));
             }
             else
             {
