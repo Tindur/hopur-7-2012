@@ -43,11 +43,12 @@ namespace GameSchool.Models.Repositories
         public IQueryable<int> GetFinishedLevelsForStudent(string userName)  //Added by Björn
         {
             //TODO breyta LevelCompletion þannig hún hafi StudentUsername í stað StudentID
-            var result = from levelID in m_levelDB.LevelCompletions
+            /*var result = from levelID in m_levelDB.LevelCompletions
                          where levelID.StudentID.ToString() == userName
                          select levelID.LevelID;
 
-            return result.ToList();
+            return result.ToList();*/
+            return null;
         }
 
         public void RegisterLevelCompletion(int idLevel, Guid studentID)
