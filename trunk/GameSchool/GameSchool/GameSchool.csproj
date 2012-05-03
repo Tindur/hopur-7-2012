@@ -71,7 +71,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="ILevelRepository.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\dbLINQ\CoursesDB.designer.cs">
       <AutoGen>True</AutoGen>
@@ -99,11 +98,13 @@
       <DependentUpon>GlossaryDB.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\Interfaces\ILevelRepository.cs" />
+    <Compile Include="Models\Interfaces\IUsersRepository.cs" />
     <Compile Include="Models\Repositories\GlossaryRepository.cs" />
     <Compile Include="Models\Interfaces\IGlossaryRepository.cs" />
     <Compile Include="Models\Interfaces\ICourseRepository.cs" />
     <Compile Include="Models\Repositories\CourseRepository.cs" />
     <Compile Include="Models\Repositories\LevelRepository.cs" />
+    <Compile Include="Models\Repositories\UsersRepository.cs" />
     <Compile Include="Models\TestDB.designer.cs" />
     <Compile Include="Models\Repositories\TestRepository.cs" />
     <Compile Include="Models\ViewModels\CourseView.cs" />
@@ -113,7 +114,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TestDB.dbml</DependentUpon>
     </Compile>
-    <Compile Include="UsersRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\carbonb.png" />
