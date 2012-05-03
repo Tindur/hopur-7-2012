@@ -32,14 +32,14 @@ namespace GameSchool.Models.Repositories
             return result;
         }
 
-        public void AddStudent(aspnet_User Student)
+        public void AddUser(aspnet_User Student)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateStudent(aspnet_User Student)
+        public void UpdateUser(aspnet_User User)
         {
-            throw new NotImplementedException();
+
         }
         public IQueryable<aspnet_User> GetAllTeachers()
         {

@@ -30,6 +30,7 @@ namespace GameSchool.Controllers
             var model = m_UsersRepo.GetAllTeachers();
             return View(model);
         }
+        [HttpGet]
         public ActionResult EditUser(string id)
         {
             //if (id.HasValue)
@@ -40,10 +41,20 @@ namespace GameSchool.Controllers
             
             //return View("NotFound");
         }
-        /*[HttpPost]
-        public ActionResult CreateUser()
+        [HttpPost]
+        public ActionResult EditUser(string id, FormCollection FormData)
         {
+            aspnet_User TheUser = m_UsersRepo.GetUserById(id);
 
-        }*/
+            if(TheUser != null)
+            {
+                UpdateModel(TheUser);
+                m_UsersRepo.UpdateUser(TheUser);
+
+                return RedirectToAction("AdminIndex");
+            }
+            else
+                return View("AdminIndex");
+        }
     }
 }

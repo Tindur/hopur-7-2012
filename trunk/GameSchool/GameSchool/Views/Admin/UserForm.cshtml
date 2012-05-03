@@ -7,20 +7,21 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>aspnet_User</legend>
+        <legend>Breyta Notanda</legend>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ApplicationId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ApplicationId)
-            @Html.ValidationMessageFor(model => model.ApplicationId)
-        </div>
 
         @Html.HiddenFor(model => model.UserId)
 
+         <div class="editor-label">
+            @Html.Label("Fullt Nafn")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
         <div class="editor-label">
-            @Html.LabelFor(model => model.UserName)
+            @Html.Label("Notandanafn")
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.UserName)
@@ -28,39 +29,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.LoweredUserName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.LoweredUserName)
-            @Html.ValidationMessageFor(model => model.LoweredUserName)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.MobileAlias)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.MobileAlias)
-            @Html.ValidationMessageFor(model => model.MobileAlias)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IsAnonymous)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.IsAnonymous)
-            @Html.ValidationMessageFor(model => model.IsAnonymous)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.LastActivityDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.LastActivityDate)
-            @Html.ValidationMessageFor(model => model.LastActivityDate)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SSN)
+            @Html.Label("Kennitala")
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.SSN)
@@ -68,7 +37,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Address)
+            @Html.Label("Heimilisfang")
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Address)
@@ -76,20 +45,13 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Phone)
+           @Html.Label("Sími")
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Phone)
             @Html.ValidationMessageFor(model => model.Phone)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
-        </div>
 
         <p>
             <input type="submit" value="Save" />
@@ -98,5 +60,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Til baka", "AdminIndex")
 </div>
