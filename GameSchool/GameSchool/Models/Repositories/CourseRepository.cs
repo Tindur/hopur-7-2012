@@ -16,11 +16,13 @@ namespace GameSchool.Models.Repositories
             return m_courseDB.CourseModels;
         }
 
-        public IQueryable<CourseRegistration> GetCoursesForStudent(string studentUsername)
+        public IQueryable<CourseModel> GetCoursesForStudent(string studentUsername)
         {
-            var result = from x in m_courseDB.CourseRegistrations
-                         where x.StudentUsername == studentUsername
-                         select x;
+            var result = from cr in m_courseDB.CourseRegistrations
+                         join cm in m_courseDB.CourseModels on cr.CourseID equals cm.ID
+                         where cr.StudentUsername == studentUsername
+                         select cm;
+
             return result;
         }
 

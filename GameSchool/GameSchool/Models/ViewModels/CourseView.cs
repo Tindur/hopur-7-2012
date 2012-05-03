@@ -9,6 +9,7 @@ namespace GameSchool.Models.ViewModels
 {
     public class CourseView
     {
+        /*
         CourseRepository m_db = new CourseRepository();
         public List<CourseModel> Courses { get; set; }
         public CourseModel Course { get; set; }
@@ -16,6 +17,20 @@ namespace GameSchool.Models.ViewModels
         CourseView()
         {
             //
+        }
+         Kv. Björn */
+
+        public CourseModel m_theCourse { get; set; }
+
+        public List<LevelModel> m_theLevels { get; set; }
+
+        public List<int> m_finishedLvlID { get; set; }
+
+        public CourseView(CourseModel course, IEnumerable<LevelModel> levels, List<int> finishedLvlID)
+        {
+            m_theCourse = course;
+            m_theLevels = levels.ToList();
+            m_finishedLvlID = finishedLvlID;
         }
     }
 }

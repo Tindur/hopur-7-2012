@@ -1,8 +1,14 @@
-﻿@model GameSchool.Models.dbLINQ.CourseModel
+﻿@model GameSchool.Models.ViewModels.CourseView
 
 @{
     ViewBag.Title = "GetCourse";
 }
 
-<h2>@Model.Name</h2>
+<h2>@Model.m_theCourse.Name</h2>
 
+<ul style="list-style-type:none;">
+    @foreach (var lvl in Model.m_theLevels)
+    {   
+        <li>Borð @lvl.NumberInCourse: @Html.ActionLink(lvl.Name, "/Assignment/" + lvl.ID, "Student")</li>
+    }
+</ul>

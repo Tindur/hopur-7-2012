@@ -9,7 +9,7 @@ namespace GameSchool.Models.Interfaces
     interface ICourseRepository
     {
         IQueryable<CourseModel> GetAllCourses();
-        IQueryable<CourseRegistration> GetCoursesForStudent(string studentUsername);
+        IQueryable<CourseModel> GetCoursesForStudent(string studentUsername);
         CourseModel GetCourseById(int id);
         void AddCourse(CourseModel course);
         void UpdateCourse(CourseRegistration registration);
