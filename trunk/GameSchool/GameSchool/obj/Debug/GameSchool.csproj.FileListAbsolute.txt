@@ -1,7 +1,7 @@
-C:\Veffsíður\GameSchool\GameSchool\bin\GameSchool.dll
-C:\Veffsíður\GameSchool\GameSchool\bin\GameSchool.pdb
-C:\Veffsíður\GameSchool\GameSchool\bin\EntityFramework.dll
-C:\Veffsíður\GameSchool\GameSchool\bin\EntityFramework.xml
-C:\Veffsíður\GameSchool\GameSchool\obj\Debug\ResolveAssemblyReference.cache
-C:\Veffsíður\GameSchool\GameSchool\obj\Debug\GameSchool.dll
-C:\Veffsíður\GameSchool\GameSchool\obj\Debug\GameSchool.pdb
+C:\Users\beefd0g\Documents\Hopur_7_Verklegt_2012\GameSchool\GameSchool\bin\GameSchool.dll
+C:\Users\beefd0g\Documents\Hopur_7_Verklegt_2012\GameSchool\GameSchool\bin\GameSchool.pdb
+C:\Users\beefd0g\Documents\Hopur_7_Verklegt_2012\GameSchool\GameSchool\bin\EntityFramework.dll
+C:\Users\beefd0g\Documents\Hopur_7_Verklegt_2012\GameSchool\GameSchool\bin\EntityFramework.xml
+C:\Users\beefd0g\Documents\Hopur_7_Verklegt_2012\GameSchool\GameSchool\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\beefd0g\Documents\Hopur_7_Verklegt_2012\GameSchool\GameSchool\obj\Debug\GameSchool.dll
+C:\Users\beefd0g\Documents\Hopur_7_Verklegt_2012\GameSchool\GameSchool\obj\Debug\GameSchool.pdb
