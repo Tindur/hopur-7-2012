@@ -82,23 +82,35 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LecturesDB.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\dbLINQ\LevelDB.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LevelDB.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Models\dbLINQ\UsersDB.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>UsersDB.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Models\GlossaryDB.designer.cs">
+    <Compile Include="Models\dbLINQ\GlossaryDB.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GlossaryDB.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Models\GlossaryRepository.cs" />
-    <Compile Include="Models\IGlossaryRepository.cs" />
+    <Compile Include="Models\Interfaces\ILevelRepository.cs" />
+    <Compile Include="Models\Repositories\GlossaryRepository.cs" />
+    <Compile Include="Models\Interfaces\IGlossaryRepository.cs" />
     <Compile Include="Models\Interfaces\ICourseRepository.cs" />
     <Compile Include="Models\Repositories\CourseRepository.cs" />
     <Compile Include="Models\TestDB.designer.cs" />
-    <Compile Include="Models\TestRepository.cs" />
+    <Compile Include="Models\Repositories\TestRepository.cs" />
+    <Compile Include="Models\ViewModels\CourseView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\dbLINQ\TestDB.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDB.dbml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\carbonb.png" />
@@ -130,16 +142,16 @@
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="Global.asax" />
-    <Content Include="Models\ScriptsWTF\jquery-1.5.1-vsdoc.js" />
-    <Content Include="Models\ScriptsWTF\jquery-1.5.1.js" />
-    <Content Include="Models\ScriptsWTF\jquery-1.5.1.min.js" />
-    <Content Include="Models\ScriptsWTF\jquery-ui-1.8.11.js" />
-    <Content Include="Models\ScriptsWTF\jquery-ui-1.8.11.min.js" />
-    <Content Include="Models\ScriptsWTF\jquery.validate-vsdoc.js" />
-    <Content Include="Models\ScriptsWTF\jquery.validate.js" />
-    <Content Include="Models\ScriptsWTF\jquery.validate.min.js" />
-    <Content Include="Models\ScriptsWTF\modernizr-1.7.js" />
-    <Content Include="Models\ScriptsWTF\modernizr-1.7.min.js" />
+    <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.5.1.js" />
+    <Content Include="Scripts\jquery-1.5.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.11.js" />
+    <Content Include="Scripts\jquery-ui-1.8.11.min.js" />
+    <Content Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\modernizr-1.7.js" />
+    <Content Include="Scripts\modernizr-1.7.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -150,16 +162,16 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Content\Site.css" />
-    <Content Include="Models\ScriptsWTF\jquery.unobtrusive-ajax.js" />
-    <Content Include="Models\ScriptsWTF\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Models\ScriptsWTF\jquery.validate.unobtrusive.js" />
-    <Content Include="Models\ScriptsWTF\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Models\ScriptsWTF\MicrosoftAjax.js" />
-    <Content Include="Models\ScriptsWTF\MicrosoftAjax.debug.js" />
-    <Content Include="Models\ScriptsWTF\MicrosoftMvcAjax.js" />
-    <Content Include="Models\ScriptsWTF\MicrosoftMvcAjax.debug.js" />
-    <Content Include="Models\ScriptsWTF\MicrosoftMvcValidation.js" />
-    <Content Include="Models\ScriptsWTF\MicrosoftMvcValidation.debug.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\MicrosoftAjax.js" />
+    <Content Include="Scripts\MicrosoftAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
@@ -189,12 +201,17 @@
       <LastGenOutput>LecturesDB.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
+    <None Include="Models\dbLINQ\LevelDB.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>LevelDB.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Models\dbLINQ\UsersDB.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>UsersDB.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="Models\GlossaryDB.dbml">
+    <None Include="Models\dbLINQ\GlossaryDB.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>GlossaryDB.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
@@ -205,13 +222,19 @@
     <Content Include="Views\Admin\AdminIndex.cshtml" />
     <Content Include="Views\Teacher\TeacherIndex.cshtml" />
     <Content Include="Views\Admin\StudentList.cshtml" />
+    <None Include="Models\dbLINQ\TestDB.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>TestDB.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\Student\Navigation.cshtml" />
     <Content Include="Views\Student\GetCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Models\GlossaryDB.dbml.layout">
+    <None Include="Models\dbLINQ\GlossaryDB.dbml.layout">
       <DependentUpon>GlossaryDB.dbml</DependentUpon>
     </None>
   </ItemGroup>
@@ -228,6 +251,16 @@
   <ItemGroup>
     <None Include="Models\dbLINQ\UsersDB.dbml.layout">
       <DependentUpon>UsersDB.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\dbLINQ\TestDB.dbml.layout">
+      <DependentUpon>TestDB.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\dbLINQ\LevelDB.dbml.layout">
+      <DependentUpon>LevelDB.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
