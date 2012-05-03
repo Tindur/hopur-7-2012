@@ -1,8 +1,8 @@
-C:\Veffsíður\GameSchool\GameSchool.Tests\bin\Debug\GameSchool.Tests.dll.config
-C:\Veffsíður\GameSchool\GameSchool.Tests\bin\Debug\GameSchool.Tests.dll
-C:\Veffsíður\GameSchool\GameSchool.Tests\bin\Debug\GameSchool.Tests.pdb
-C:\Veffsíður\GameSchool\GameSchool.Tests\bin\Debug\GameSchool.dll
-C:\Veffsíður\GameSchool\GameSchool.Tests\bin\Debug\GameSchool.pdb
-C:\Veffsíður\GameSchool\GameSchool.Tests\obj\Debug\ResolveAssemblyReference.cache
-C:\Veffsíður\GameSchool\GameSchool.Tests\obj\Debug\GameSchool.Tests.dll
-C:\Veffsíður\GameSchool\GameSchool.Tests\obj\Debug\GameSchool.Tests.pdb
+C:\Users\beefd0g\Documents\Hopur_7_Verklegt_2012\GameSchool\GameSchool.Tests\bin\Debug\GameSchool.Tests.dll.config
+C:\Users\beefd0g\Documents\Hopur_7_Verklegt_2012\GameSchool\GameSchool.Tests\bin\Debug\GameSchool.Tests.dll
+C:\Users\beefd0g\Documents\Hopur_7_Verklegt_2012\GameSchool\GameSchool.Tests\bin\Debug\GameSchool.Tests.pdb
+C:\Users\beefd0g\Documents\Hopur_7_Verklegt_2012\GameSchool\GameSchool.Tests\bin\Debug\GameSchool.dll
+C:\Users\beefd0g\Documents\Hopur_7_Verklegt_2012\GameSchool\GameSchool.Tests\bin\Debug\GameSchool.pdb
+C:\Users\beefd0g\Documents\Hopur_7_Verklegt_2012\GameSchool\GameSchool.Tests\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\beefd0g\Documents\Hopur_7_Verklegt_2012\GameSchool\GameSchool.Tests\obj\Debug\GameSchool.Tests.dll
+C:\Users\beefd0g\Documents\Hopur_7_Verklegt_2012\GameSchool\GameSchool.Tests\obj\Debug\GameSchool.Tests.pdb

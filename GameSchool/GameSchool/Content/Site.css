@@ -5,7 +5,7 @@ to use a different color start by replacing all instances of
 ----------------------------------------------------------*/
 body 
 {
-    background-image: url('http://img856.imageshack.us/img856/8524/carbonb.png');
+    background-image: url('/Content/Images/carbonb.png');
     font-size: .85em;
     font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
     margin: 0;
