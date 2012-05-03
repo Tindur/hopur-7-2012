@@ -14,7 +14,7 @@ namespace GameSchool.Models
             throw new NotImplementedException();
         }
 
-        public void AddGlossaryForCourse(int? id)
+        public void AddGlossaryForCourse(int? id, GlossaryModel glossary)
         {
             throw new NotImplementedException();
         }

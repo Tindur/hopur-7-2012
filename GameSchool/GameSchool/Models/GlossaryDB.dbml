@@ -7,6 +7,7 @@
       <Column Name="Upvotes" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Downvotes" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Source" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="DatePublished" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
     </Type>
   </Table>
 </Database>
