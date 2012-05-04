@@ -1,7 +1,21 @@
-﻿@if(Request.IsAuthenticated) {
-    <text>Velkomin(n) <strong>@User.Identity.Name</strong>!
+﻿<!--@if(Request.IsAuthenticated) {
+    <text><strong>@User.Identity.Name</strong>!
     [ @Html.ActionLink("Útskrá", "LogOff", "Account") ]</text>
 }
 else {
     @:[ @Html.ActionLink("Innskrá", "LogOn", "Account") ]
-}
+}-->
+
+<div class="btn-group pull-right">
+    <li class="dropdown" id="menu1">
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+              <i class="icon-user"></i> @User.Identity.Name
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Profile</a></li>
+              <li class="divider"></li>
+              <li><a href="#">Sign Out</a></li>
+            </ul>
+    </li>
+</div>

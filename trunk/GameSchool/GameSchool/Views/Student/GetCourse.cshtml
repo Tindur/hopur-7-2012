@@ -4,18 +4,45 @@
     ViewBag.Title = "GetCourse";
 }
 
-<h2>@Model.m_theCourse.Name</h2>
+<div class="span8 offset2">
+    <h2>@Model.m_theCourse.Name</h2>
 
-<ul style="list-style-type:none;">
-    @foreach (var lvl in Model.m_theLevels)
-    {   
-        <li>Borð @lvl.NumberInCourse: @Html.ActionLink(lvl.Name, "/Assignment/" + lvl.ID, "Student")
-        @if (Model.m_finishedLvlID.Contains(lvl.ID))
+    <div class="tabbable">
+      <ul class="nav nav-tabs">
+        <li class="active"> <a href="@Url.Action("GetCourse", "Student", new { id = Model.m_theCourse.ID })">@Model.m_theCourse.Name</a></li>
+        <li><a href="#" data-toggle="tab">Herp</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+          <p>I'm in Section 1.</p>
+        </div>
+        <div class="tab-pane" id="tab2">
+          <p>Howdy, I'm in Section 2.</p>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="offset7 span3">
+<ul class="nav nav-pills nav-stacked">
+    @{
+        string finished;
+        foreach (var lvl in Model.m_theLevels)
         {
-            @Html.Raw(" (Klárað!)");
+            if (Model.m_finishedLvlID.Contains(lvl.ID))
+            {
+                finished = "alert-success";
+            }
+            else 
+            {
+                finished = "alert-error";
+            }
+        
+            <li class="alert @finished">@Html.ActionLink("Borð " + lvl.NumberInCourse + ": " + lvl.Name, 
+                                                                "/GetLevel/" + lvl.ID , "Student")</li>
         }
-        </li>
     }
 </ul>
+</ul></ul>
 
 @Html.ActionLink("Fyrirlestrar", "GetLecturesForLevel/" + Model.m_theCourse.ID, "Student")

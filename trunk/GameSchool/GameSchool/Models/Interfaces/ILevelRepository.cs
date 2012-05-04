@@ -14,6 +14,7 @@ namespace GameSchool.Models.Interfaces
         bool HasStudentFinishedLevel(string userName);
         IQueryable<int> GetFinishedLevelsForStudent(string userName);  //Added by Björn
         void RegisterLevelCompletion(int idLevel, string studentName);
+        LevelModel GetLevelByID(int levelID);
       /*
         IQueryable<LectureModel> GetLecturesForLevel(int levelID);
    

@@ -43,6 +43,17 @@ namespace GameSchool.Controllers
                 return RedirectToAction("StudentIndex");
             }
         }
+
+        public ActionResult GetLevel(int? id)
+        {
+            if (id.HasValue)
+            {
+                var level = m_lvlRepo.GetLevelByID(id.Value);
+                return View(level);
+            }
+            else
+                return RedirectToAction("StudentIndex");
+        }
         public ActionResult GetLecturesForLevel(int? id)
         {
             if (id.HasValue)
