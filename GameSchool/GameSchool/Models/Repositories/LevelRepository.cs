@@ -42,7 +42,7 @@ namespace GameSchool.Models.Repositories
 
         public IQueryable<int> GetFinishedLevelsForStudent(string userName)  //Added by Björn
         {
-            //TODO breyta LevelCompletion þannig hún hafi StudentUsername í stað StudentID
+            //TODO breyta LevelCompletion þannig hún hafi StudentUsername í stað StudentID //done!
             var result = from levelID in m_levelDB.LevelCompletions
                          where levelID.StudentName == userName
                          select levelID.LevelID;
@@ -56,6 +56,14 @@ namespace GameSchool.Models.Repositories
             complete.StudentName = studentName;
             complete.LevelID = idLevel;
             m_levelDB.LevelCompletions.InsertOnSubmit(complete);
+        }
+
+        public LevelModel GetLevelByID(int levelID)
+        {
+            var result = (from x in m_levelDB.LevelModels
+                         where x.ID == levelID
+                         select x).SingleOrDefault();
+            return result;
         }
 
        /* public IQueryable<LectureModel> GetLecturesForLevel(int levelID)
