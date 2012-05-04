@@ -14,6 +14,7 @@ namespace GameSchool.Controllers
     {
         CourseRepository m_CourseRepo = new CourseRepository();
         LevelRepository m_lvlRepo = new LevelRepository();
+        LectureRepository m_LectureRepo = new LectureRepository();
 
         public ActionResult StudentIndex()
         {
@@ -41,6 +42,15 @@ namespace GameSchool.Controllers
             {
                 return RedirectToAction("StudentIndex");
             }
+        }
+        public ActionResult GetLecturesForLevel(int? id)
+        {
+            if (id.HasValue)
+            {
+                var model = m_LectureRepo.GetLecturesForCourse(id.Value);
+                return View(model);
+            }
+            return View();
         }
     }
 }

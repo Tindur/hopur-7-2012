@@ -47,5 +47,17 @@ namespace GameSchool.Models.Repositories
         {
             m_courseDB.SubmitChanges();
         }
+        public IQueryable<TeacherRegistration> GetTeachersForCourse(int CourseId)
+        {
+            var result = from x in m_courseDB.TeacherRegistrations
+                         where x.CourseID == CourseId
+                         select x;
+
+            return result;
+        }
+        public void AddTeachersToCourse(TeacherRegistration reg)
+        {
+            m_courseDB.TeacherRegistrations.InsertOnSubmit(reg);
+        }
     }
 }

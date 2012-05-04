@@ -26,6 +26,18 @@ namespace GameSchool.Models.ViewModels
 
         public List<int> m_finishedLvlID { get; set; }
 
+        public List<TeacherRegistration> m_theTeachersID { get; set; }
+
+        public IQueryable<aspnet_User> m_Users { get; set; }
+
+        public CourseView(List<TeacherRegistration> registration, CourseModel course, IQueryable<aspnet_User> teachers)
+        {
+            m_theTeachersID = registration;
+            m_theCourse = course;
+            m_Users = teachers;
+        }
+
+
         public CourseView(CourseModel course, IEnumerable<LevelModel> levels, List<int> finishedLvlID)
         {
             m_theCourse = course;

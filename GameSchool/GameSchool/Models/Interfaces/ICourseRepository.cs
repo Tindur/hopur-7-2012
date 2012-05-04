@@ -14,5 +14,6 @@ namespace GameSchool.Models.Interfaces
         void AddCourse(CourseModel Course);
         void UpdateCourse(int id, CourseRegistration registration);
         void Save();
+        IQueryable<TeacherRegistration> GetTeachersForCourse(int CourseId);
     }
 }
