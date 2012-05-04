@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using GameSchool.Models;
 using GameSchool.Models.Repositories;
 using GameSchool.Models.dbLINQ;
+using GameSchool.Models.ViewModels;
 namespace GameSchool.Controllers
 {
     [Authorize(Roles="Admin")]
@@ -54,7 +55,6 @@ namespace GameSchool.Controllers
         }
         public ActionResult CreateUser()
         {
-            
             return View();
         }
         public ActionResult GetCourses()
@@ -64,15 +64,31 @@ namespace GameSchool.Controllers
         }
         public ActionResult CreateCourse()
         {
-            return View(new CourseModel());
+            List<TeacherRegistration> registration = new List<TeacherRegistration>();
+            CourseModel course = new CourseModel();
+            IQueryable<aspnet_User> teachers = m_UsersRepo.GetAllTeachers();
+
+            CourseView model = new CourseView(registration, course, teachers);
+
+            return View(model);
         }
         [HttpPost]
         public ActionResult CreateCourse(FormCollection FormData)
         {
+            TeacherRegistration registration = new TeacherRegistration();
+            /*
+            registration.TeacherID = FormData.GetValue("UserID");
+            registration.CourseID = FormData["CourseID"];
+             */
+            UpdateModel(registration);
+            m_CourseRepo.AddTeachersToCourse(registration);
+
             CourseModel Course = new CourseModel();
             UpdateModel(Course);
             m_CourseRepo.AddCourse(Course);
+
             m_CourseRepo.Save();
+            
             return RedirectToAction("GetCourses");
         }
         public ActionResult EditCourse(int id)

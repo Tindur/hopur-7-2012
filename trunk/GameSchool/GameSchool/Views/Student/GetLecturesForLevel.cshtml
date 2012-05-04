@@ -1,0 +1,13 @@
+﻿@model IEnumerable<GameSchool.Models.dbLINQ.LectureModel>
+
+@{
+    ViewBag.Title = "GetLecturesForLevel";
+}
+
+<h2>Fyrirlestrar</h2>
+@foreach(var item in Model)
+{
+    <h3>@item.Name</h3>
+    <p>@item.Description</p>
+    <iframe width="420" height="315" src="@item.Source" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+}

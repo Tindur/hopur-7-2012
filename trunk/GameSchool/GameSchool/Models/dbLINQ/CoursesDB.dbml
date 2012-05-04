@@ -1,18 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="verk2012_hopur07" Class="CoursesDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=hrnem.ru.is;Initial Catalog=verk2012_hopur07;Persist Security Info=True;User ID=verk2012_h07" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="verk2012_hopur07ConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.CourseModel" Member="CourseModels">
-    <Type Name="CourseModel">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="TeacherID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
   <Table Name="dbo.CourseRegistrations" Member="CourseRegistrations">
     <Type Name="CourseRegistration">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="CourseID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="StudentUsername" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CourseModel" Member="CourseModels">
+    <Type Name="CourseModel">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TeacherRegistration" Member="TeacherRegistrations">
+    <Type Name="TeacherRegistration">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TeacherID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="CourseID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
 </Database>
