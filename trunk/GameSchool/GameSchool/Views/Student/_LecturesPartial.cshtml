@@ -1,0 +1,34 @@
+﻿@model IEnumerable<GameSchool.Models.dbLINQ.LectureModel>
+
+<h2>Fyrirlestrar</h2>
+
+<div class="span3">
+    @foreach (var video in Model)
+    {
+        <p><a href="#"class="video_link" id='video_ @video.ID' onclick="get_video(@video.ID)"> @video.Name @video.DateAdded</a></p>
+    }
+</div>
+
+<div id="penis" class="span7"></div>
+
+<script type="text/html" id="video_template">
+    <h3>${Name}</h3>
+    <p>${Description}</p>
+    <iframe width="420" height="315" src="${Source}" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+</script>
+
+<script type="text/javascript">
+    function get_video(id) {
+        $.getJSON("/Student/GetLectureByID", id, function (data) {
+            $("#video_template").tmpl(data).appendTo("#penis");
+        });
+    }
+</script>
+
+<!--@foreach(var item in Model)
+{
+    <h3>@item.Name</h3>
+    <p>@item.Description</p>
+    <iframe width="420" height="315" src="@item.Source" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+}-->
+

@@ -7,7 +7,8 @@
 <div class="span8 offset2">
     <h2>@Model.m_theCourse.Name</h2>
 
-    <div class="tabbable">
+    @Html.Action("CourseTabs", "Student", new { id = Model.m_theCourse.ID })
+    <!--<div class="tabbable">
       <ul class="nav nav-tabs">
         <li class="active"> <a href="@Url.Action("GetCourse", "Student", new { id = Model.m_theCourse.ID })">@Model.m_theCourse.Name</a></li>
         <li><a href="#" data-toggle="tab">Herp</a></li>
@@ -20,7 +21,7 @@
           <p>Howdy, I'm in Section 2.</p>
         </div>
       </div>
-    </div>
+    </div>-->
 </div>
 
 <div class="offset7 span3">
@@ -43,6 +44,6 @@
         }
     }
 </ul>
-</ul></ul>
+</div>
 
-@Html.ActionLink("Fyrirlestrar", "GetLecturesForLevel/" + Model.m_theCourse.ID, "Student")
+<!--@Html.ActionLink("Fyrirlestrar", "GetLecturesForLevel/" + Model.m_theCourse.ID, "Student")-->

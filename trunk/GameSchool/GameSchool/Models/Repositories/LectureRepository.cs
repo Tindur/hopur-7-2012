@@ -15,6 +15,7 @@ namespace GameSchool.Models.Repositories
         {
             var result = from x in m_lectureDB.LectureModels
                          where x.LevelID == CourseID
+                         orderby x.DateAdded descending
                          select x;
             return result;
         }
