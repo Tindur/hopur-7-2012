@@ -127,7 +127,7 @@ namespace GameSchool.Models.Repositories
         {
             throw new NotImplementedException();
         }*/
-
+/*
         public bool HasStudentFinishedLevel(string username)
         {
             var result = from x in m_levelDB.LevelCompletions
@@ -139,7 +139,7 @@ namespace GameSchool.Models.Repositories
             else
                 return false;
             //throw new NotImplementedException();
-        }
+        }*/
 
         public void RegisterAssignmentCompletion(int idAssignment)
         {

@@ -74,5 +74,12 @@ namespace GameSchool.Models.Repositories
                          select x;
             return result;
         }
+        public aspnet_User GetUserByName(string name)
+        {
+            var result = (from x in m_usersDB.aspnet_Users
+                         where x.UserName == name
+                         select x).SingleOrDefault();
+            return result;
+        }
     }
 }
