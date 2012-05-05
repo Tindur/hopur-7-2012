@@ -76,6 +76,14 @@ namespace GameSchool.Models.dbLINQ
 			}
 		}
 		
+		public System.Data.Linq.Table<LectureComment> LectureComments
+		{
+			get
+			{
+				return this.GetTable<LectureComment>();
+			}
+		}
+		
 		public System.Data.Linq.Table<CommentsInNewsFeed> CommentsInNewsFeeds
 		{
 			get
@@ -215,6 +223,69 @@ namespace GameSchool.Models.dbLINQ
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LectureComments")]
+	public partial class LectureComment
+	{
+		
+		private int _ID;
+		
+		private string _CommentID;
+		
+		private int _LectureID;
+		
+		public LectureComment()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this._ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CommentID", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string CommentID
+		{
+			get
+			{
+				return this._CommentID;
+			}
+			set
+			{
+				if ((this._CommentID != value))
+				{
+					this._CommentID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LectureID", DbType="Int NOT NULL")]
+		public int LectureID
+		{
+			get
+			{
+				return this._LectureID;
+			}
+			set
+			{
+				if ((this._LectureID != value))
+				{
+					this._LectureID = value;
+				}
 			}
 		}
 	}

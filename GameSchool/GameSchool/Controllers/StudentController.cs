@@ -16,6 +16,7 @@ namespace GameSchool.Controllers
         LevelRepository m_lvlRepo = new LevelRepository();
         LectureRepository m_LectureRepo = new LectureRepository();
         TestRepository m_TestRepo = new TestRepository();
+        CommentRepository m_CommentRepo = new CommentRepository();
 
         public ActionResult StudentIndex()
         {
@@ -80,9 +81,50 @@ namespace GameSchool.Controllers
         [HttpGet]
         public ActionResult GetLectureByID(int? id)
         {
-            return View();
-            //Todo: útfæra þetta fall og svipað fall í LectureRepository
+            //Todo: útfæra þetta fall og svipað fall í LectureRepository // fuck you that's done! kv bjafki
+            if(id.HasValue)
+            {
+                var model = m_LectureRepo.GetLectureByID(id.Value);
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                //ATH TODO!! bjarkfi
+                return RedirectToAction("StudentIndex");
+            }
         }
+
+        [HttpGet]
+        public ActionResult GetCommentsByID(int? id)
+        {
+            if (id.HasValue)
+            {
+                var model = m_CommentRepo.GetCommentForLecture(id.Value);
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                //ATH TODO!! bjarkfiance
+                return RedirectToAction("StudentIndex");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult CreateCommentForLecture(string CommentText, int id)
+        {
+            CommentModel model = new CommentModel();
+            model.CommentText = CommentText;
+            model.UserName = User.Identity.Name;
+
+            LectureComment l = new LectureComment();
+            l.CommentID = model.ID.ToString();
+            l.LectureID = id;
+            
+            m_CommentRepo.AddComment(model);
+            var result = m_CommentRepo.GetComments();
+            return Json(result);
+        }
+
         public ActionResult GetTestsForLevel(int? id)
         {
             if (id.HasValue)
@@ -108,6 +150,7 @@ namespace GameSchool.Controllers
             }
             return View("Error");
         }
+
 
 
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using GameSchool.Models.Interfaces;
+using GameSchool.Models.Repositories;
 using GameSchool.Models.dbLINQ;
 using System.Web.Mvc;
 
@@ -128,7 +128,7 @@ namespace GameSchool.Models.Repositories
             throw new NotImplementedException();
         }*/
 /*
-        public bool HasStudentFinishedLevel(string username)
+       /* public bool HasStudentFinishedLevel(string username)
         {
             var result = from x in m_levelDB.LevelCompletions
                          where x.StudentName == username
