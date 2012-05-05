@@ -7,18 +7,9 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>Breyta Notanda</legend>
-
+        <legend>Nýr notandi</legend>
 
         @Html.HiddenFor(model => model.User_ID)
-
-         <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
-        </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.UserName)
@@ -26,6 +17,14 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.UserName)
             @Html.ValidationMessageFor(model => model.UserName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
         </div>
 
         <div class="editor-label">
@@ -45,7 +44,7 @@
         </div>
 
         <div class="editor-label">
-           @Html.LabelFor(model => model.Phone)
+            @Html.LabelFor(model => model.Phone)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Phone)
@@ -53,12 +52,36 @@
         </div>
 
         <div class="editor-label">
-           @Html.LabelFor(model => model.Email)
+            @Html.LabelFor(model => model.Email)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Email)
             @Html.ValidationMessageFor(model => model.Email)
         </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Password)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ConfirmPassword)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ConfirmPassword)
+            @Html.ValidationMessageFor(model => model.ConfirmPassword)
+        </div>
+
+       <!-- <div class="editor-label">
+            @Html.LabelFor(model => model.Role_ID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Role_ID)
+            @Html.ValidationMessageFor(model => model.Role_ID)
+        </div>-->
 
         <p>
             <input type="submit" value="Save" />
@@ -67,5 +90,5 @@
 }
 
 <div>
-    @Html.ActionLink("Til baka", "AdminIndex")
+    @Html.ActionLink("Back to List", "Index")
 </div>
