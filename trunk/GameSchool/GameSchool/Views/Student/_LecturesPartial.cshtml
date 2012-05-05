@@ -5,24 +5,66 @@
 <div class="span3">
     @foreach (var video in Model)
     {
-        <p><a href="#"class="video_link" id='video_ @video.ID' onclick="get_video(@video.ID)"> @video.Name @video.DateAdded</a></p>
+        <p><a href="#" class="video_link" id='video_ @video.ID' onclick="get_video(@video.ID)"> @video.Name @video.DateAdded</a></p>
     }
 </div>
 
-<div id="penis" class="span7"></div>
+<div id="video_span" class="span7"></div>
 
-<script type="text/html" id="video_template">
+
+<div class="commentList"></div>
+
+
+
+<script id="comment_template" type="text/html">
+    <li class ="comments" id="comment_${ID}">
+        <a href="http://www.pen.is"><img src='/Content/Images/Prisonmike.png' alt="Notandi" /></a>
+			<div class="commentBody">
+				<a href="http://www.pen.is">${UserName}</a>
+				<span>${CommentText}</span>
+				<div>
+					<abbr title='${ CommentDate }'>${ CommentDate }</abbr>
+					<a class="like" id="${ID}">Líkar þetta</a>
+                    <p id="like_${ID}"></p>
+				</div>
+			</div>
+	</li>
+    <div>
+    <ul class="commentList">
+            <li class="commentAdd">
+			    <textarea id="CommentText" name="CommentText" rows="3" cols="20"></textarea>
+			    <label>
+				    <input id="submit_comment" type="submit" value="Skrifa athugasemd" />
+			    </label>
+			    @Html.ValidationMessage( "CommentText" )
+	        </li>
+        </ul>
+    </div>
+
+</script>
+
+<script id="video_template" type="text/html">
     <h3>${Name}</h3>
     <p>${Description}</p>
-    <iframe width="420" height="315" src="${Source}" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+    <iframe width="420" height="315" src="${Source}" frameborder="0" allowfullscreen="allowfullscreen" id="${ID}"></iframe>
 </script>
 
 <script type="text/javascript">
     function get_video(id) {
-        $.getJSON("/Student/GetLectureByID", id, function (data) {
-            $("#video_template").tmpl(data).appendTo("#penis");
+        $.getJSON("/Student/GetLectureByID", { id: id }, function (data) {
+            $("#video_template").tmpl(data).appendTo("#video_span");
+        });
+        $.getJSON("/Student/GetCommentsByID", { id: id }, function (data) {
+            $("#comment_template").tmpl(data).appendTo(".commentList");
         });
     }
+
+    $("#submit_comment").live("click", function () {
+        var param = $("#CommentText").val();
+        $.post("/Student/CreateCommentForLecture", { CommentText: param, id:  }, function (data) {
+            $("#comment_template").tmpl(data).appendTo("#comments_span");
+        });
+    });
 </script>
 
 <!--@foreach(var item in Model)

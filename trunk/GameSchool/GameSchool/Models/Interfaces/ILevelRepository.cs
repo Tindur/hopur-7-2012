@@ -5,7 +5,7 @@ using System.Text;
 using GameSchool.Models.dbLINQ;
 
 
-namespace GameSchool.Models.Interfaces
+namespace GameSchool.Models.Repositories
 {
     public interface ILevelRepository
     {

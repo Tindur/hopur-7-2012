@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using GameSchool.Models.Interfaces;
+using GameSchool.Models.Repositories;
 using GameSchool.Models.dbLINQ;
 using System.Diagnostics;
 using System.Web.Security;
