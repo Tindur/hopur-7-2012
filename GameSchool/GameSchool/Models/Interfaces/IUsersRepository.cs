@@ -6,7 +6,7 @@ using GameSchool.Models.dbLINQ;
 
 namespace GameSchool.Models.Interfaces
 {
-    interface IUsersRepository
+    public interface IUsersRepository
     {
         IQueryable<aspnet_User> GetAllStudents();
         aspnet_User GetUserById(string id);

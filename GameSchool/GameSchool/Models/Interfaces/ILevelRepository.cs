@@ -7,7 +7,7 @@ using GameSchool.Models.dbLINQ;
 
 namespace GameSchool.Models.Interfaces
 {
-    interface ILevelRepository
+    public interface ILevelRepository
     {
         IQueryable<dbLINQ.LevelModel> GetAllLevelsForCourse(int courseID);
         void AddLevel(LevelModel level);

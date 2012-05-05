@@ -20,6 +20,15 @@ namespace GameSchool.Models.Repositories
             return result;
         }
 
+        public LectureModel GetLectureByID(int id)
+        {
+            var result = (from lecture in m_lectureDB.LectureModels
+                          where lecture.ID == id
+                          select lecture).SingleOrDefault();
+
+            return result;
+        }
+
         public void AddLecture(LectureModel TheLecture)
         {
             throw new NotImplementedException();

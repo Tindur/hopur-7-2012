@@ -6,7 +6,7 @@ using GameSchool.Models.dbLINQ;
 
 namespace GameSchool.Models
 {
-    interface IGlossaryRepository
+    public interface IGlossaryRepository
     {
         List<GlossaryModel> GetGlossaryForCourse(int? id);
         void AddGlossaryForCourse(int? id);
