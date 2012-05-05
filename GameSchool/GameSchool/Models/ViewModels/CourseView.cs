@@ -19,30 +19,19 @@ namespace GameSchool.Models.ViewModels
             //
         }
          Kv. Björn */
-
+        
         public CourseModel m_theCourse { get; set; }
 
         public List<LevelModel> m_theLevels { get; set; }
 
         public List<int> m_finishedLvlID { get; set; }
 
-        public List<TeacherRegistration> m_theTeachersID { get; set; }
+        public IEnumerable<LectureModel> m_theLectures { get; set; }
 
-        public IQueryable<aspnet_User> m_Users { get; set; }
+        //TODO:  Setja í CourseViewModel Próf, Verkefni, Tilkynningar, glósur, kennara? e.t.v. fl.  Kv Björn
 
-        public CourseView(List<TeacherRegistration> registration, CourseModel course, IQueryable<aspnet_User> teachers)
-        {
-            m_theTeachersID = registration;
-            m_theCourse = course;
-            m_Users = teachers;
-        }
+        //public List<TeacherRegistration> m_theTeachersID { get; set; }
 
-
-        public CourseView(CourseModel course, IEnumerable<LevelModel> levels, List<int> finishedLvlID)
-        {
-            m_theCourse = course;
-            m_theLevels = levels.ToList();
-            m_finishedLvlID = finishedLvlID;
-        }
+        //public IQueryable<aspnet_User> m_Users { get; set; }
     }
 }

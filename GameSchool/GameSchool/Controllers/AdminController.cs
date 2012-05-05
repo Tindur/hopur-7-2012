@@ -64,13 +64,15 @@ namespace GameSchool.Controllers
         }
         public ActionResult CreateCourse()
         {
-            List<TeacherRegistration> registration = new List<TeacherRegistration>();
+           /* List<TeacherRegistration> registration = new List<TeacherRegistration>();
             CourseModel course = new CourseModel();
             IQueryable<aspnet_User> teachers = m_UsersRepo.GetAllTeachers();
 
             CourseView model = new CourseView(registration, course, teachers);
 
-            return View(model);
+            return View(model);*/
+            return View();
+
         }
         [HttpPost]
         public ActionResult CreateCourse(FormCollection FormData)

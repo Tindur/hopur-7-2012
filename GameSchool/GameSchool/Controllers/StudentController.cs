@@ -28,15 +28,25 @@ namespace GameSchool.Controllers
             return PartialView("Navigation", m_CourseRepo.GetCoursesForStudent(User.Identity.Name));
         }
 
+        public ActionResult CourseTabs(int id)
+        {
+            var model = m_CourseRepo.GetCourseById(id);
+            return PartialView("CourseTabs", model);
+        }
+
         public ActionResult GetCourse(int? id)
         {
             if (id.HasValue)
             {
                 IEnumerable<LevelModel> levels = m_lvlRepo.GetAllLevelsForCourse(id.Value);
 
-                return View(new CourseView(m_CourseRepo.GetCourseById(id.Value), 
-                                            levels,
-                                             m_lvlRepo.GetFinishedLevelsForStudent(User.Identity.Name).ToList()));
+                return View("Course", new CourseView
+                {
+                    m_theCourse = m_CourseRepo.GetCourseById(id.Value),
+                    m_theLevels = levels.ToList(),
+                    m_finishedLvlID = m_lvlRepo.GetFinishedLevelsForStudent(User.Identity.Name).ToList(),
+                    m_theLectures = m_LectureRepo.GetLecturesForCourse(id.Value).ToList()
+                });
             }
             else
             {
@@ -54,14 +64,25 @@ namespace GameSchool.Controllers
             else
                 return RedirectToAction("StudentIndex");
         }
+
         public ActionResult GetLecturesForLevel(int? id)
         {
             if (id.HasValue)
             {
-                var model = m_LectureRepo.GetLecturesForCourse(id.Value);
-                return View(model);
+                var model = m_LectureRepo.GetLecturesForCourse(id.Value).ToList();
+
+                return PartialView("_LecturesPartial", model);
             }
-            return View();
+            return View("Error");
         }
+
+        [HttpGet]
+        public ActionResult GetLectureByID(int? id)
+        {
+            //Todo: útfæra þetta fall og svipað fall í LectureRepository
+        }
+
+
+
     }
 }
