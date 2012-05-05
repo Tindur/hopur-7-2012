@@ -7,6 +7,7 @@ using GameSchool.Models;
 using GameSchool.Models.Repositories;
 using GameSchool.Models.dbLINQ;
 using GameSchool.Models.ViewModels;
+using System.Web.Security;
 namespace GameSchool.Controllers
 {
     [Authorize(Roles="Admin")]
@@ -36,21 +37,66 @@ namespace GameSchool.Controllers
         public ActionResult EditUser(string id)
         {
             aspnet_User TheUser = m_UsersRepo.GetUserById(id);
-            return View(TheUser);
+            aspnet_Membership TheMembership = m_UsersRepo.GetMembershipById(id);
+            IQueryable<aspnet_Role> TheRoles = m_UsersRepo.GetRoles();
+            aspnet_UsersInRole TheUsersRole = m_UsersRepo.GetUserRoleById(id);
+
+            RegistrationViewModel model = new RegistrationViewModel();
+
+            model.User_ID = TheUser.UserId.ToString();
+            model.UserName = TheUser.UserName;
+            model.Name = TheUser.Name;
+            model.SSN = TheUser.SSN;
+            model.Address = TheUser.Address;
+            model.Phone = TheUser.Phone;
+            model.Email = TheMembership.Email;
+            model.Password = TheMembership.Password;
+            model.ConfirmPassword = TheMembership.Password;
+            model.Role_ID = TheUsersRole.RoleId.ToString();
+ /*           foreach(var item in TheRoles)
+            {
+                model.RoleName.Add(item.RoleName);
+            }*/
+
+
+            return View(model);
         }
         [HttpPost]
-        public ActionResult EditUser(string id, FormCollection FormData)
+        public ActionResult EditUser(RegistrationViewModel model)
         {
-            aspnet_User TheUser = m_UsersRepo.GetUserById(id);
+            if (model != null)//ModelState.IsValid)
+            {
+                aspnet_User TheUser = m_UsersRepo.GetUserById(model.User_ID);
+                aspnet_Membership TheMembership = m_UsersRepo.GetMembershipById(model.User_ID);
+                aspnet_UsersInRole TheUsersRole = m_UsersRepo.GetUserRoleById(model.User_ID);
 
-            if(TheUser != null)
+                TheUser.UserName = model.UserName;
+                TheUser.Name = model.Name;
+                TheUser.SSN = model.SSN;
+                TheUser.Address = model.Address;
+                TheUser.Phone = model.Phone;
+                TheMembership.Email = model.Email;
+                TheMembership.Password = model.Password;
+                //TheMembership.Password = model.ConfirmPassword;
+                //TheUsersRole.RoleId = model.Role_ID;
+
+                UpdateModel(TheUser);
+                UpdateModel(TheMembership);
+                UpdateModel(TheUsersRole);
+                m_UsersRepo.Save();
+
+
+                return RedirectToAction("AdminIndex");
+
+            }
+            /*if(TheUser != null)
             {
                 UpdateModel(TheUser);
                 m_UsersRepo.Save();
 
                 return RedirectToAction("GetUsers");
             }
-            else
+            else*/
                 return View("GetUsers");
         }
         public ActionResult CreateUser()

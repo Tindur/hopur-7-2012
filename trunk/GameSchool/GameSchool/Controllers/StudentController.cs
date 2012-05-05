@@ -15,6 +15,7 @@ namespace GameSchool.Controllers
         CourseRepository m_CourseRepo = new CourseRepository();
         LevelRepository m_lvlRepo = new LevelRepository();
         LectureRepository m_LectureRepo = new LectureRepository();
+        TestRepository m_TestRepo = new TestRepository();
 
         public ActionResult StudentIndex()
         {
@@ -79,7 +80,33 @@ namespace GameSchool.Controllers
         [HttpGet]
         public ActionResult GetLectureByID(int? id)
         {
+            return View();
             //Todo: útfæra þetta fall og svipað fall í LectureRepository
+        }
+        public ActionResult GetTestsForLevel(int? id)
+        {
+            if (id.HasValue)
+            {
+                var model = m_TestRepo.GetAllTestsForLevel(id.Value);
+                return PartialView(model);
+            }
+            return View("Error");
+        }
+        public ActionResult GetTest(int? id)
+        {
+            if (id.HasValue)
+            {
+                var Questions = m_TestRepo.GetAllQuestionsForTest(id.Value);
+                List<List<AnswerModel>> Answers = new List<List<AnswerModel>>();
+                foreach (var item in Questions)
+                {
+                    Answers.Add(m_TestRepo.GetAllAnswersForQuestion(item.ID).ToList());
+                }
+                TestViewModel model = new TestViewModel(Questions, Answers);
+                
+                return View(model);
+            }
+            return View("Error");
         }
 
 

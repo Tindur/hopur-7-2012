@@ -50,5 +50,29 @@ namespace GameSchool.Models.Repositories
 
             return Teachers;
         }
+
+
+        public aspnet_Membership GetMembershipById(string id)
+        {
+            var result = (from x in m_usersDB.aspnet_Memberships
+                          where x.UserId.ToString() == id
+                          select x).SingleOrDefault();
+            return result;
+        }
+
+        public aspnet_UsersInRole GetUserRoleById(string id)
+        {
+            var result = (from x in m_usersDB.aspnet_UsersInRoles
+                          where x.UserId.ToString() == id
+                          select x).SingleOrDefault();
+            return result;
+        }
+
+        public IQueryable<aspnet_Role> GetRoles()
+        {
+            var result = from x in m_usersDB.aspnet_Roles
+                         select x;
+            return result;
+        }
     }
 }

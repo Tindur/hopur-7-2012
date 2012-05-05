@@ -33,9 +33,6 @@ namespace GameSchool.Models.dbLINQ
     partial void InsertTestModel(TestModel instance);
     partial void UpdateTestModel(TestModel instance);
     partial void DeleteTestModel(TestModel instance);
-    partial void InsertTestsInLevel(TestsInLevel instance);
-    partial void UpdateTestsInLevel(TestsInLevel instance);
-    partial void DeleteTestsInLevel(TestsInLevel instance);
     partial void InsertQuestionModel(QuestionModel instance);
     partial void UpdateQuestionModel(QuestionModel instance);
     partial void DeleteQuestionModel(QuestionModel instance);
@@ -82,14 +79,6 @@ namespace GameSchool.Models.dbLINQ
 			}
 		}
 		
-		public System.Data.Linq.Table<TestsInLevel> TestsInLevels
-		{
-			get
-			{
-				return this.GetTable<TestsInLevel>();
-			}
-		}
-		
 		public System.Data.Linq.Table<QuestionModel> QuestionModels
 		{
 			get
@@ -119,7 +108,7 @@ namespace GameSchool.Models.dbLINQ
 		
 		private string _Description;
 		
-		private int _CourseID;
+		private int _LevelID;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -131,8 +120,8 @@ namespace GameSchool.Models.dbLINQ
     partial void OnNameChanged();
     partial void OnDescriptionChanging(string value);
     partial void OnDescriptionChanged();
-    partial void OnCourseIDChanging(int value);
-    partial void OnCourseIDChanged();
+    partial void OnLevelIDChanging(int value);
+    partial void OnLevelIDChanged();
     #endregion
 		
 		public TestModel()
@@ -200,96 +189,6 @@ namespace GameSchool.Models.dbLINQ
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CourseID", DbType="Int NOT NULL")]
-		public int CourseID
-		{
-			get
-			{
-				return this._CourseID;
-			}
-			set
-			{
-				if ((this._CourseID != value))
-				{
-					this.OnCourseIDChanging(value);
-					this.SendPropertyChanging();
-					this._CourseID = value;
-					this.SendPropertyChanged("CourseID");
-					this.OnCourseIDChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TestsInLevel")]
-	public partial class TestsInLevel : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID;
-		
-		private int _LevelID;
-		
-		private int _TestID;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnLevelIDChanging(int value);
-    partial void OnLevelIDChanged();
-    partial void OnTestIDChanging(int value);
-    partial void OnTestIDChanged();
-    #endregion
-		
-		public TestsInLevel()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LevelID", DbType="Int NOT NULL")]
 		public int LevelID
 		{
@@ -306,26 +205,6 @@ namespace GameSchool.Models.dbLINQ
 					this._LevelID = value;
 					this.SendPropertyChanged("LevelID");
 					this.OnLevelIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TestID", DbType="Int NOT NULL")]
-		public int TestID
-		{
-			get
-			{
-				return this._TestID;
-			}
-			set
-			{
-				if ((this._TestID != value))
-				{
-					this.OnTestIDChanging(value);
-					this.SendPropertyChanging();
-					this._TestID = value;
-					this.SendPropertyChanged("TestID");
-					this.OnTestIDChanged();
 				}
 			}
 		}
