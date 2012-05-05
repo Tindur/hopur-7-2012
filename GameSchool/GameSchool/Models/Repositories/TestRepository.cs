@@ -2,43 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using GameSchool.Models.Interfaces;
+using GameSchool.Models.dbLINQ;
 
-namespace GameSchool.Models
+namespace GameSchool.Models.Repositories
 {
-    public class TestRepository
+    public class TestRepository : ITestRepository
     {
         TestDBDataContext m_testDB = new TestDBDataContext();
-        public List<TestModel> GetAllTestsForLevel(int? id)
+
+        public IQueryable<TestModel> GetAllTestsForLevel(int TheLevelID)
         {
-            throw new NotImplementedException();
+            var result = from x in m_testDB.TestModels
+                         where x.LevelID == TheLevelID
+                         select x;
+            return result;
         }
-        public List<QuestionModel> GetAllQuestionsForTest()
+
+        public IQueryable<QuestionModel> GetAllQuestionsForTest(int TheTestID)
         {
-            throw new NotImplementedException();
+            var result = from x in m_testDB.QuestionModels
+                         where x.TestID == TheTestID
+                         select x;
+            return result;
         }
-        public List<AnswerModel> GetAllAnswersForQuestions()
+
+        public IQueryable<AnswerModel> GetAllAnswersForQuestion(int TheQuestionID)
         {
-            throw new NotImplementedException();
-        }
-        public void AddTest(TestModel test)
-        {
-            throw new NotImplementedException();
-        }
-        public void AddQuestions(QuestionModel question)
-        {
-            throw new NotImplementedException();
-        }
-        public void AddAnswer(AnswerModel answer)
-        {
-            throw new NotImplementedException();
-        }
-        public bool HasStudentFinishedTest(int? id)
-        {
-            throw new NotImplementedException();
-        }
-        public bool RegisterTestCompletion(int? id)
-        {
-            throw new NotImplementedException();
+            var result = from x in m_testDB.AnswerModels
+                         where x.QuestionID == TheQuestionID
+                         select x;
+            return result;
         }
     }
 }

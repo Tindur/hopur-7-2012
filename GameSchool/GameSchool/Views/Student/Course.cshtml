@@ -25,6 +25,7 @@
         <li><a href="#tab2" data-toggle="tab">Fyrirlestrar</a></li>
         <li><a href="#tab3" data-toggle="tab">Glósur</a></li>
         <li><a href="#tab4" data-toggle="tab">Tilkynningar frá kennara</a></li>
+        <li><a href="#tab5" data-toggle="tab">Próf</a></li>
       </ul>
    </div>
    <div class="tab-content">
@@ -39,6 +40,9 @@
     </div>
     <div class="tab-pane" id="tab4">
         <p>I hate you!</p>
+    </div>
+    <div class="tab-pane" id="tab5">
+        @{Html.RenderAction("GetTestsForLevel", "Student");}
     </div>
   </div>
 

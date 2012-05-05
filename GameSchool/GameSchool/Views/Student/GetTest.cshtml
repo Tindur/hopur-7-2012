@@ -1,0 +1,30 @@
+﻿@model GameSchool.Models.ViewModels.TestViewModel
+
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Próf lol</legend>
+
+            @foreach (var question in Model.m_Questions)
+            {
+                <p>@question.Question</p>
+                foreach (var answer in Model.m_Answers)
+                {
+                    foreach (var shit in answer)
+                    {
+                        if (shit.QuestionID == question.ID)
+                        {
+                            <!--<label for="@question.ID">-->@shit.Answer<!--</label>-->
+                            <input type="radio" value="@shit.Correct" name="@question.ID" id="@shit.ID"/>
+                        }
+                    }
+                }
+             }
+            
+        <p>
+            <input type="submit" value="Vista" />
+        </p>
+    </fieldset>
+}
+
