@@ -12,6 +12,9 @@ namespace GameSchool.Models.Repositories
     public class LevelRepository : ILevelRepository
     {
         LevelDBDataContext m_levelDB = new LevelDBDataContext();
+        LecturesDBDataContext m_lectureDB = new LecturesDBDataContext();
+        AssignmentDBDataContext m_assignmentDB = new AssignmentDBDataContext();
+        CommentDBDataContext m_commentDB = new CommentDBDataContext();
 
         public IQueryable<dbLINQ.LevelModel> GetAllLevelsForCourse(int courseID)
         {
@@ -67,37 +70,55 @@ namespace GameSchool.Models.Repositories
             return result;
         }
 
-       /* public IQueryable<LectureModel> GetLecturesForLevel(int levelID)
+        public IQueryable<LectureModel> GetLecturesForLevel(int levelID)
         {
-            throw new NotImplementedException();
+            var result = from x in m_lectureDB.LectureModels
+                         where x.LevelID == levelID
+                         orderby x.DateAdded descending
+                         select x;
+            return result;
+            //throw new NotImplementedException();
         }
 
         public IQueryable<CommentModel> GetAllCommentsForLecture(int lectureID)
         {
-            throw new NotImplementedException();
+            var result = from x in m_commentDB.CommentModels
+                         where x.ID == lectureID
+                         select x;
+
+            return result;
+            //throw new NotImplementedException();
         }
 
         public IQueryable<AssignmentModel> GetAllAssignmentForLevel(int levelID)
         {
-            throw new NotImplementedException();
+            var result = from x in m_assignmentDB.AssignmentModels
+                         where x.LevelID == levelID
+                         select x;
+            return result;
+            //throw new NotImplementedException();
         }
 
         public void AddLecture(LectureModel lecture)
         {
-            throw new NotImplementedException();
+            m_lectureDB.LectureModels.InsertOnSubmit(lecture);
+            m_lectureDB.SubmitChanges();
+            //throw new NotImplementedException();
         }
 
-        public void AddCommentOnLecture(string comment)
+      /*  public void AddCommentOnLecture(string comment)
         {
             throw new NotImplementedException();
-        }
+        }*/
 
         public void AddAssignment(AssignmentModel assignment)
         {
-            throw new NotImplementedException();
+            m_assignmentDB.AssignmentModels.InsertOnSubmit(assignment);
+            m_assignmentDB.SubmitChanges();
+            //throw new NotImplementedException();
         }
 
-        public bool HasStudentFinishedAssignment(string username)
+       /* public bool HasStudentFinishedAssignment(string username)
         {
             throw new NotImplementedException();
         }
@@ -105,11 +126,19 @@ namespace GameSchool.Models.Repositories
         public bool HasStudentFinishedLecture(string username)
         {
             throw new NotImplementedException();
-        }
+        }*/
 
         public bool HasStudentFinishedLevel(string username)
         {
-            throw new NotImplementedException();
+            var result = from x in m_levelDB.LevelCompletions
+                         where x.StudentName == username
+                         select x;
+
+            if (result != null)
+                return true;
+            else
+                return false;
+            //throw new NotImplementedException();
         }
 
         public void RegisterAssignmentCompletion(int idAssignment)
@@ -122,6 +151,5 @@ namespace GameSchool.Models.Repositories
             throw new NotImplementedException();
         }
 
-        */
     }
 }
