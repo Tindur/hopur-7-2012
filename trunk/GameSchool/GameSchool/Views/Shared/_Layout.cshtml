@@ -51,13 +51,6 @@
                                     @Html.Action("Navigation", "Student")
                                 <li class="nav-header">Your Teachers Face!</li>
                             }
-                            @if (User.IsInRole("Teacher"))
-                            {
-                                <li class="nav-header">Your Face!</li>
-                                
-                                <li class="nav-header">Your Courses</li>
-                                    @Html.Action("Navigation", "Teacher")
-                            }
                             @if (User.IsInRole("Admin"))
                              {
                                     <li>@Html.ActionLink("Nemendur", "GetStudents", "Admin")</li>

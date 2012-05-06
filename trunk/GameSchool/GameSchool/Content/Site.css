@@ -146,4 +146,14 @@
 {
     text-decoration : none;
 }
+
+/*  CSS fyrir próf  */
+.question
+{
+    margin: 20px;
+}
  
+ .question > ul
+ {
+     list-style: none;
+ }

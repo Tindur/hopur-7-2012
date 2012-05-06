@@ -34,5 +34,13 @@ namespace GameSchool.Models.Repositories
                          select x;
             return result;
         }
+
+        public string getTestNameByID(int id)
+        {
+            string name = (from test in m_testDB.TestModels
+                       where test.ID == id
+                       select test.Name).SingleOrDefault();
+            return name;
+        }
     }
 }
