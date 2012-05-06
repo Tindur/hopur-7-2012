@@ -5,3 +5,10 @@ C:\Users\beefd0g\Documents\Hopur_7_Verklegt_2012\GameSchool\GameSchool\bin\Entit
 C:\Users\beefd0g\Documents\Hopur_7_Verklegt_2012\GameSchool\GameSchool\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\beefd0g\Documents\Hopur_7_Verklegt_2012\GameSchool\GameSchool\obj\Debug\GameSchool.dll
 C:\Users\beefd0g\Documents\Hopur_7_Verklegt_2012\GameSchool\GameSchool\obj\Debug\GameSchool.pdb
+C:\Users\Tómas\Documents\Vefforritun\GameSchool\GameSchool\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Tómas\Documents\Vefforritun\GameSchool\GameSchool\obj\Debug\GameSchool.dll
+C:\Users\Tómas\Documents\Vefforritun\GameSchool\GameSchool\obj\Debug\GameSchool.pdb
+C:\Users\Tómas\Documents\Vefforritun\GameSchool\GameSchool\bin\GameSchool.dll
+C:\Users\Tómas\Documents\Vefforritun\GameSchool\GameSchool\bin\GameSchool.pdb
+C:\Users\Tómas\Documents\Vefforritun\GameSchool\GameSchool\bin\EntityFramework.dll
+C:\Users\Tómas\Documents\Vefforritun\GameSchool\GameSchool\bin\EntityFramework.xml
