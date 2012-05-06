@@ -48,31 +48,36 @@
                 }
             </select>
         </div>
+        @if (Model.StudentsInCourse != null)
+        {
+            <div class="editor-label">
+                @Html.LabelFor(model => model.StudentsInCourse)
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.StudentsInCourse)
-        </div>
-        <div class="editor-field">
-            <select multiple="multiple">
-                @foreach (var students in Model.StudentsInCourse)
-                {
-                    <option value="@students.StudentUsername">@students.StudentUsername</option>
-                }
-            </select>
-        </div>
+            <div class="editor-field">
+                <select multiple="multiple">
+                    @foreach (var students in Model.StudentsInCourse)
+                    {
+                        <option value="@students.StudentUsername">@students.StudentUsername</option>
+                    }
+                </select>
+            </div>
+        }
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.TeachersInCourse)
-        </div>
-        <div class="editor-field">
-            <select multiple="multiple">
-                @foreach (var teachers in Model.TeachersInCourse)
-                {
-                    <option value="@teachers.TeacherID">@teachers.TeacherID</option>
-                }
-            </select>
-        </div>
-        
+        @if (Model.TeachersInCourse != null)
+        {
+            <div class="editor-label">
+                @Html.LabelFor(model => model.TeachersInCourse)
+            </div>
+            <div class="editor-field">
+                <select multiple="multiple">
+                    @foreach (var teachers in Model.TeachersInCourse)
+                    {
+                        <option value="@teachers.TeacherID">@teachers.TeacherID</option>
+                    }
+                </select>
+            </div>
+        }
         <p>
             <input type="submit" value="Save" />
         </p>
@@ -80,5 +85,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Til Baka", "GetCourses")
 </div>

@@ -1,0 +1,18 @@
+﻿@model GameSchool.Models.ViewModels.NewsFeedViewModel
+           
+<p>Nýjustu fyrirlestrar</p>
+
+<ul>
+@foreach (var lectures in Model.Lectures)
+{
+    <li>@Html.ActionLink(lectures.Name, "GetLecture/" + lectures.ID, "Student")</li>
+}
+</ul>
+
+<p>Nýjustu verkefni</p>
+<ul>
+@foreach (var assignments in Model.Assignments)
+{
+    <li>@Html.ActionLink(assignments.Name, "GetAssignment/" + assignments.ID, "Student")</li>
+}
+</ul>

@@ -38,7 +38,7 @@ namespace GameSchool.Controllers
         {
             aspnet_User TheUser = m_UsersRepo.GetUserById(id);
             aspnet_Membership TheMembership = m_UsersRepo.GetMembershipById(id);
-            List<aspnet_Role> TheRoles = m_UsersRepo.GetRoles();
+            IQueryable<aspnet_Role> TheRoles = m_UsersRepo.GetRoles();
             aspnet_UsersInRole TheUsersRole = m_UsersRepo.GetUserRoleById(id);
 
             RegistrationViewModel model = new RegistrationViewModel();
@@ -51,11 +51,14 @@ namespace GameSchool.Controllers
             model.Phone = TheUser.Phone;
             model.Email = TheMembership.Email;
             model.Role_ID = TheUsersRole.RoleId.ToString();
-/*            foreach(var item in TheRoles)
-            {
-                model.RoleName.Add(item);
-            }*/
 
+            List<SelectListItem> item = new List<SelectListItem>();
+            //item.Add(new SelectListItem {Text="Student", Value=TheRoles.
+            foreach(var role in TheRoles)
+            {
+                item.Add(new SelectListItem { Text = role.RoleName, Value = role.RoleId.ToString() });
+            }
+            ViewData["Roles"] = item;
 
             return View(model);
         }
@@ -164,31 +167,23 @@ namespace GameSchool.Controllers
         }
         public ActionResult CreateCourse()
         {
-           /* List<TeacherRegistration> registration = new List<TeacherRegistration>();
-            CourseModel course = new CourseModel();
-            IQueryable<aspnet_User> teachers = m_UsersRepo.GetAllTeachers();
+            IQueryable<aspnet_User> TheStudents = m_UsersRepo.GetAllStudents();
+            IQueryable<aspnet_User> TheTeachers = m_UsersRepo.GetAllTeachers();
 
-            CourseView model = new CourseView(registration, course, teachers);
+            CourseEditViewModel model = new CourseEditViewModel();
+            model.Students = TheStudents;
+            model.Teachers = TheTeachers;
+            model.StudentsInCourse = null;
+            model.TeachersInCourse = null;
 
-            return View(model);*/
-            return View();
-
+            return View(model);
         }
         [HttpPost]
-        public ActionResult CreateCourse(FormCollection FormData)
+        public ActionResult CreateCourse(CourseEditViewModel model)
         {
-            TeacherRegistration registration = new TeacherRegistration();
-            /*
-            registration.TeacherID = FormData.GetValue("UserID");
-            registration.CourseID = FormData["CourseID"];
-             */
-            UpdateModel(registration);
-            m_CourseRepo.AddTeachersToCourse(registration);
+            CourseModel TheCourse = model.Course;
 
-            CourseModel Course = new CourseModel();
-            UpdateModel(Course);
-            m_CourseRepo.AddCourse(Course);
-
+            m_CourseRepo.AddCourse(TheCourse);
             m_CourseRepo.Save();
             
             return RedirectToAction("GetCourses");

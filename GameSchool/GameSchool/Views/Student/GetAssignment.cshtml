@@ -1,0 +1,11 @@
+﻿@model GameSchool.Models.dbLINQ.AssignmentModel
+
+@{
+    ViewBag.Title = "GameSchool | Verkefni | " + @Model.Name;
+}
+
+<h2>@Model.Name</h2>
+<p>@Model.Description</p>
+
+<input type="file" value="Velja skrá" />
+<input type="submit" value="Senda inn" />

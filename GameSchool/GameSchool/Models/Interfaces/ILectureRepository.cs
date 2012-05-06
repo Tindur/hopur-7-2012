@@ -9,6 +9,7 @@ namespace GameSchool.Models.Interfaces
     interface ILectureRepository
     {
         IQueryable<LectureModel> GetLecturesForCourse(int CourseID);
+        IQueryable<LectureModel> GetFiveLatest(int LevelID);
         void AddLecture(LectureModel TheLecture);
         void Save();
     }

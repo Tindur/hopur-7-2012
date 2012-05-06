@@ -5,7 +5,7 @@
 <div class="span3">
     @foreach (var video in Model)
     {
-        <p><a href="#" class="video_link" id='video_ @video.ID' onclick="get_video(@video.ID)"> @video.Name @video.DateAdded</a></p>
+        <p><a href="#" class="video_link" id='video_ @video.ID' onclick="get_video(@video.ID)"> @video.Name</a>@video.DateAdded</p>
     }
 </div>
 
