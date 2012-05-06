@@ -1,0 +1,6 @@
+﻿@model IEnumerable<GameSchool.Models.dbLINQ.GlossaryModel>
+
+@foreach (var glossary in Model)
+{
+    @Html.ActionLink(glossary.ID.ToString() + glossary.DatePublished, "ViewTest", "Teacher")
+}

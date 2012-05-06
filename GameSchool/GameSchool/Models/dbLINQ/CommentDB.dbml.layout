@@ -8,16 +8,16 @@
         <elementListCompartment Id="f59ae3c2-cc36-47af-a76a-fbb278aac429" absoluteBounds="0.64000000000000012, 1.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="00c91bc9-3a34-4be7-99a0-6a1c6679fb4b" absoluteBounds="3.5, 0.625, 2, 1.3862939453125">
-      <DataClassMoniker Name="/CommentDBDataContext/LectureComment" />
-      <nestedChildShapes>
-        <elementListCompartment Id="a15a0b9e-f08f-411a-8fef-172a6022f4ba" absoluteBounds="3.515, 1.085, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="a46dad4e-2c23-43b1-9c2b-7e385cd2ce40" absoluteBounds="2.5, 2.375, 2, 1.3862939453125">
       <DataClassMoniker Name="/CommentDBDataContext/CommentsInNewsFeed" />
       <nestedChildShapes>
         <elementListCompartment Id="2ca9929e-f8f2-43cf-922c-13552ffd8dee" absoluteBounds="2.515, 2.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b5b3e4f7-8d68-4381-8926-cf295a8a32a2" absoluteBounds="2.75, 0.75, 2, 1.3862939453125">
+      <DataClassMoniker Name="/CommentDBDataContext/LectureComment" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ca7b86d8-c0ed-4101-885e-e5a1d15c1e31" absoluteBounds="2.765, 1.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

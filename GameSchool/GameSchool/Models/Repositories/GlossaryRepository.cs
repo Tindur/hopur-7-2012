@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using GameSchool.Models.dbLINQ;
+using GameSchool.Models.Interfaces;
 
 namespace GameSchool.Models
 {
@@ -12,12 +13,28 @@ namespace GameSchool.Models
 
         public List<GlossaryModel> GetGlossaryForCourse(int? id)
         {
-            throw new NotImplementedException();
+            if (id.HasValue)
+            {
+                var result = from x in m_glossaryDB.GlossaryModels
+                             where x.CouseID == id.Value
+                             select x;
+                return result.ToList();
+
+            }
+            else
+            {
+                return (new List<GlossaryModel>());
+            }
+
+            //throw new NotImplementedException();
         }
 
-        public void AddGlossaryForCourse(int? id)
+        public void AddGlossaryForCourse(GlossaryModel NewGlossary)
         {
-            throw new NotImplementedException();
+            NewGlossary.DatePublished = DateTime.Now;
+
+            m_glossaryDB.GlossaryModels.InsertOnSubmit(NewGlossary);
+            m_glossaryDB.SubmitChanges();
         }
 
         public void UpdateUpvotes(GlossaryModel glossary)

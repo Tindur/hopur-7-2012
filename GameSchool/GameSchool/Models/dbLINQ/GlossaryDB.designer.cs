@@ -90,6 +90,8 @@ namespace GameSchool.Models.dbLINQ
 		
 		private string _Source;
 		
+		private System.Nullable<System.DateTime> _DatePublished;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -104,6 +106,8 @@ namespace GameSchool.Models.dbLINQ
     partial void OnDownvotesChanged();
     partial void OnSourceChanging(string value);
     partial void OnSourceChanged();
+    partial void OnDatePublishedChanging(System.Nullable<System.DateTime> value);
+    partial void OnDatePublishedChanged();
     #endregion
 		
 		public GlossaryModel()
@@ -207,6 +211,26 @@ namespace GameSchool.Models.dbLINQ
 					this._Source = value;
 					this.SendPropertyChanged("Source");
 					this.OnSourceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DatePublished", DbType="SmallDateTime")]
+		public System.Nullable<System.DateTime> DatePublished
+		{
+			get
+			{
+				return this._DatePublished;
+			}
+			set
+			{
+				if ((this._DatePublished != value))
+				{
+					this.OnDatePublishedChanging(value);
+					this.SendPropertyChanging();
+					this._DatePublished = value;
+					this.SendPropertyChanged("DatePublished");
+					this.OnDatePublishedChanged();
 				}
 			}
 		}
