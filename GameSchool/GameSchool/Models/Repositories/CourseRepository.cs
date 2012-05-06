@@ -78,11 +78,11 @@ namespace GameSchool.Models.Repositories
             return result;
         }
 
-        public IQueryable<CourseRegistration> GetStudentsForCourse(int CourseId)
+        public IQueryable<string> GetStudentNameForCourse(int CourseId)
         {
             var result = from x in m_courseDB.CourseRegistrations
                          where x.CourseID == CourseId
-                         select x;
+                         select x.StudentUsername;
             return result;
         }
     }
