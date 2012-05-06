@@ -38,7 +38,7 @@ namespace GameSchool.Controllers
         {
             aspnet_User TheUser = m_UsersRepo.GetUserById(id);
             aspnet_Membership TheMembership = m_UsersRepo.GetMembershipById(id);
-            IQueryable<aspnet_Role> TheRoles = m_UsersRepo.GetRoles();
+            List<aspnet_Role> TheRoles = m_UsersRepo.GetRoles();
             aspnet_UsersInRole TheUsersRole = m_UsersRepo.GetUserRoleById(id);
 
             RegistrationViewModel model = new RegistrationViewModel();
@@ -51,9 +51,9 @@ namespace GameSchool.Controllers
             model.Phone = TheUser.Phone;
             model.Email = TheMembership.Email;
             model.Role_ID = TheUsersRole.RoleId.ToString();
-/*           foreach(var item in TheRoles)
+/*            foreach(var item in TheRoles)
             {
-                model.RoleName.Add(item.RoleName);
+                model.RoleName.Add(item);
             }*/
 
 
@@ -62,7 +62,7 @@ namespace GameSchool.Controllers
         [HttpPost]
         public ActionResult EditUser(RegistrationViewModel model)
         {
-            if (model != null)//ModelState.IsValid)
+            if (model != null)
             {
                 aspnet_User TheUser = m_UsersRepo.GetUserById(model.User_ID);
                 aspnet_Membership TheMembership = m_UsersRepo.GetMembershipById(model.User_ID);
@@ -78,22 +78,12 @@ namespace GameSchool.Controllers
                 TheMembership.LoweredEmail = model.Email.ToLower();
                 //TheUsersRole.RoleId = model.Role_ID;
 
-
                 m_UsersRepo.Save();
-
 
                 return RedirectToAction("AdminIndex");
 
             }
-            /*if(TheUser != null)
-            {
-                UpdateModel(TheUser);
-                m_UsersRepo.Save();
-
-                return RedirectToAction("GetUsers");
-            }
-            else*/
-                return View("GetUsers");
+            return View("GetUsers");
         }
         public ActionResult CreateUser()
         {
@@ -125,7 +115,7 @@ namespace GameSchool.Controllers
                 }
 
             }
-            return RedirectToAction("ERROR");
+            return View(model);
         }
         #region Status Codes
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
@@ -205,18 +195,32 @@ namespace GameSchool.Controllers
         }
         public ActionResult EditCourse(int id)
         {
-            CourseModel Course = m_CourseRepo.GetCourseById(id);
-            return View(Course);
+            CourseModel TheCourse = m_CourseRepo.GetCourseById(id);
+            IQueryable<aspnet_User> TheStudents = m_UsersRepo.GetAllStudents();
+            IQueryable<aspnet_User> TheTeachers = m_UsersRepo.GetAllTeachers();
+            IQueryable<CourseRegistration> TheStudentsRegistration = m_CourseRepo.GetStudentsForCourse(id);
+            IQueryable<TeacherRegistration> TheTeachersRegistration = m_CourseRepo.GetTeachersForCourse(id);
+
+            CourseEditViewModel model = new CourseEditViewModel();
+            
+            model.Course = TheCourse;
+            model.Students = TheStudents;
+            model.Teachers = TheTeachers;
+            model.StudentsInCourse =TheStudentsRegistration;
+            model.TeachersInCourse = TheTeachersRegistration;
+
+            return View(model);
         }
         [HttpPost]
-        public ActionResult EditCourse(int id, FormCollection FormData)
+        public ActionResult EditCourse(CourseEditViewModel model)
         {
-            CourseModel Course = m_CourseRepo.GetCourseById(id);
-            if (Course != null)
+            if (model != null)
             {
-                UpdateModel(Course);
+                CourseModel TheCourse = m_CourseRepo.GetCourseById(model.Course.ID);
+                TheCourse.Name = model.Course.Name;
+                TheCourse.Description = model.Course.Description;
+
                 m_CourseRepo.Save();
-                return RedirectToAction("GetCourses");
             }
             return RedirectToAction("GetCourses");
         }

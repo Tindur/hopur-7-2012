@@ -25,12 +25,7 @@ namespace GameSchool.Controllers
             return View();
         }
 
-        public ActionResult Glosur()
-        {
-            return View();
-        }
-
-        public ActionResult Fyrirlestrar()
+        public ActionResult Contact()
         {
             return View();
         }

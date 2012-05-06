@@ -68,10 +68,10 @@ namespace GameSchool.Models.Repositories
             return result;
         }
 
-        public IQueryable<aspnet_Role> GetRoles()
+        public List<aspnet_Role> GetRoles()
         {
-            var result = from x in m_usersDB.aspnet_Roles
-                         select x;
+            var result = (from x in m_usersDB.aspnet_Roles
+                         select x).ToList();
             return result;
         }
         public aspnet_User GetUserByName(string name)
