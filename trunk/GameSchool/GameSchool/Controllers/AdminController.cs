@@ -53,7 +53,6 @@ namespace GameSchool.Controllers
             model.Role_ID = TheUsersRole.RoleId.ToString();
 
             List<SelectListItem> item = new List<SelectListItem>();
-            //item.Add(new SelectListItem {Text="Student", Value=TheRoles.
             foreach(var role in TheRoles)
             {
                 item.Add(new SelectListItem { Text = role.RoleName, Value = role.RoleId.ToString() });
@@ -70,6 +69,8 @@ namespace GameSchool.Controllers
                 aspnet_User TheUser = m_UsersRepo.GetUserById(model.User_ID);
                 aspnet_Membership TheMembership = m_UsersRepo.GetMembershipById(model.User_ID);
                 aspnet_UsersInRole TheUsersRole = m_UsersRepo.GetUserRoleById(model.User_ID);
+                Guid TheUsersRoleGuid = new Guid(model.Role_ID);
+
 
                 TheUser.UserName = model.UserName;
                 TheUser.LoweredUserName = model.UserName.ToLower();
@@ -79,7 +80,8 @@ namespace GameSchool.Controllers
                 TheUser.Phone = model.Phone;
                 TheMembership.Email = model.Email;
                 TheMembership.LoweredEmail = model.Email.ToLower();
-                //TheUsersRole.RoleId = model.Role_ID;
+                
+                //TODO mögulega skipta um role á user
 
                 m_UsersRepo.Save();
 
@@ -90,6 +92,14 @@ namespace GameSchool.Controllers
         }
         public ActionResult CreateUser()
         {
+            IQueryable<aspnet_Role> TheRoles = m_UsersRepo.GetRoles();
+            List<SelectListItem> item = new List<SelectListItem>();
+            foreach (var role in TheRoles)
+            {
+                item.Add(new SelectListItem { Text = role.RoleName, Value = role.RoleId.ToString() });
+            }
+            ViewData["Roles"] = item;
+
             return View();
         }
         [HttpPost]
@@ -174,7 +184,7 @@ namespace GameSchool.Controllers
             model.Students = TheStudents;
             model.Teachers = TheTeachers;
             model.StudentsInCourse = null;
-            model.TeachersInCourse = null;
+            model.TeachersIDinCourse = null;
 
             return View(model);
         }
@@ -194,7 +204,7 @@ namespace GameSchool.Controllers
             IQueryable<aspnet_User> TheStudents = m_UsersRepo.GetAllStudents();
             IQueryable<aspnet_User> TheTeachers = m_UsersRepo.GetAllTeachers();
             IQueryable<CourseRegistration> TheStudentsRegistration = m_CourseRepo.GetStudentsForCourse(id);
-            IQueryable<TeacherRegistration> TheTeachersRegistration = m_CourseRepo.GetTeachersForCourse(id);
+            IQueryable<Guid> TheTeachersRegistration = m_CourseRepo.GetTeachersIDForCourse(id);
 
             CourseEditViewModel model = new CourseEditViewModel();
             
@@ -202,7 +212,7 @@ namespace GameSchool.Controllers
             model.Students = TheStudents;
             model.Teachers = TheTeachers;
             model.StudentsInCourse =TheStudentsRegistration;
-            model.TeachersInCourse = TheTeachersRegistration;
+            model.TeachersIDinCourse = TheTeachersRegistration;
 
             return View(model);
         }
@@ -218,6 +228,31 @@ namespace GameSchool.Controllers
                 m_CourseRepo.Save();
             }
             return RedirectToAction("GetCourses");
+        }
+        [HttpPost]
+        public ActionResult AddStudentToCourse(int CourseID, string StudentName)
+        {
+            CourseRegistration Registration = new CourseRegistration();
+            Registration.CourseID = CourseID;
+            Registration.StudentUsername = StudentName;
+
+            m_CourseRepo.AddStudentToCourse(Registration);
+            m_CourseRepo.Save();
+
+            return Json(null);
+        }
+        [HttpPost]
+        public ActionResult AddTeacherToCourse(int CourseID, string TeacherID)
+        {
+            TeacherRegistration Registration = new TeacherRegistration();
+            Guid TheTeacherID = new Guid(TeacherID);
+            Registration.CourseID = CourseID;
+            Registration.TeacherID = TheTeacherID;
+
+            m_CourseRepo.AddTeacherToCourse(Registration);
+            m_CourseRepo.Save();
+
+            return Json(null);
         }
     }
 }

@@ -25,59 +25,59 @@
             @Html.TextAreaFor(model => model.Course.Description)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Students)
-        </div>
+
         <div class="editor-field">
-            <select multiple="multiple">
-                @foreach (var student in Model.Students)
-                {
-                    <option value="@student.UserId">@student.UserName</option>
-                }
-            </select>
+            <table id="Students" class="UserTable">
+                <caption>@Html.LabelFor(model => model.Students)</caption>
+                <thead>
+                    <tr>
+                        <th>Nafn</th>
+                        <th>Bæta í áfanga</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var student in Model.Students)
+                    {
+                        <tr>
+                            <td>@student.UserName</td>
+                            <td><a href="#" onclick="SetStudentToCourse(@Model.Course.ID, @student.UserName)">+</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Teachers)
-        </div>
         <div class="editor-field">
-            <select multiple="multiple">
-                @foreach (var teacher in Model.Teachers)
-                {
-                    <option value="@teacher.UserId">@teacher.UserName</option>
-                }
-            </select>
+            <table id="Teachers" class="UserTable">
+                <caption>@Html.LabelFor(model => model.Teachers)</caption>
+                <thead>
+                    <tr>
+                        <th>Nafn</th>
+                        <th>Bæta í áfanga</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var teacher in Model.Teachers)
+                    {
+                        if(!Model.TeachersIDinCourse.Contains(teacher.UserId)
+                        {
+                            <tr>
+                                <td>@teacher.UserName</td>
+                                <td><a href="#" onclick="SetTeacherToCourse(@Model.Course.ID, @teacher.UserId.ToString())">+</a></td>
+                            </tr>
+                        }
+                        else
+                        {
+                             <tr>
+                                <td>@teacher.UserName</td>
+                                <td><a href="#" onclick="SetTeacherToCourse(@Model.Course.ID, @teacher.UserId.ToString())">-</a></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
         </div>
-        @if (Model.StudentsInCourse != null)
-        {
-            <div class="editor-label">
-                @Html.LabelFor(model => model.StudentsInCourse)
-            </div>
 
-            <div class="editor-field">
-                <select multiple="multiple">
-                    @foreach (var students in Model.StudentsInCourse)
-                    {
-                        <option value="@students.StudentUsername">@students.StudentUsername</option>
-                    }
-                </select>
-            </div>
-        }
-
-        @if (Model.TeachersInCourse != null)
-        {
-            <div class="editor-label">
-                @Html.LabelFor(model => model.TeachersInCourse)
-            </div>
-            <div class="editor-field">
-                <select multiple="multiple">
-                    @foreach (var teachers in Model.TeachersInCourse)
-                    {
-                        <option value="@teachers.TeacherID">@teachers.TeacherID</option>
-                    }
-                </select>
-            </div>
-        }
         <p>
             <input type="submit" value="Save" />
         </p>
@@ -87,3 +87,21 @@
 <div>
     @Html.ActionLink("Til Baka", "GetCourses")
 </div>
+
+<script type="text/javascript">
+
+    function SetStudentToCourse(CourseID, Username) {
+        $.post("/Admin/AddStudentToCourse", { CourseID: CourseID, StudentName: Username }, function () {
+            $(this.).remove();
+        });
+    }
+
+
+
+    /*$.post("/Student/CreateCommentForLecture", { CommentText: param, id: lecid }, function (data) {
+            $(".comments").remove();
+            $("#comment_template").tmpl(data).insertBefore("#AddComment");*/
+
+
+
+</script>
