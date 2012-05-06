@@ -75,13 +75,13 @@
             @Html.ValidationMessageFor(model => model.ConfirmPassword)
         </div>
 
-       <!-- <div class="editor-label">
-            @Html.LabelFor(model => model.Role_ID)
+        <div class="editor-label">
+           @Html.Label("Tegund")
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Role_ID)
+            @Html.DropDownListFor(model => model.Role_ID, ViewData["Roles"] as List<SelectListItem>)
             @Html.ValidationMessageFor(model => model.Role_ID)
-        </div>-->
+        </div>
 
         <p>
             <input type="submit" value="Save" />

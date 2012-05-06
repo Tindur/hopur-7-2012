@@ -12,9 +12,11 @@ namespace GameSchool.Models.Interfaces
         IQueryable<CourseModel> GetCoursesForStudent(string studentUsername);
         IQueryable<CourseModel> GetCoursesForTeacher(string TeacherID);
         IQueryable<CourseRegistration> GetStudentsForCourse(int CourseId);
-        IQueryable<TeacherRegistration> GetTeachersForCourse(int CourseId);
+        IQueryable<TeacherRegistration> GetTeachersIDForCourse(int CourseId);
         CourseModel GetCourseById(int id);
         void AddCourse(CourseModel Course);
+        void AddStudentToCourse(CourseRegistration Registration);
+        void AddTeacherToCourse(TeacherRegistration reg);
         void UpdateCourse(int id, CourseRegistration registration);
         void Save();
     }

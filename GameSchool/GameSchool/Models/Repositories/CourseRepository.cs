@@ -53,22 +53,31 @@ namespace GameSchool.Models.Repositories
         {
             
         }
+
+        public void AddStudentToCourse(CourseRegistration Registration)
+        {
+            m_courseDB.CourseRegistrations.InsertOnSubmit(Registration);
+        }
+
+        public void AddTeacherToCourse(TeacherRegistration Registration)
+        {
+            m_courseDB.TeacherRegistrations.InsertOnSubmit(Registration);
+        }
+
         public void Save()
         {
             m_courseDB.SubmitChanges();
         }
-        public IQueryable<TeacherRegistration> GetTeachersForCourse(int CourseId)
+
+        public IQueryable<Guid> GetTeachersIDForCourse(int CourseId)
         {
             var result = from x in m_courseDB.TeacherRegistrations
                          where x.CourseID == CourseId
-                         select x;
+                         select x.TeacherID;
 
             return result;
         }
-        public void AddTeachersToCourse(TeacherRegistration reg)
-        {
-            m_courseDB.TeacherRegistrations.InsertOnSubmit(reg);
-        }
+
         public IQueryable<CourseRegistration> GetStudentsForCourse(int CourseId)
         {
             var result = from x in m_courseDB.CourseRegistrations
