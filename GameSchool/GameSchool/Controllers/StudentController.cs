@@ -21,7 +21,7 @@ namespace GameSchool.Controllers
 
         public ActionResult StudentIndex()
         {
-            ViewBag.Message = "Welcome to GameSchool 0.1";
+            ViewBag.Message = "Welcome to GameSchool 0.2";
 
             return View();
         }
@@ -143,17 +143,25 @@ namespace GameSchool.Controllers
             }
             return View("Error");
         }
+        
         public ActionResult GetTest(int? id)
         {
             if (id.HasValue)
             {
+                string TestName = m_TestRepo.getTestNameByID(id.Value);
                 var Questions = m_TestRepo.GetAllQuestionsForTest(id.Value);
+
                 List<List<AnswerModel>> Answers = new List<List<AnswerModel>>();
                 foreach (var item in Questions)
                 {
                     Answers.Add(m_TestRepo.GetAllAnswersForQuestion(item.ID).ToList());
                 }
-                TestViewModel model = new TestViewModel(Questions, Answers);
+                TestViewModel model = new TestViewModel
+                {
+                    m_Questions = Questions,
+                    m_Answers = Answers,
+                    testName = TestName
+                };
                 
                 return View(model);
             }

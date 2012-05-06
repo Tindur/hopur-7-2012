@@ -1,25 +1,33 @@
 ﻿@model GameSchool.Models.ViewModels.TestViewModel
 
+@{
+    ViewBag.Title = Model.testName;
+}
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>Próf lol</legend>
+        <legend>@Model.testName</legend>
 
             @foreach (var question in Model.m_Questions)
             {
-                <p>@question.Question</p>
-                foreach (var answer in Model.m_Answers)
-                {
-                    foreach (var shit in answer)
-                    {
-                        if (shit.QuestionID == question.ID)
+                <div class="question">
+                    <p>@question.Question</p>
+                    <ul>
+                        @foreach (var answer in Model.m_Answers)
                         {
-                            <!--<label for="@question.ID">-->@shit.Answer<!--</label>-->
-                            <input type="radio" value="@shit.Correct" name="@question.ID" id="@shit.ID"/>
+                            foreach (var stuff in answer)
+                            {
+                                if (stuff.QuestionID == question.ID)
+                                {
+                                    <!--<label for="a-@question.ID">@stuff.Answer</label>-->
+                                    <li><input type="radio" value="@stuff.ID" id="a-@stuff.ID"/>  @stuff.Answer</li>
+                                    
+                                }
+                            }
                         }
-                    }
-                }
+                    </ul>
+                </div>
              }
             
         <p>
