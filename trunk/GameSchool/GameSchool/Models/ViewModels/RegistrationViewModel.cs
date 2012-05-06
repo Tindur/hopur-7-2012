@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using GameSchool.Models.dbLINQ;
 
 namespace GameSchool.Models.ViewModels
 {
@@ -52,6 +53,6 @@ namespace GameSchool.Models.ViewModels
         public string Role_ID { get; set; }
 
         [Display(Name = "Tegund notanda")]
-        public List<string> RoleName { get; set; }
+        public List<aspnet_Role> RoleName { get; set; }
     }
 }

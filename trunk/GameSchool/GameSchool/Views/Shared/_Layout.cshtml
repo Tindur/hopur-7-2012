@@ -26,8 +26,8 @@
               <div class="nav-collapse">
                 <ul class="nav">
                   <li class="active">@Html.ActionLink("Heim", "Index", "Home")</li>
-                  <li><a href="#about">About</a></li>
-                  <li><a href="#contact">Contact</a></li>
+                  <li>@Html.ActionLink("Um síðuna", "About", "Home")</li>
+                  <li>@Html.ActionLink("Hafa samband", "Contact", "Home")</li>
                   <!--<div class="pull-right">-->
                     @Html.Partial("_LogOnPartial")
                   <!--</div>-->
@@ -43,11 +43,19 @@
                     <div class="well sidebar-nav">
                         <ul class="nav nav-list">
                             @if (User.IsInRole("Student"))
-                            {  <li class="nav-header">Your Face!</li>
+                            {  
+                                <li class="nav-header">Your Face!</li>
               
                                 <li class="nav-header">Your Courses</li>
                                     @Html.Action("Navigation", "Student")
                                 <li class="nav-header">Your Teachers Face!</li>
+                            }
+                            @if (User.IsInRole("Teacher"))
+                            {
+                                <li class="nav-header">Your Face!</li>
+                                
+                                <li class="nav-header">Your Courses</li>
+                                    @Html.Action("Navigation", "Teacher")
                             }
                             @if (User.IsInRole("Admin"))
                              {

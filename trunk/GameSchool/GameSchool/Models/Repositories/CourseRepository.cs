@@ -26,12 +26,22 @@ namespace GameSchool.Models.Repositories
             return result;
         }
 
+        public IQueryable<CourseModel> GetCoursesForTeacher(string TeacherID)
+        {
+           var result = from cr in m_courseDB.TeacherRegistrations
+                         join cm in m_courseDB.CourseModels on cr.CourseID equals cm.ID
+                         where cr.TeacherID.ToString() == TeacherID.ToString()
+                         select cm;
+
+            return result;
+        }
+
         public CourseModel GetCourseById(int id)
         {
             var result = (from x in m_courseDB.CourseModels
                               where x.ID == id
                               select x).SingleOrDefault();
-                return result;
+            return result;
         }
 
         public void AddCourse(CourseModel Course)
@@ -58,6 +68,13 @@ namespace GameSchool.Models.Repositories
         public void AddTeachersToCourse(TeacherRegistration reg)
         {
             m_courseDB.TeacherRegistrations.InsertOnSubmit(reg);
+        }
+        public IQueryable<CourseRegistration> GetStudentsForCourse(int CourseId)
+        {
+            var result = from x in m_courseDB.CourseRegistrations
+                         where x.CourseID == CourseId
+                         select x;
+            return result;
         }
     }
 }
