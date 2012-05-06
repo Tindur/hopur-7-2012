@@ -58,5 +58,27 @@ namespace GameSchool.Tests.MockRepositories
         {
             throw new NotImplementedException();
         }
+
+
+        public aspnet_User GetUserByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public aspnet_Membership GetMembershipById(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public aspnet_UsersInRole GetUserRoleById(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public List<aspnet_Role> GetRoles()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -100,7 +100,16 @@ namespace GameSchool.Controllers
             if (id.HasValue)
             {
                 var model = m_CommentRepo.GetCommentForLecture(id.Value);
-                return Json(model, JsonRequestBehavior.AllowGet);
+                var newResult = (from k in model 
+                                 select new 
+                                 { 
+                                     CommentDate = k.CommentDate.ToShortDateString(), 
+                                     ID = k.ID, 
+                                     CommentText = k.CommentText,
+                                     UserName = k.UserName
+                                 });
+              //  return Json(newResult);
+                return Json(newResult, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -112,17 +121,16 @@ namespace GameSchool.Controllers
         [HttpPost]
         public ActionResult CreateCommentForLecture(string CommentText, int id)
         {
-            CommentModel model = new CommentModel();
-            model.CommentText = CommentText;
-            model.UserName = User.Identity.Name;
-
-            LectureComment l = new LectureComment();
-            l.CommentID = model.ID.ToString();
-            l.LectureID = id;
+                CommentModel model = new CommentModel();
+                model.CommentText = CommentText;
+                model.UserName = User.Identity.Name;
             
-            m_CommentRepo.AddComment(model);
-            var result = m_CommentRepo.GetComments();
-            return Json(result);
+                m_CommentRepo.AddComment(model);
+                m_CommentRepo.ConnectCommentToLecture(model, id);
+
+                var result = m_CommentRepo.GetCommentForLecture(id);
+                var newResult = (from k in result select new { CommentDate = k.CommentDate.ToShortDateString(), ID = k.ID, CommentText = k.CommentText, UserName = k.UserName });
+                return Json(newResult);
         }
 
         public ActionResult GetTestsForLevel(int? id)

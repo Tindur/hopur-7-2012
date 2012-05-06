@@ -36,6 +36,9 @@ namespace GameSchool.Models.dbLINQ
     partial void InsertCommentsInNewsFeed(CommentsInNewsFeed instance);
     partial void UpdateCommentsInNewsFeed(CommentsInNewsFeed instance);
     partial void DeleteCommentsInNewsFeed(CommentsInNewsFeed instance);
+    partial void InsertLectureComment(LectureComment instance);
+    partial void UpdateLectureComment(LectureComment instance);
+    partial void DeleteLectureComment(LectureComment instance);
     #endregion
 		
 		public CommentDBDataContext() : 
@@ -76,19 +79,19 @@ namespace GameSchool.Models.dbLINQ
 			}
 		}
 		
-		public System.Data.Linq.Table<LectureComment> LectureComments
-		{
-			get
-			{
-				return this.GetTable<LectureComment>();
-			}
-		}
-		
 		public System.Data.Linq.Table<CommentsInNewsFeed> CommentsInNewsFeeds
 		{
 			get
 			{
 				return this.GetTable<CommentsInNewsFeed>();
+			}
+		}
+		
+		public System.Data.Linq.Table<LectureComment> LectureComments
+		{
+			get
+			{
+				return this.GetTable<LectureComment>();
 			}
 		}
 	}
@@ -227,69 +230,6 @@ namespace GameSchool.Models.dbLINQ
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LectureComments")]
-	public partial class LectureComment
-	{
-		
-		private int _ID;
-		
-		private string _CommentID;
-		
-		private int _LectureID;
-		
-		public LectureComment()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this._ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CommentID", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string CommentID
-		{
-			get
-			{
-				return this._CommentID;
-			}
-			set
-			{
-				if ((this._CommentID != value))
-				{
-					this._CommentID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LectureID", DbType="Int NOT NULL")]
-		public int LectureID
-		{
-			get
-			{
-				return this._LectureID;
-			}
-			set
-			{
-				if ((this._LectureID != value))
-				{
-					this._LectureID = value;
-				}
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CommentsInNewsFeed")]
 	public partial class CommentsInNewsFeed : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -375,6 +315,116 @@ namespace GameSchool.Models.dbLINQ
 					this._CommentID = value;
 					this.SendPropertyChanged("CommentID");
 					this.OnCommentIDChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LectureComments")]
+	public partial class LectureComment : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private int _CommentID;
+		
+		private int _LectureID;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnCommentIDChanging(int value);
+    partial void OnCommentIDChanged();
+    partial void OnLectureIDChanging(int value);
+    partial void OnLectureIDChanged();
+    #endregion
+		
+		public LectureComment()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CommentID", DbType="Int NOT NULL")]
+		public int CommentID
+		{
+			get
+			{
+				return this._CommentID;
+			}
+			set
+			{
+				if ((this._CommentID != value))
+				{
+					this.OnCommentIDChanging(value);
+					this.SendPropertyChanging();
+					this._CommentID = value;
+					this.SendPropertyChanged("CommentID");
+					this.OnCommentIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LectureID", DbType="Int NOT NULL")]
+		public int LectureID
+		{
+			get
+			{
+				return this._LectureID;
+			}
+			set
+			{
+				if ((this._LectureID != value))
+				{
+					this.OnLectureIDChanging(value);
+					this.SendPropertyChanging();
+					this._LectureID = value;
+					this.SendPropertyChanged("LectureID");
+					this.OnLectureIDChanged();
 				}
 			}
 		}

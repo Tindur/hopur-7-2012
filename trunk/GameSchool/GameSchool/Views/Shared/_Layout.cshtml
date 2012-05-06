@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <title>@ViewBag.Title</title>
     <link href="@Url.Content("~/Content/BootstrapCSS/bootstrap.css")" rel="stylesheet" type="text/css" />
+    <link href="../../Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/BootstrapCSS/bootstrap-responsive.css")" rel="stylesheet" type="text/css" />
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js" type="text/javascript"></script>
@@ -63,6 +64,10 @@
                                     <li>@Html.ActionLink("Kennarar", "GetTeachers", "Admin")</li>
                                     <li>@Html.ActionLink("Áfangar", "GetCourses", "Admin")</li>
                                     <li>@Html.ActionLink("Nýr notandi", "CreateUser", "Admin")</li>
+                             }
+                             @if (User.IsInRole("Teacher"))
+                             {
+                                 @Html.Action("Navigation", "Teacher")
                              }
                         </ul>
                     </div><!--/.well -->

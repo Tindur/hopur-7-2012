@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using GameSchool.Models.dbLINQ;
-using GameSchool.Models.Repositories;
+using GameSchool.Models.Interfaces;
 
 namespace GameSchool.Models.Repositories
 {
@@ -24,15 +24,10 @@ namespace GameSchool.Models.Repositories
         public IQueryable<CommentModel> GetCommentForLecture(int id)
         {
             var result = from lc in m_commentsDB.LectureComments
-                         join cm in m_commentsDB.CommentModels on lc.LectureID equals cm.ID
+                         join cm in m_commentsDB.CommentModels on lc.CommentID equals cm.ID
                          where lc.LectureID == id
                          select cm;
             return result;
-
-            /*var result = from cr in m_courseDB.CourseRegistrations
-                         join cm in m_courseDB.CourseModels on cr.CourseID equals cm.ID
-                         where cr.StudentUsername == studentUsername
-                         select cm;*/
         }
 
 		public void AddComment(CommentModel c)
@@ -41,5 +36,17 @@ namespace GameSchool.Models.Repositories
 			m_commentsDB.CommentModels.InsertOnSubmit( c );
 			m_commentsDB.SubmitChanges( );
 		}
-	}
+
+        public void ConnectCommentToLecture(CommentModel com, int LecID)
+        {
+            LectureComment lecCom = new LectureComment
+            {
+                CommentID = com.ID,
+                LectureID = LecID
+            };
+
+            m_commentsDB.LectureComments.InsertOnSubmit(lecCom);
+            m_commentsDB.SubmitChanges();
+        }
+    }
 }
