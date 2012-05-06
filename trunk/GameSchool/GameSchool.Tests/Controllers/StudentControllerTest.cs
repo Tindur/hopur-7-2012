@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GameSchool;
 using GameSchool.Controllers;
-using GameSchool.Tests.MockRepositories;
+//using GameSchool.Tests.MockRepositories;
 
 namespace GameSchool.Tests.Controllers
 {

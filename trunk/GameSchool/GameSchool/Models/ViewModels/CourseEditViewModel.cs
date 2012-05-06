@@ -19,7 +19,7 @@ namespace GameSchool.Models.ViewModels
         public IQueryable<aspnet_User> Students { get; set; }
 
         [Display(Name="Nemendur í áfanga")]
-        public IQueryable<CourseRegistration> StudentsInCourse{ get; set; }
+        public IQueryable<string> StudentNameInCourse{ get; set; }
 
         [Display(Name="Kennarar í áfanga")]
         public IQueryable<Guid> TeachersIDinCourse { get; set; }

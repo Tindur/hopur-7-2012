@@ -183,7 +183,7 @@ namespace GameSchool.Controllers
             CourseEditViewModel model = new CourseEditViewModel();
             model.Students = TheStudents;
             model.Teachers = TheTeachers;
-            model.StudentsInCourse = null;
+            model.StudentNameInCourse = null;
             model.TeachersIDinCourse = null;
 
             return View(model);
@@ -203,7 +203,7 @@ namespace GameSchool.Controllers
             CourseModel TheCourse = m_CourseRepo.GetCourseById(id);
             IQueryable<aspnet_User> TheStudents = m_UsersRepo.GetAllStudents();
             IQueryable<aspnet_User> TheTeachers = m_UsersRepo.GetAllTeachers();
-            IQueryable<CourseRegistration> TheStudentsRegistration = m_CourseRepo.GetStudentsForCourse(id);
+            IQueryable<string> TheStudentsRegistration = m_CourseRepo.GetStudentNameForCourse(id);
             IQueryable<Guid> TheTeachersRegistration = m_CourseRepo.GetTeachersIDForCourse(id);
 
             CourseEditViewModel model = new CourseEditViewModel();
@@ -211,7 +211,7 @@ namespace GameSchool.Controllers
             model.Course = TheCourse;
             model.Students = TheStudents;
             model.Teachers = TheTeachers;
-            model.StudentsInCourse =TheStudentsRegistration;
+            model.StudentNameInCourse = TheStudentsRegistration;
             model.TeachersIDinCourse = TheTeachersRegistration;
 
             return View(model);

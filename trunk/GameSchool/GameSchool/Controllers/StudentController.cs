@@ -19,6 +19,7 @@ namespace GameSchool.Controllers
         CommentRepository m_CommentRepo = new CommentRepository();
         AssignmentRepository m_AssignmentRepo = new AssignmentRepository();
 
+
         public ActionResult StudentIndex()
         {
             ViewBag.Message = "Welcome to GameSchool 0.2";
