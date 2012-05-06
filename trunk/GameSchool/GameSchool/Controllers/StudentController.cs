@@ -17,6 +17,7 @@ namespace GameSchool.Controllers
         LectureRepository m_LectureRepo = new LectureRepository();
         TestRepository m_TestRepo = new TestRepository();
         CommentRepository m_CommentRepo = new CommentRepository();
+        AssignmentRepository m_AssignmentRepo = new AssignmentRepository();
 
         public ActionResult StudentIndex()
         {
@@ -159,8 +160,41 @@ namespace GameSchool.Controllers
             return View("Error");
         }
 
+        public ActionResult GetAssignmentsForLevel(int? id)
+        {
+            if (id.HasValue)
+            {
+                IQueryable<AssignmentModel> model = m_AssignmentRepo.GetAllAssignmentsForLevel(id.Value);
+                return PartialView(model);
+            }
+            return View("Error");
+        }
+        public ActionResult GetAssignment(int? id)
+        {
+            if (id.HasValue)
+            {
+                var model = m_AssignmentRepo.GetAssignmentById(id.Value);
+                return View(model);
+            }
+            return View("Error");
+        }
+
+        public ActionResult NewsFeed(int? id)
+        {
+            if(id.HasValue)
+            {
+                IQueryable<LectureModel> TheLectures = m_LectureRepo.GetFiveLatest(id.Value);
+                IQueryable<AssignmentModel> TheAssignments = m_AssignmentRepo.GetFiveLatest(id.Value);
 
 
+                NewsFeedViewModel model = new NewsFeedViewModel();
+                model.Lectures = TheLectures;
+                model.Assignments = TheAssignments;
 
+                return PartialView(model);
+
+            }
+            return View("Error");
+        }
     }
 }

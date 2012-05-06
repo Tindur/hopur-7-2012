@@ -1,0 +1,8 @@
+﻿@model IEnumerable<GameSchool.Models.dbLINQ.AssignmentModel>
+           
+
+@foreach (var item in Model)
+{
+    @Html.ActionLink(item.Name, "GetAssignment/" + item.ID, "Student")
+}
+

@@ -26,11 +26,13 @@
         <li><a href="#tab3" data-toggle="tab">Glósur</a></li>
         <li><a href="#tab4" data-toggle="tab">Tilkynningar frá kennara</a></li>
         <li><a href="#tab5" data-toggle="tab">Próf</a></li>
+        <li><a href="#tab6" data-toggle="tab">Verkefni</a></li>
       </ul>
    </div>
    <div class="tab-content">
     <div class="tab-pane active" id="tab1">
         <p>@Model.m_theCourse.Description</p>
+        @{Html.RenderAction("NewsFeed", "Student");}
     </div>
     <div class="tab-pane" id="tab2">
       @{Html.RenderAction("GetLecturesForLevel", "Student");}
@@ -43,6 +45,9 @@
     </div>
     <div class="tab-pane" id="tab5">
         @{Html.RenderAction("GetTestsForLevel", "Student");}
+    </div>
+    <div class="tab-pane" id="tab6">
+        @{Html.RenderAction("GetAssignmentsForLevel", "Student");}
     </div>
   </div>
 

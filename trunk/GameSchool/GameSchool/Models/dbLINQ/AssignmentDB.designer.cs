@@ -88,6 +88,8 @@ namespace GameSchool.Models.dbLINQ
 		
 		private int _LevelID;
 		
+		private System.Nullable<System.DateTime> _DateAdded;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -100,6 +102,8 @@ namespace GameSchool.Models.dbLINQ
     partial void OnDescriptionChanged();
     partial void OnLevelIDChanging(int value);
     partial void OnLevelIDChanged();
+    partial void OnDateAddedChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateAddedChanged();
     #endregion
 		
 		public AssignmentModel()
@@ -183,6 +187,26 @@ namespace GameSchool.Models.dbLINQ
 					this._LevelID = value;
 					this.SendPropertyChanged("LevelID");
 					this.OnLevelIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateAdded", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateAdded
+		{
+			get
+			{
+				return this._DateAdded;
+			}
+			set
+			{
+				if ((this._DateAdded != value))
+				{
+					this.OnDateAddedChanging(value);
+					this.SendPropertyChanging();
+					this._DateAdded = value;
+					this.SendPropertyChanged("DateAdded");
+					this.OnDateAddedChanged();
 				}
 			}
 		}
