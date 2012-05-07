@@ -45,19 +45,15 @@
                         <ul class="nav nav-list">
                             @if (User.IsInRole("Student"))
                             {  
-                                <li class="nav-header">Your Face!</li>
-              
-                                <li class="nav-header">Your Courses</li>
-                                    @Html.Action("Navigation", "Student")
-                                <li class="nav-header">Your Teachers Face!</li>
+                                @Html.Action("Navigation", "Student")
                             }
                             @if (User.IsInRole("Admin"))
-                             {
+                            {
                                     <li>@Html.ActionLink("Nemendur", "GetStudents", "Admin")</li>
                                     <li>@Html.ActionLink("Kennarar", "GetTeachers", "Admin")</li>
                                     <li>@Html.ActionLink("Áfangar", "GetCourses", "Admin")</li>
                                     <li>@Html.ActionLink("Nýr notandi", "CreateUser", "Admin")</li>
-                             }
+                            }
                              @if (User.IsInRole("Teacher"))
                              {
                                  @Html.Action("Navigation", "Teacher")

@@ -111,11 +111,14 @@ namespace GameSchool.Controllers
                 Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
 
                 aspnet_User TheUser = m_UsersRepo.GetUserByName(model.UserName);
+                ImageModel TheImage = new ImageModel();
+                Guid TheUserId = new Guid(model.User_ID);
                 TheUser.Name = model.Name;
                 TheUser.SSN = model.SSN;
                 TheUser.Address = model.Address;
                 TheUser.Phone = model.Phone;
-
+                TheImage.UserID = TheUserId;
+                TheImage.Source = "../../Content/Images/Prisonmike.png";
                 m_UsersRepo.Save();
 
                 if (createStatus == MembershipCreateStatus.Success)

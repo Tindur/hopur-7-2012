@@ -7,7 +7,7 @@ using  GameSchool.Models;
 using GameSchool.Models.Repositories;
 using GameSchool.Models.dbLINQ;
 using GameSchool.Models.ViewModels;
-using GameSchool.Models.ViewModels.TeacherViewModels;
+
 
 namespace GameSchool.Controllers
 {
@@ -59,7 +59,7 @@ namespace GameSchool.Controllers
 
         public ActionResult CourseLectures(int? courseID)
         {
-            if (courseID.HasValue)
+           /* if (courseID.HasValue)
             {
                 CourseLectureViewModel model = new CourseLectureViewModel
                 {
@@ -68,13 +68,13 @@ namespace GameSchool.Controllers
                 };
                 return PartialView("CourseLectures", model);
             }
-            else
+            else*/
                 return View("Error");
         }
 
         public ActionResult LevelsForCourse(int? courseID)
         {
-            if (courseID.HasValue)
+           /* if (courseID.HasValue)
             {
                 TLevelViewModel model = new TLevelViewModel
                 {
@@ -92,7 +92,7 @@ namespace GameSchool.Controllers
                
                 return PartialView("CourseLevels", model);
             }
-            else
+            else*/
                 return View("Error");
         }
 

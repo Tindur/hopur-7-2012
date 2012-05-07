@@ -2509,6 +2509,8 @@ input[type="submit"].btn.btn-mini {
   padding-left: 15px;
   padding-right: 15px;
   margin-bottom: 0;
+  position: fixed;
+   
 }
 .nav-list > li > a,
 .nav-list .nav-header {
@@ -4881,4 +4883,9 @@ button.close {
     height: auto !important;
     overflow: visible !important;
   }
+}
+/* Okkar css */
+.sidebar-nav
+{
+    position: absolute;
 }
