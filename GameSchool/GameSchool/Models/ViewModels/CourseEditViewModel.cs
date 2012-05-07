@@ -22,6 +22,6 @@ namespace GameSchool.Models.ViewModels
         public IQueryable<string> StudentNameInCourse{ get; set; }
 
         [Display(Name="Kennarar í áfanga")]
-        public IQueryable<Guid> TeachersIDinCourse { get; set; }
+        public IQueryable<string> TeachersNameInCourse { get; set; }
     }
 }

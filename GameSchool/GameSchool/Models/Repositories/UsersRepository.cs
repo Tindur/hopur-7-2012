@@ -16,9 +16,9 @@ namespace GameSchool.Models.Repositories
         public IQueryable<aspnet_User> GetAllStudents()
         {
             var Students = from aspnet_User in m_usersDB.aspnet_Users
-                            join userinroles in m_usersDB.aspnet_UsersInRoles on aspnet_User.UserId equals userinroles.UserId
-                            where userinroles.aspnet_Role.RoleName == "Student"
-                            select aspnet_User;
+                           join userinroles in m_usersDB.aspnet_UsersInRoles on aspnet_User.UserId equals userinroles.UserId
+                           where userinroles.aspnet_Role.RoleName == "Student"
+                           select aspnet_User;
 
             return Students;
         }
@@ -44,9 +44,9 @@ namespace GameSchool.Models.Repositories
         public IQueryable<aspnet_User> GetAllTeachers()
         {
             var Teachers = from aspnet_User in m_usersDB.aspnet_Users
-                            join userinroles in m_usersDB.aspnet_UsersInRoles on aspnet_User.UserId equals userinroles.UserId
-                            where userinroles.aspnet_Role.RoleName == "Teacher"
-                            select aspnet_User;
+                           join userinroles in m_usersDB.aspnet_UsersInRoles on aspnet_User.UserId equals userinroles.UserId
+                           where userinroles.aspnet_Role.RoleName == "Teacher"
+                           select aspnet_User;
 
             return Teachers;
         }
@@ -77,10 +77,11 @@ namespace GameSchool.Models.Repositories
         public aspnet_User GetUserByName(string name)
         {
             var result = (from x in m_usersDB.aspnet_Users
-                         where x.UserName == name
-                         select x).SingleOrDefault();
+                          where x.UserName == name
+                          select x).SingleOrDefault();
             return result;
         }
+
         public ImageModel GetImageForUser(string UserId)
         {
             var result = (from x in m_usersDB.ImageModels
@@ -92,5 +93,17 @@ namespace GameSchool.Models.Repositories
         {
             m_usersDB.ImageModels.InsertOnSubmit(Image);
         }
+
+        public void RemoveUserFromRole(aspnet_UsersInRole usr)
+        {
+            m_usersDB.aspnet_UsersInRoles.DeleteOnSubmit(usr);
+        }
+
+        public void SetUserToRole(aspnet_UsersInRole usr)
+        {
+            m_usersDB.aspnet_UsersInRoles.InsertOnSubmit(usr);
+        }
     }
 }
+
+

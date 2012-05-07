@@ -22,6 +22,7 @@ namespace GameSchool.Controllers
         CommentRepository m_CommentRepo = new CommentRepository();
         AssignmentRepository m_AssignmentRepo = new AssignmentRepository();
         UsersRepository m_UserRepo = new UsersRepository();
+        LikeRepository m_LikeRepo = new LikeRepository();
 
 
         public ActionResult StudentIndex()
@@ -276,6 +277,37 @@ namespace GameSchool.Controllers
             {
                 return RedirectToAction("StudentIndex");
             }
+        }
+
+        [HttpGet]
+        public ActionResult GetLikesForLecture(int id)
+        {
+            var model = m_LikeRepo.GetLikesForLecture(id);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult CreateLikeForComment(int CommentID)
+        {
+            //TODO:  Útfæra að ná í fullt nafn þess sem er að lika
+
+            //Kanna hvort notandinn hafi like'að commentið áður
+            var check = m_LikeRepo.GetLikesForComment(CommentID);
+            foreach (var item in check)
+            {
+                if (item.UserName == strUser)
+                    return Json(null);
+            }
+            //Púsla like'inu saman
+            LikeModel newLike = new LikeModel();
+            newLike.UserName = strUser;
+            newLike.CommentID = CommentID;
+            //Bæti like'inu í gagnagrunninn
+            m_LikeRepo.AddLike(newLike);
+            //Sæki nýjasta like'ið fyrir Json
+            var latest = (from x in m_LikeRepo.GetLikesForComment(CommentID)
+                          select x).ToList().Last();
+            return Json(latest);
         }
     }
 }

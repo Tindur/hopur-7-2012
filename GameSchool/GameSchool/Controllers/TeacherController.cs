@@ -72,6 +72,11 @@ namespace GameSchool.Controllers
                 return View("Error");
         }
 
+        public ActionResult CreateLecture()
+        {
+            return View();
+        }
+
         public ActionResult LevelsForCourse(int? courseID)
         {
            /* if (courseID.HasValue)
