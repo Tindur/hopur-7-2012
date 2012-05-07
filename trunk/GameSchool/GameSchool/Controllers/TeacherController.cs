@@ -30,8 +30,19 @@ namespace GameSchool.Controllers
 
         public ActionResult Navigation()
         {
-            aspnet_User TheTeacher = m_UserRepo.GetUserByName(User.Identity.Name);
-            return PartialView("Navigation", m_CourseRepo.GetCoursesForTeacher(TheTeacher.UserId.ToString()));
+            aspnet_User TheUser = m_UserRepo.GetUserByName(User.Identity.Name);
+            aspnet_Membership TheMembership = m_UserRepo.GetMembershipById(TheUser.UserId.ToString());
+            UserViewModel TheUserModel = new UserViewModel(TheUser, TheMembership, null, null);
+            ImageModel TheImage = m_UserRepo.GetImageForUser(TheUser.UserId.ToString());
+            IQueryable<CourseModel> TheCourses = m_CourseRepo.GetCoursesForTeacher(TheUser.UserName);
+            NavigationViewModel model = new NavigationViewModel();
+
+            model.TheCourses = TheCourses;
+            model.TheImage = TheImage;
+            model.TheUser = TheUserModel;
+
+
+            return PartialView("Navigation", model);
         }
 
         public ActionResult GetCourse(int? id)
@@ -75,6 +86,20 @@ namespace GameSchool.Controllers
         public ActionResult CreateLecture()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateLecture(LectureModel model)
+        {
+            if (model != null)
+            {
+                LectureModel TheNewLecture = new LectureModel();
+
+                TheNewLecture.DateAdded = DateTime.Now;
+                UpdateModel(model);
+                return RedirectToAction("TeacherIndex");
+            }
+            return View("Error");
         }
 
         public ActionResult LevelsForCourse(int? courseID)
