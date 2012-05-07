@@ -1,10 +1,23 @@
-﻿@model IEnumerable<GameSchool.Models.dbLINQ.CourseModel>
+﻿@model GameSchool.Models.ViewModels.NavigationViewModel
 
-<li class="nav-header">Námskeiðin Mín</li>
-<ul>
-@foreach (var course in Model)
-{
-    <li>@Html.ActionLink(course.Name, "GetCourse", new{id = course.ID})</li>
-}
-</ul>
-</li>
+
+   <li class="nav-header">
+        Þinn Prófíll
+        <div id="profile">
+                <div id="profileimage">
+                    <img src="@Model.TheImage.Source" alt="Mynd af þínu fési"/>
+                </div>
+                 <div id="profileinfo">
+                    <p>Nafn: @Model.TheUser.m_User.Name</p>
+                    @Html.ActionLink("Breyta", "ProfileManagement", "Student")
+                 </div>
+        </div>
+   </li>
+       
+   <li class="nav-header">Your Courses</li>
+   <ul>
+   @foreach (var item in Model.TheCourses)
+    {
+            <li>@Html.ActionLink(item.Name, "/GetCourse/" + item.ID, "Teacher")</li>
+    }
+    </ul>

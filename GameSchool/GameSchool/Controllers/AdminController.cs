@@ -133,6 +133,7 @@ namespace GameSchool.Controllers
                 m_UsersRepo.SetUserToRole(TheUserRole);
                 m_UsersRepo.Save();
 
+
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     return RedirectToAction("AdminIndex", "Admin");

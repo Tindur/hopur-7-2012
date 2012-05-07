@@ -290,17 +290,17 @@ namespace GameSchool.Controllers
         public ActionResult CreateLikeForComment(int CommentID)
         {
             //TODO:  Útfæra að ná í fullt nafn þess sem er að lika
-
+            string theLiker = m_UserRepo.GetUserByName(User.Identity.Name).Name;
             //Kanna hvort notandinn hafi like'að commentið áður
             var check = m_LikeRepo.GetLikesForComment(CommentID);
             foreach (var item in check)
             {
-                if (item.UserName == strUser)
+                if (item.UserName == theLiker)
                     return Json(null);
             }
             //Púsla like'inu saman
             LikeModel newLike = new LikeModel();
-            newLike.UserName = strUser;
+            newLike.UserName = theLiker;
             newLike.CommentID = CommentID;
             //Bæti like'inu í gagnagrunninn
             m_LikeRepo.AddLike(newLike);
