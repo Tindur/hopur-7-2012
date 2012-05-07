@@ -31,9 +31,10 @@
 	</li>
 </script>
 
+<!--Comment Template-->
 <script id="addComment_template" type="text/html">
   <div id="AddComment">
-    <ul class="commentList">
+      <ul class="commentList">
             <li class="commentAdd">
 			    <textarea id="CommentText" name="CommentText" rows="3" cols="20"></textarea>
 			    <label>
@@ -45,6 +46,12 @@
     </div>
 </script>
 
+<!--Likes Template-->
+<script id="like_template" type="text/html">
+    <a class="liker" href="http://www.ru.is">${Name}</a> líkar þetta <br>
+</script>
+
+<!--Video Template-->
 <script id="video_template" type="text/html">
     <h3>${Name}</h3>
     <p>${Description}</p>
@@ -52,6 +59,11 @@
 </script>
 
 <script type="text/javascript">
+    $(document).ready(function () {
+        //MÖGULEGA FÆRA EITTHVAÐ HINGAÐ INN TIL AÐ LAGA RANDOM SKIPTIN SEM AÐ KOMMENTIN DETTA EKKI INN
+    });
+
+    //Gets video, comment and likes
     function get_video(id) {
         $.getJSON("/Student/GetLectureByID", { id: id }, function (data) {
             $("#video_template").tmpl(data).appendTo("#video_span");
@@ -60,8 +72,17 @@
         $.getJSON("/Student/GetCommentsByID", { id: id }, function (data) {
             $("#comment_template").tmpl(data).insertBefore("#");
         });
+        function get_likes() {
+            $.getJSON("/Student/GetLikesForLecture", { id: id }, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i];
+                    $("#like_template").tmpl(item).appendTo("#like_" + item.Comment_ID);
+                }
+            });
+        }
     }
 
+    //Post a comment!
     $(".submit_comment").live("click", function () {
         var lecid = parseInt($(this).attr('id'));
         var param = $("#CommentText").val();
@@ -71,6 +92,23 @@
 
         });
     });
+
+    //Post a like!
+    $(".like").live("click", (function () {
+        var like = parseInt($(this).attr('id'));
+        $.post("/Student/CreateLikeForComment", { CommentID: like }, function (data) {
+            if (data != "") {
+                $("#like_template").tmpl(data).appendTo("#like_" + like);
+            }
+            else {
+                $("#error_template").tmpl(data).appendTo("#like_" + like);
+                $("#error").fadeOut(5000, function () {
+                    $("#error").remove();
+                });
+            }
+        });
+    }));    
+
 </script>
 
 <!--@foreach(var item in Model)

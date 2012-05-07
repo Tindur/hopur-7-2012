@@ -324,7 +324,7 @@ namespace GameSchool.Models.dbLINQ
 		
 		private int _ID;
 		
-		private System.Guid _TeacherID;
+		private string _TeacherUsername;
 		
 		private int _CourseID;
 		
@@ -334,8 +334,8 @@ namespace GameSchool.Models.dbLINQ
     partial void OnCreated();
     partial void OnIDChanging(int value);
     partial void OnIDChanged();
-    partial void OnTeacherIDChanging(System.Guid value);
-    partial void OnTeacherIDChanged();
+    partial void OnTeacherUsernameChanging(string value);
+    partial void OnTeacherUsernameChanged();
     partial void OnCourseIDChanging(int value);
     partial void OnCourseIDChanged();
     #endregion
@@ -365,22 +365,22 @@ namespace GameSchool.Models.dbLINQ
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeacherID", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid TeacherID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeacherUsername", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string TeacherUsername
 		{
 			get
 			{
-				return this._TeacherID;
+				return this._TeacherUsername;
 			}
 			set
 			{
-				if ((this._TeacherID != value))
+				if ((this._TeacherUsername != value))
 				{
-					this.OnTeacherIDChanging(value);
+					this.OnTeacherUsernameChanging(value);
 					this.SendPropertyChanging();
-					this._TeacherID = value;
-					this.SendPropertyChanged("TeacherID");
-					this.OnTeacherIDChanged();
+					this._TeacherUsername = value;
+					this.SendPropertyChanged("TeacherUsername");
+					this.OnTeacherUsernameChanged();
 				}
 			}
 		}

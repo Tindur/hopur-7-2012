@@ -21,7 +21,7 @@
         <p>@Model.Description</p>
     </div>
     <div class="tab-pane" id="tab2">
-        @Html.Action("CourseLectures", "Teacher", new { courseID = Model.ID })
+        @Html.ActionLink("CreateLecture", "Teacher")
     </div>
     <div class="tab-pane" id="tab3">
       <p>shit</p>

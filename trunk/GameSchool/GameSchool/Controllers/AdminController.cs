@@ -70,7 +70,9 @@ namespace GameSchool.Controllers
                 aspnet_Membership TheMembership = m_UsersRepo.GetMembershipById(model.User_ID);
                 aspnet_UsersInRole TheUsersRole = m_UsersRepo.GetUserRoleById(model.User_ID);
                 Guid TheUsersRoleGuid = new Guid(model.Role_ID);
+                Guid TheUsersID = new Guid(model.User_ID);
 
+                m_UsersRepo.RemoveUserFromRole(TheUsersRole);
 
                 TheUser.UserName = model.UserName;
                 TheUser.LoweredUserName = model.UserName.ToLower();
@@ -80,15 +82,19 @@ namespace GameSchool.Controllers
                 TheUser.Phone = model.Phone;
                 TheMembership.Email = model.Email;
                 TheMembership.LoweredEmail = model.Email.ToLower();
-                
-                //TODO mögulega skipta um role á user
 
+                aspnet_UsersInRole role = new aspnet_UsersInRole();
+                role.RoleId = TheUsersRoleGuid;
+                role.UserId = TheUsersID;
+
+
+                m_UsersRepo.SetUserToRole(role);
                 m_UsersRepo.Save();
 
                 return RedirectToAction("AdminIndex");
 
             }
-            return View("GetUsers");
+            return View("Error");
         }
         public ActionResult CreateUser()
         {
@@ -111,14 +117,20 @@ namespace GameSchool.Controllers
                 Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
 
                 aspnet_User TheUser = m_UsersRepo.GetUserByName(model.UserName);
-                ImageModel TheImage = new ImageModel();
-                Guid TheUserId = new Guid(model.User_ID);
+                aspnet_UsersInRole TheUserRole = new aspnet_UsersInRole();
+                Guid TheUsersRoleID = new Guid(model.Role_ID);
+                //Guid TheUserID = new Guid(model.User_ID);
+
+                TheUserRole.RoleId = TheUsersRoleID;
+                TheUserRole.UserId = TheUser.UserId;
                 TheUser.Name = model.Name;
                 TheUser.SSN = model.SSN;
                 TheUser.Address = model.Address;
                 TheUser.Phone = model.Phone;
-                TheImage.UserID = TheUserId;
-                TheImage.Source = "../../Content/Images/Prisonmike.png";
+				ImageModel TheImage = new ImageModel();
+                Guid TheUserId = new Guid(model.User_ID);
+
+                m_UsersRepo.SetUserToRole(TheUserRole);
                 m_UsersRepo.Save();
 
                 if (createStatus == MembershipCreateStatus.Success)
@@ -186,8 +198,9 @@ namespace GameSchool.Controllers
             CourseEditViewModel model = new CourseEditViewModel();
             model.Students = TheStudents;
             model.Teachers = TheTeachers;
-            model.StudentNameInCourse = null;
-            model.TeachersIDinCourse = null;
+            model.StudentNameInCourse = new List<String>().AsQueryable();
+            model.TeachersNameInCourse = new List<String>().AsQueryable();
+            model.Course = new CourseModel();
 
             return View(model);
         }
@@ -207,7 +220,7 @@ namespace GameSchool.Controllers
             IQueryable<aspnet_User> TheStudents = m_UsersRepo.GetAllStudents();
             IQueryable<aspnet_User> TheTeachers = m_UsersRepo.GetAllTeachers();
             IQueryable<string> TheStudentsRegistration = m_CourseRepo.GetStudentNameForCourse(id);
-            IQueryable<Guid> TheTeachersRegistration = m_CourseRepo.GetTeachersIDForCourse(id);
+            IQueryable<string> TheTeachersRegistration = m_CourseRepo.GetTeachersNameForCourse(id);
 
             CourseEditViewModel model = new CourseEditViewModel();
             
@@ -215,7 +228,7 @@ namespace GameSchool.Controllers
             model.Students = TheStudents;
             model.Teachers = TheTeachers;
             model.StudentNameInCourse = TheStudentsRegistration;
-            model.TeachersIDinCourse = TheTeachersRegistration;
+            model.TeachersNameInCourse = TheTeachersRegistration;
 
             return View(model);
         }
@@ -242,17 +255,27 @@ namespace GameSchool.Controllers
             m_CourseRepo.AddStudentToCourse(Registration);
             m_CourseRepo.Save();
 
-            return Json(null);
+            return Json(Registration, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
-        public ActionResult AddTeacherToCourse(int CourseID, string TeacherID)
+        public ActionResult AddTeacherToCourse(int CourseID, string TeachersUserName)
         {
             TeacherRegistration Registration = new TeacherRegistration();
-            Guid TheTeacherID = new Guid(TeacherID);
             Registration.CourseID = CourseID;
-            Registration.TeacherID = TheTeacherID;
+            Registration.TeacherUsername = TeachersUserName;
 
             m_CourseRepo.AddTeacherToCourse(Registration);
+            m_CourseRepo.Save();
+
+            return Json(Registration, JsonRequestBehavior.AllowGet);
+            //return Json(null);
+        }
+
+        [HttpPost]
+        public ActionResult RemoveStudentFromCourse(int courseID, string StudentName)
+        {
+            m_CourseRepo.RemoveStudentFromCourse(courseID, StudentName);
             m_CourseRepo.Save();
 
             return Json(null);

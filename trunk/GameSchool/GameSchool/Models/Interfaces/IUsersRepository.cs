@@ -13,6 +13,8 @@ namespace GameSchool.Models.Interfaces
         aspnet_User GetUserByName(string name);
         aspnet_Membership GetMembershipById(string id);
         aspnet_UsersInRole GetUserRoleById(string id);
+        void RemoveUserFromRole(aspnet_UsersInRole usr);
+        void SetUserToRole(aspnet_UsersInRole usr);
         IQueryable<aspnet_Role> GetRoles();
         void AddUser(aspnet_User User);
         void Save();

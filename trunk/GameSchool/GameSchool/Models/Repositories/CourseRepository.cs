@@ -13,7 +13,10 @@ namespace GameSchool.Models.Repositories
 
         public IQueryable<CourseModel> GetAllCourses()
         {
-            return m_courseDB.CourseModels;
+            var result = from cr in m_courseDB.CourseModels
+                         orderby cr.Name ascending
+                         select cr;
+            return result;
         }
 
         public IQueryable<CourseModel> GetCoursesForStudent(string studentUsername)
@@ -26,11 +29,11 @@ namespace GameSchool.Models.Repositories
             return result;
         }
 
-        public IQueryable<CourseModel> GetCoursesForTeacher(string TeacherID)
+        public IQueryable<CourseModel> GetCoursesForTeacher(string TeachersUserName)
         {
            var result = from cr in m_courseDB.TeacherRegistrations
                          join cm in m_courseDB.CourseModels on cr.CourseID equals cm.ID
-                         where cr.TeacherID.ToString() == TeacherID.ToString()
+                         where cr.TeacherUsername == TeachersUserName
                          select cm;
 
             return result;
@@ -69,11 +72,11 @@ namespace GameSchool.Models.Repositories
             m_courseDB.SubmitChanges();
         }
 
-        public IQueryable<Guid> GetTeachersIDForCourse(int CourseId)
+        public IQueryable<string> GetTeachersNameForCourse(int CourseId)
         {
             var result = from x in m_courseDB.TeacherRegistrations
                          where x.CourseID == CourseId
-                         select x.TeacherID;
+                         select x.TeacherUsername;
 
             return result;
         }
@@ -84,6 +87,16 @@ namespace GameSchool.Models.Repositories
                          where x.CourseID == CourseId
                          select x.StudentUsername;
             return result;
+        }
+
+        public void RemoveStudentFromCourse(int courseID, string studentUserName)
+        {
+            CourseRegistration cReg = (from reg in m_courseDB.CourseRegistrations
+                                       where courseID == reg.CourseID
+                                       where studentUserName == reg.StudentUsername
+                                       select reg).SingleOrDefault();
+
+            m_courseDB.CourseRegistrations.DeleteOnSubmit(cReg);
         }
     }
 }
