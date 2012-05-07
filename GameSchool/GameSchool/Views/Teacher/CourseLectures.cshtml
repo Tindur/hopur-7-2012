@@ -1,0 +1,15 @@
+﻿@model GameSchool.Models.ViewModels.TeacherViewModels.CourseLectureViewModel
+
+@foreach (var level in Model.Levels)
+{
+    <div>
+        <h3>@level.NumberInCourse. @level.Name</h3>
+        @foreach (var lecture in Model.Lectures)
+	    {
+            if (lecture.LevelID == level.ID)
+            {
+                <p>@lecture.Name</p>
+            }
+	    }
+    </div>
+}

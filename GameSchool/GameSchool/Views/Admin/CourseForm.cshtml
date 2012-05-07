@@ -38,10 +38,20 @@
                 <tbody>
                     @foreach (var student in Model.Students)
                     {
-                        <tr>
-                            <td>@student.UserName</td>
-                            <td><a href="#" onclick="SetStudentToCourse(@Model.Course.ID, @student.UserName)">+</a></td>
-                        </tr>
+                        if (Model.StudentNameInCourse.Contains(student.UserName))
+                        {
+                            <tr>
+                                <td>@student.UserName</td>
+                                <td><a href="#" id="@student.UserName" onclick="RemoveStudentFromCourse(@Model.Course.ID)">-</a></td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>@student.UserName</td>
+                                <td><a href="#" id="@student.UserName" onclick="SetStudentToCourse(@Model.Course.ID)">+</a></td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>
@@ -59,18 +69,18 @@
                 <tbody>
                     @foreach (var teacher in Model.Teachers)
                     {
-                        if(!Model.TeachersIDinCourse.Contains(teacher.UserId)
+                        if (!Model.TeachersIDinCourse.Contains(teacher.UserId))
                         {
                             <tr>
                                 <td>@teacher.UserName</td>
-                                <td><a href="#" onclick="SetTeacherToCourse(@Model.Course.ID, @teacher.UserId.ToString())">+</a></td>
+                                <td><a href="#" onclick="SetTeacherToCourse(@Model.Course.ID, @teacher.UserId)">+</a></td>
                             </tr>
                         }
                         else
                         {
                              <tr>
                                 <td>@teacher.UserName</td>
-                                <td><a href="#" onclick="SetTeacherToCourse(@Model.Course.ID, @teacher.UserId.ToString())">-</a></td>
+                                <td><a href="#" onclick="RemoveTeacherFromCourse(@Model.Course.ID, @teacher.UserId)">-</a></td>
                             </tr>
                         }
                     }
@@ -89,10 +99,11 @@
 </div>
 
 <script type="text/javascript">
+    function SetStudentToCourse(CourseID) {
+        var shit = $(this).attr("id");
+        alert(shit);
+        $.post("/Admin/AddStudentToCourse", { CourseID: CourseID, StudentName: Usr }, function () {
 
-    function SetStudentToCourse(CourseID, Username) {
-        $.post("/Admin/AddStudentToCourse", { CourseID: CourseID, StudentName: Username }, function () {
-            $(this.).remove();
         });
     }
 
