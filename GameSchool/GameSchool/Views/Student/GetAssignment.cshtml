@@ -5,7 +5,15 @@
 }
 
 <h2>@Model.Name</h2>
-<p>@Model.Description</p>
 
-<input type="file" value="Velja skrá" />
-<input type="submit" value="Senda inn" />
+<div class="VerkBody">
+    <h4>Verkefnalýsing</h4>
+    <p id="VerkLýsing"> @Model.Description</p>
+</div>
+
+
+ <fieldset class="Takkar">
+      <legend id="VerkSkilTexti">Veldu skrá til að skila</legend>
+           <input id="SkráVerk" type="file" value="Velja skrá" />
+           <input id="Vista" type="submit" value="Senda inn" />
+ </fieldset>

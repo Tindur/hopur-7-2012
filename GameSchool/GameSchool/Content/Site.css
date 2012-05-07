@@ -18,13 +18,7 @@
 	margin-top: 2px;
 	padding: 5px 5px 4px;	
 	overflow: hidden;
-}
-
-.comments > li > a
-{
-	margin-right: 8px;
-	float: left;
-	text-decoration: none;
+	width: 412px;
 }
 
 .commentBody > a > img
@@ -34,6 +28,7 @@
 	border: 0;
 	display: inline-block;
 	float: left;
+	margin-right: 10px;
 }
 
 .commentBody
@@ -42,8 +37,7 @@
 	padding-top: 2px;	
 	display: table-cell;
 	vertical-align: top;
-	width: 390px;
-	
+	width: 410px;
 }
 
 .commentBody > a
@@ -52,17 +46,10 @@
 	cursor: pointer;
 	color: #3B5998;
 	text-decoration: none;	
-	margin-left: 10px;
-}
-
-.commentBody > div
-{
-	padding-top: 15px;
 }
 
 .commentBody > div > abbr
 {
-    margin-left: 10px;
 	border-bottom: none;
 	color: gray;
 	font-weight: normal;
@@ -84,22 +71,27 @@
 	color: #3B5998;	
 }
 
-.commentAdd > textarea
+#AddComment
+{
+    float: left;
+}
+
+.commentList > textarea
 {
 	height: 40px;	
-	display: block;
-	margin: 0;
+	display: inline-block;
 	width: 390px;
 	overflow: hidden;
-	color: #777;
+	color: black;
 	border: 1px solid #BDC7D8;
 	font-size: 11px;
 	padding: 3px;
+	margin: 3px;
 }
 
-.commentAdd > label
+.commentList > label
 {
-	float: right;
+    float: right;
 	margin-top: 5px;
 	background-color: #5B74A8;
 	border: 1px solid #999;
@@ -122,9 +114,9 @@
 	-webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, .1);
 }
 
-.commentAdd > label > input
+.commentList > label > input
 {
-	color: black;
+	color: Black;
 	background: none;
 	border: 0;
 	cursor: pointer;
@@ -148,12 +140,64 @@
 }
 
 /*  CSS fyrir próf  */
+
 .question
 {
     margin: 20px;
+    border-bottom: 1px solid gray;
 }
- 
+
  .question > ul
  {
      list-style: none;
+     font-style: italic;
  }
+ 
+ /* CSS fyrir verkefni */
+ 
+ .VerkBody
+ {
+    margin-top: 15px;  
+ }
+ 
+ .VerkBody > h4
+ {
+     margin-bottom: 8px;
+ }
+ 
+ #VerkLýsing
+ {
+    border-top: 5px solid white;
+ }
+ 
+ .Takkar
+ {
+    margin-top: 25px;   
+ }
+ 
+ #VerkSkilTexti
+ {
+    font-size: medium;
+ }
+ 
+ #SkráVerk
+ {
+     padding-top: 5px;
+ }
+ 
+#Vista
+{
+    color: Black;
+	background: none;
+	background-color: #D3D3D3;
+	border: 0;
+	cursor: pointer;
+	display: -moz-inline-box;
+	display: inline-block;
+	font-size: 13px;
+	font-weight: bold;
+	margin: 0;
+	outline: none;
+	padding: 1px 4px 1px 4px;
+	white-space: nowrap;
+}
