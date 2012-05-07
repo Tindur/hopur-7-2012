@@ -7,6 +7,9 @@ using GameSchool.Models;
 using GameSchool.Models.Repositories;
 using GameSchool.Models.dbLINQ;
 using GameSchool.Models.ViewModels;
+using System.Web.Routing;
+using System.Web.Security;
+
 namespace GameSchool.Controllers
 {
     [Authorize(Roles = "Student")]  
@@ -18,6 +21,7 @@ namespace GameSchool.Controllers
         TestRepository m_TestRepo = new TestRepository();
         CommentRepository m_CommentRepo = new CommentRepository();
         AssignmentRepository m_AssignmentRepo = new AssignmentRepository();
+        UsersRepository m_UserRepo = new UsersRepository();
 
 
         public ActionResult StudentIndex()
@@ -29,7 +33,19 @@ namespace GameSchool.Controllers
 
         public ActionResult Navigation()
         {
-            return PartialView("Navigation", m_CourseRepo.GetCoursesForStudent(User.Identity.Name));
+            aspnet_User TheUser = m_UserRepo.GetUserByName(User.Identity.Name);
+            aspnet_Membership TheMembership = m_UserRepo.GetMembershipById(TheUser.UserId.ToString());
+            UserViewModel TheUserModel = new UserViewModel(TheUser, TheMembership, null, null);
+            ImageModel TheImage = m_UserRepo.GetImageForUser(TheUser.UserId.ToString());
+            IQueryable<CourseModel> TheCourses = m_CourseRepo.GetCoursesForStudent(TheUser.UserName);
+            NavigationViewModel model = new NavigationViewModel();
+
+            model.TheCourses = TheCourses;
+            model.TheImage = TheImage;
+            model.TheUser = TheUserModel;
+
+    
+            return PartialView("Navigation", model);
         }
 
         public ActionResult CourseTabs(int id)
@@ -204,6 +220,62 @@ namespace GameSchool.Controllers
 
             }
             return View("Error");
+        }
+
+        public ActionResult ProfileManagement()
+        {
+            string TheUserName = User.Identity.Name;
+            aspnet_User TheUser = m_UserRepo.GetUserByName(TheUserName);
+            ImageModel UserImage = m_UserRepo.GetImageForUser(TheUser.UserId.ToString());
+            aspnet_Membership Membership = m_UserRepo.GetMembershipById(TheUser.UserId.ToString());
+
+            ProfileManagementView model = new ProfileManagementView();
+
+            model.ImageSource = UserImage.Source;
+            model.Email = Membership.Email;
+            model.NewPassword = null;
+            model.OldPassword = null;
+            model.ConfirmPassword = null;
+
+            return View(model);
+
+        }
+        [HttpPost]
+        public ActionResult ProfileManagement(ProfileManagementView model)
+        {
+            string TheUserName = User.Identity.Name;
+            aspnet_User TheUser = m_UserRepo.GetUserByName(TheUserName);
+            ImageModel UserImage = m_UserRepo.GetImageForUser(TheUser.UserId.ToString());
+            aspnet_Membership TheMembership = m_UserRepo.GetMembershipById(TheUser.UserId.ToString());
+           
+            TheMembership.Email = model.Email;
+            UserImage.Source = model.ImageSource;
+            m_UserRepo.Save();
+            if (model.NewPassword != null && model.OldPassword != null)
+            {
+                bool changePasswordSucceeded;
+                try
+                {
+                    MembershipUser currentUser = Membership.GetUser(TheUserName, true /*Notandi er online */);
+                    changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
+                }
+                catch (Exception)
+                {
+                    changePasswordSucceeded = false;
+                }
+                if (changePasswordSucceeded)
+                {
+                    return RedirectToAction("StudentIndex");
+                }
+                else
+                {
+                    return View("Error");
+                }
+            }
+            else
+            {
+                return RedirectToAction("StudentIndex");
+            }
         }
     }
 }

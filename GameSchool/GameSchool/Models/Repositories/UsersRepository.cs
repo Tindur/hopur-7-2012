@@ -81,5 +81,16 @@ namespace GameSchool.Models.Repositories
                          select x).SingleOrDefault();
             return result;
         }
+        public ImageModel GetImageForUser(string UserId)
+        {
+            var result = (from x in m_usersDB.ImageModels
+                          where x.UserID.ToString() == UserId
+                          select x).SingleOrDefault();
+            return result;
+        }
+        public void AddUserImage(ImageModel Image)
+        {
+            m_usersDB.ImageModels.InsertOnSubmit(Image);
+        }
     }
 }

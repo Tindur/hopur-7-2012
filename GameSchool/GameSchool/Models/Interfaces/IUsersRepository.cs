@@ -17,5 +17,7 @@ namespace GameSchool.Models.Interfaces
         void AddUser(aspnet_User User);
         void Save();
         IQueryable<aspnet_User> GetAllTeachers();
+        ImageModel GetImageForUser(string UserId);
+        void AddUserImage(ImageModel Image);
     }
 }

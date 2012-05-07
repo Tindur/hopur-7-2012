@@ -61,4 +61,11 @@
       <Association Name="aspnet_User_aspnet_Membership" Member="aspnet_User" ThisKey="UserId" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.ImageModel" Member="ImageModels">
+    <Type Name="ImageModel">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Source" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

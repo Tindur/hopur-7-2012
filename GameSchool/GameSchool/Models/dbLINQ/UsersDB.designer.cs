@@ -42,6 +42,9 @@ namespace GameSchool.Models.dbLINQ
     partial void Insertaspnet_Membership(aspnet_Membership instance);
     partial void Updateaspnet_Membership(aspnet_Membership instance);
     partial void Deleteaspnet_Membership(aspnet_Membership instance);
+    partial void InsertImageModel(ImageModel instance);
+    partial void UpdateImageModel(ImageModel instance);
+    partial void DeleteImageModel(ImageModel instance);
     #endregion
 		
 		public UsersDBDataContext() : 
@@ -103,6 +106,14 @@ namespace GameSchool.Models.dbLINQ
 			get
 			{
 				return this.GetTable<aspnet_Membership>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ImageModel> ImageModels
+		{
+			get
+			{
+				return this.GetTable<ImageModel>();
 			}
 		}
 	}
@@ -1381,6 +1392,116 @@ namespace GameSchool.Models.dbLINQ
 						this._UserId = default(System.Guid);
 					}
 					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ImageModel")]
+	public partial class ImageModel : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _Source;
+		
+		private System.Nullable<System.Guid> _UserID;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnSourceChanging(string value);
+    partial void OnSourceChanged();
+    partial void OnUserIDChanging(System.Nullable<System.Guid> value);
+    partial void OnUserIDChanged();
+    #endregion
+		
+		public ImageModel()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Source", DbType="NVarChar(MAX)")]
+		public string Source
+		{
+			get
+			{
+				return this._Source;
+			}
+			set
+			{
+				if ((this._Source != value))
+				{
+					this.OnSourceChanging(value);
+					this.SendPropertyChanging();
+					this._Source = value;
+					this.SendPropertyChanged("Source");
+					this.OnSourceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
 				}
 			}
 		}
