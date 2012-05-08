@@ -139,6 +139,30 @@
     text-decoration : none;
 }
 
+#Innskráning
+{
+    color: Black;
+	background: none;
+	background-color: #D3D3D3;
+	border: 0;
+	cursor: pointer;
+	display: -moz-inline-box;
+	display: inline-block;
+	font-size: 13px;
+	font-weight: bold;
+	margin: 0;
+	outline: none;
+	padding: 4px 7px 4px 7px;
+	white-space: nowrap;
+	margin-top: 15px;
+}
+
+#RememberMe
+{
+    float: left;
+    padding-right: 10px;
+}
+
 /*  CSS fyrir próf  */
 
 .question
@@ -155,37 +179,37 @@
  
  /* CSS fyrir verkefni */
  
- .VerkBody
+ .AssignBody
  {
     margin-top: 15px;  
  }
  
- .VerkBody > h4
+ .AssignBody > h4
  {
      margin-bottom: 8px;
  }
  
- #VerkLýsing
+ .AssignBody > p
  {
     border-top: 5px solid white;
  }
  
- .Takkar
+ .AssignButtons
  {
     margin-top: 25px;   
  }
  
- #VerkSkilTexti
+.AssignButtons > legend
  {
-    font-size: medium;
+    font-size: 130%;
  }
  
- #SkráVerk
+ #UploadAssign
  {
      padding-top: 5px;
  }
  
-#Vista
+#SubmitAssign
 {
     color: Black;
 	background: none;
@@ -198,6 +222,153 @@
 	font-weight: bold;
 	margin: 0;
 	outline: none;
-	padding: 1px 4px 1px 4px;
+	padding: 4px 7px 4px 7px;
 	white-space: nowrap;
+}
+
+/* CSS fyrir ProfileManagement */
+
+#ChangeInfo
+{
+    font-size: 130%;
+    padding-top: 10px;
+    margin-bottom: 5px;
+}
+
+.editor-label
+{
+    padding-top: 8px;
+}
+
+.editor-field > img
+{
+    padding: 10px 0 10px 0;
+}
+
+.SaveChanges
+{
+    color: Black;
+	background: none;
+	background-color: #D3D3D3;
+	border: 0;
+	cursor: pointer;
+	display: -moz-inline-box;
+	display: inline-block;
+	font-size: 13px;
+	font-weight: bold;
+	margin: 0;
+	outline: none;
+	padding: 4px 7px 4px 7px;
+	white-space: nowrap;
+	margin-top: 15px;
+}
+
+/* CSS fyrir Admin */
+
+#CreateUser
+{
+    color: Black;
+	background: none;
+	background-color: #D3D3D3;
+	border: 0;
+	cursor: pointer;
+	display: -moz-inline-box;
+	display: inline-block;
+	font-size: 13px;
+	font-weight: bold;
+	margin: 0;
+	outline: none;
+	padding: 4px 7px 4px 7px;
+	white-space: nowrap;
+	margin-top: 15px;
+}
+
+#EditUser
+{
+    color: Black;
+	background: none;
+	background-color: #D3D3D3;
+	border: 0;
+	cursor: pointer;
+	display: -moz-inline-box;
+	display: inline-block;
+	font-size: 13px;
+	font-weight: bold;
+	margin: 0;
+	outline: none;
+	padding: 4px 7px 4px 7px;
+	white-space: nowrap;
+	margin-top: 15px;
+}
+
+.UserList
+{
+    padding-bottom: 8px;
+    font-size: 130%;
+}
+
+table
+{
+    width: 70%;
+}
+
+th
+{
+    height: 30px;
+    background-color: White;
+    border: 1px solid #70D6EE;
+}
+
+td
+{
+    border-right: 1px solid #70D6EE;
+    border-left: 1px solid #70D6EE;   
+}
+
+tbody
+{
+    border-bottom: 1px solid #70D6EE;
+}
+
+tr:nth-of-type(odd)
+{
+    background-color: #F5F5F5
+}
+
+#BobSaget
+{
+    padding-top: 20px;
+}
+
+#NewCourseButton
+{
+    padding-top: 15px;
+}
+
+/* CSS fyrir áfanga síður nemenda */
+
+#CourseDesc
+{
+    padding-bottom: 5px;
+}
+
+#CourseText
+{
+    padding-bottom: 20px;
+}
+
+#LectureHeading
+{
+    font-size: 18px;
+}
+
+/* CSS fyrir Navigation */
+#profileimage
+{
+    max-width: 150px;
+}
+
+#menu1
+{
+    list-style: none;
 }

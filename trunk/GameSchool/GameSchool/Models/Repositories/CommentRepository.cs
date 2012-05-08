@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using GameSchool.Models.dbLINQ;
 using GameSchool.Models.Interfaces;
+using GameSchool.Models;
 
 namespace GameSchool.Models.Repositories
 {

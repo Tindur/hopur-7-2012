@@ -6,11 +6,15 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using GameSchool.Models;
+using GameSchool.Models.dbLINQ;
+using GameSchool.Models.ViewModels;
+using GameSchool.Models.Repositories;
 
 namespace GameSchool.Controllers
 {
     public class AccountController : Controller
     {
+        UsersRepository m_UserRepo = new UsersRepository();
 
         //
         // GET: /Account/LogOn
@@ -64,6 +68,7 @@ namespace GameSchool.Controllers
         //
         // GET: /Account/Register
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Register()
         {
             return View();
@@ -72,6 +77,7 @@ namespace GameSchool.Controllers
         //
         // POST: /Account/Register
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
@@ -148,6 +154,65 @@ namespace GameSchool.Controllers
         public ActionResult ChangePasswordSuccess()
         {
             return View();
+        }
+
+        [Authorize]
+        public ActionResult ProfileManagement()
+        {
+            string TheUserName = User.Identity.Name;
+            aspnet_User TheUser = m_UserRepo.GetUserByName(TheUserName);
+            ImageModel UserImage = m_UserRepo.GetImageForUser(TheUser.UserId.ToString());
+            aspnet_Membership Membership = m_UserRepo.GetMembershipById(TheUser.UserId.ToString());
+
+            ProfileManagementView model = new ProfileManagementView();
+            model.ImageSource = UserImage.Source;
+            model.Email = Membership.Email;
+            model.NewPassword = null;
+            model.OldPassword = null;
+            model.ConfirmPassword = null;
+
+            return View(model);
+
+        }
+
+        [Authorize(Roles = "Student")]
+        [Authorize(Roles = "Teacher")]
+        [HttpPost]
+        public ActionResult ProfileManagement(ProfileManagementView model)
+        {
+            string TheUserName = User.Identity.Name;
+            aspnet_User TheUser = m_UserRepo.GetUserByName(TheUserName);
+            ImageModel UserImage = m_UserRepo.GetImageForUser(TheUser.UserId.ToString());
+            aspnet_Membership TheMembership = m_UserRepo.GetMembershipById(TheUser.UserId.ToString());
+
+            TheMembership.Email = model.Email;
+            UserImage.Source = model.ImageSource;
+            m_UserRepo.Save();
+            if (model.NewPassword != null && model.OldPassword != null)
+            {
+                bool changePasswordSucceeded;
+                try
+                {
+                    MembershipUser currentUser = Membership.GetUser(TheUserName, true /*Notandi er online */);
+                    changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
+                }
+                catch (Exception)
+                {
+                    changePasswordSucceeded = false;
+                }
+                if (changePasswordSucceeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return View("Error");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         #region Status Codes

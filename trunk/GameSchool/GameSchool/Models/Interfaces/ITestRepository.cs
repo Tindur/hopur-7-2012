@@ -11,6 +11,7 @@ namespace GameSchool.Models.Interfaces
         IQueryable<TestModel> GetAllTestsForLevel(int TheLevelID);
         IQueryable<QuestionModel> GetAllQuestionsForTest(int TheTestID);
         IQueryable<AnswerModel> GetAllAnswersForQuestion(int TheQuestionID);
+        void AddTest(TestModel test);
 
     }
 }

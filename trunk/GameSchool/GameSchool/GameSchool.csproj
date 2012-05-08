@@ -87,6 +87,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CoursesDB.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\dbLINQ\GlossaryDB.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlossaryDB.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Models\dbLINQ\LecturesDB.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -97,21 +102,29 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LevelDB.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\dbLINQ\TestDB.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDB.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Models\dbLINQ\UsersDB.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>UsersDB.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Models\dbLINQ\GlossaryDB.designer.cs">
+    <Compile Include="Models\dbLINQ\XPDB.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>GlossaryDB.dbml</DependentUpon>
+      <DependentUpon>XPDB.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Interfaces\IAssignmentRepository.cs" />
     <Compile Include="Models\Interfaces\ICommentRepository.cs" />
     <Compile Include="Models\Interfaces\ILectureRepository.cs" />
     <Compile Include="Models\Interfaces\ILevelRepository.cs" />
+    <Compile Include="Models\Interfaces\IPointsRepo.cs" />
     <Compile Include="Models\Interfaces\ITestRepository.cs" />
     <Compile Include="Models\Interfaces\IUsersRepository.cs" />
+    <Compile Include="Models\Repositories\AssignmentRepository.cs" />
     <Compile Include="Models\Repositories\CommentRepository.cs" />
     <Compile Include="Models\Repositories\GlossaryRepository.cs" />
     <Compile Include="Models\Interfaces\IGlossaryRepository.cs" />
@@ -124,15 +137,15 @@
     <Compile Include="Models\ViewModels\AdminViewModel.cs" />
     <Compile Include="Models\ViewModels\CourseEditViewModel.cs" />
     <Compile Include="Models\ViewModels\CourseView.cs" />
+    <Compile Include="Models\ViewModels\NavigationViewModel.cs" />
+    <Compile Include="Models\ViewModels\NewsFeedViewModel.cs" />
+    <Compile Include="Models\ViewModels\ProfileManagementView.cs" />
     <Compile Include="Models\ViewModels\RegistrationViewModel.cs" />
+    <Compile Include="Models\ViewModels\TeacherViewModels\CourseLectureViewModel.cs" />
+    <Compile Include="Models\ViewModels\TeacherViewModels\TLevelViewModel.cs" />
     <Compile Include="Models\ViewModels\TestViewModel.cs" />
     <Compile Include="Models\ViewModels\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\dbLINQ\TestDB.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TestDB.dbml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\BootstrapCSS\bootstrap-responsive.css" />
@@ -148,6 +161,7 @@
     <Content Include="Content\Images\BootstrapIMG\glyphicons-halflings-white.png" />
     <Content Include="Content\Images\BootstrapIMG\glyphicons-halflings.png" />
     <Content Include="Content\Images\carbonb.png" />
+    <Content Include="Content\Images\Prisonmike.png" />
     <Content Include="Content\Images\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\Images\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\Images\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -175,7 +189,6 @@
     <Content Include="Content\Images\themes\base\jquery.ui.slider.css" />
     <Content Include="Content\Images\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\Images\themes\base\jquery.ui.theme.css" />
-    <Content Include="Content\shit.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -203,6 +216,145 @@
     <Content Include="Content\themes\base\jquery.ui.slider.css" />
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\css\bootstrap-responsive.css" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\css\bootstrap.css" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\css\docs.css" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\ico\apple-touch-icon-114-precomposed.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\ico\apple-touch-icon-144-precomposed.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\ico\apple-touch-icon-57-precomposed.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\ico\apple-touch-icon-72-precomposed.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\ico\favicon.ico" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\bird.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\bootstrap-mdo-sfmoma-01.jpg" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\bootstrap-mdo-sfmoma-02.jpg" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\bootstrap-mdo-sfmoma-03.jpg" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\browsers.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\example-sites\fleetio.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\example-sites\jshint.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\example-sites\kippt.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\example-sites\soundready.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\examples\bootstrap-example-fluid.jpg" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\examples\bootstrap-example-hero.jpg" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\examples\bootstrap-example-starter.jpg" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\github-16px.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\glyphicons-halflings-white.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\glyphicons-halflings.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\glyphicons\glyphicons_009_magic.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\glyphicons\glyphicons_042_group.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\glyphicons\glyphicons_079_podium.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\glyphicons\glyphicons_082_roundabout.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\glyphicons\glyphicons_155_show_thumbnails.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\glyphicons\glyphicons_163_iphone.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\glyphicons\glyphicons_214_resize_small.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\glyphicons\glyphicons_266_book_open.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\grid-18px-masked.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\icon-css3.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\icon-github.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\icon-html5.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\icon-twitter.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\less-logo-large.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\less-small.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\img\responsive-illustrations.png" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\js\application.js" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\js\bootstrap-alert.js" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\js\bootstrap-button.js" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\js\bootstrap-carousel.js" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\js\bootstrap-collapse.js" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\js\bootstrap-dropdown.js" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\js\bootstrap-modal.js" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\js\bootstrap-popover.js" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\js\bootstrap-scrollspy.js" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\js\bootstrap-tab.js" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\js\bootstrap-tooltip.js" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\js\bootstrap-transition.js" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\js\bootstrap-typeahead.js" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\js\bootstrap.js" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\js\bootstrap.min.js" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\js\google-code-prettify\prettify.css" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\js\google-code-prettify\prettify.js" />
+    <Content Include="Content\twitter-bootstrap\docs\assets\js\jquery.js" />
+    <Content Include="Content\twitter-bootstrap\docs\base-css.html" />
+    <Content Include="Content\twitter-bootstrap\docs\build\index.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\lib\compiler.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\lib\hogan.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\lib\template.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\html\list.html" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\index.html" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\index.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\mustache.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\spec.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\tools\release.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\tools\web_templates.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\1.0.0\hogan.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\1.0.0\hogan.min.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\builds\1.0.0\hogan.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\builds\1.0.0\hogan.min.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\builds\1.0.3\hogan.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\builds\1.0.3\hogan.min.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\builds\1.0.5\hogan-1.0.5.amd.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\builds\1.0.5\hogan-1.0.5.common.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\builds\1.0.5\hogan-1.0.5.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\builds\1.0.5\hogan-1.0.5.min.amd.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\builds\1.0.5\hogan-1.0.5.min.common.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\builds\1.0.5\hogan-1.0.5.min.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\builds\1.0.5\hogan-1.0.5.min.mustache.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\builds\1.0.5\hogan-1.0.5.mustache.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\builds\1.0.5\template-1.0.5.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\builds\1.0.5\template-1.0.5.min.js" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\favicon.ico" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\images\logo.png" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\images\noise.png" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\images\small-hogan-icon.png" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\images\stripes.png" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\stylesheets\layout.css" />
+    <Content Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\stylesheets\skeleton.css" />
+    <Content Include="Content\twitter-bootstrap\docs\components.html" />
+    <Content Include="Content\twitter-bootstrap\docs\download.html" />
+    <Content Include="Content\twitter-bootstrap\docs\examples.html" />
+    <Content Include="Content\twitter-bootstrap\docs\examples\fluid.html" />
+    <Content Include="Content\twitter-bootstrap\docs\examples\hero.html" />
+    <Content Include="Content\twitter-bootstrap\docs\examples\starter-template.html" />
+    <Content Include="Content\twitter-bootstrap\docs\index.html" />
+    <Content Include="Content\twitter-bootstrap\docs\javascript.html" />
+    <Content Include="Content\twitter-bootstrap\docs\less.html" />
+    <Content Include="Content\twitter-bootstrap\docs\scaffolding.html" />
+    <Content Include="Content\twitter-bootstrap\docs\upgrading.html" />
+    <Content Include="Content\twitter-bootstrap\img\glyphicons-halflings-white.png" />
+    <Content Include="Content\twitter-bootstrap\img\glyphicons-halflings.png" />
+    <Content Include="Content\twitter-bootstrap\js\bootstrap-alert.js" />
+    <Content Include="Content\twitter-bootstrap\js\bootstrap-button.js" />
+    <Content Include="Content\twitter-bootstrap\js\bootstrap-carousel.js" />
+    <Content Include="Content\twitter-bootstrap\js\bootstrap-collapse.js" />
+    <Content Include="Content\twitter-bootstrap\js\bootstrap-dropdown.js" />
+    <Content Include="Content\twitter-bootstrap\js\bootstrap-modal.js" />
+    <Content Include="Content\twitter-bootstrap\js\bootstrap-popover.js" />
+    <Content Include="Content\twitter-bootstrap\js\bootstrap-scrollspy.js" />
+    <Content Include="Content\twitter-bootstrap\js\bootstrap-tab.js" />
+    <Content Include="Content\twitter-bootstrap\js\bootstrap-tooltip.js" />
+    <Content Include="Content\twitter-bootstrap\js\bootstrap-transition.js" />
+    <Content Include="Content\twitter-bootstrap\js\bootstrap-typeahead.js" />
+    <Content Include="Content\twitter-bootstrap\js\tests\index.html" />
+    <Content Include="Content\twitter-bootstrap\js\tests\phantom.js" />
+    <Content Include="Content\twitter-bootstrap\js\tests\server.js" />
+    <Content Include="Content\twitter-bootstrap\js\tests\unit\bootstrap-alert.js" />
+    <Content Include="Content\twitter-bootstrap\js\tests\unit\bootstrap-button.js" />
+    <Content Include="Content\twitter-bootstrap\js\tests\unit\bootstrap-carousel.js" />
+    <Content Include="Content\twitter-bootstrap\js\tests\unit\bootstrap-collapse.js" />
+    <Content Include="Content\twitter-bootstrap\js\tests\unit\bootstrap-dropdown.js" />
+    <Content Include="Content\twitter-bootstrap\js\tests\unit\bootstrap-modal.js" />
+    <Content Include="Content\twitter-bootstrap\js\tests\unit\bootstrap-phantom.js" />
+    <Content Include="Content\twitter-bootstrap\js\tests\unit\bootstrap-popover.js" />
+    <Content Include="Content\twitter-bootstrap\js\tests\unit\bootstrap-scrollspy.js" />
+    <Content Include="Content\twitter-bootstrap\js\tests\unit\bootstrap-tab.js" />
+    <Content Include="Content\twitter-bootstrap\js\tests\unit\bootstrap-tooltip.js" />
+    <Content Include="Content\twitter-bootstrap\js\tests\unit\bootstrap-transition.js" />
+    <Content Include="Content\twitter-bootstrap\js\tests\unit\bootstrap-typeahead.js" />
+    <Content Include="Content\twitter-bootstrap\js\tests\vendor\jquery.js" />
+    <Content Include="Content\twitter-bootstrap\js\tests\vendor\qunit.css" />
+    <Content Include="Content\twitter-bootstrap\js\tests\vendor\qunit.js" />
+    <Content Include="Content\twitter-bootstrap\less\tests\css-tests.css" />
+    <Content Include="Content\twitter-bootstrap\less\tests\css-tests.html" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.5.1.js" />
@@ -223,7 +375,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -253,6 +404,98 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\twitter-bootstrap\.gitignore" />
+    <None Include="Content\twitter-bootstrap\.travis.yml" />
+    <None Include="Content\twitter-bootstrap\docs\assets\js\README.md" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\.bin\hulk" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\.gitmodules" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\.git_ignore" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\bin\hulk" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\LICENSE" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\Makefile" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\package.json" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\README.md" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\spec\Changes" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\spec\Rakefile" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\spec\README.md" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\spec\specs\comments.json" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\spec\specs\comments.yml" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\spec\specs\delimiters.json" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\spec\specs\delimiters.yml" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\spec\specs\interpolation.json" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\spec\specs\interpolation.yml" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\spec\specs\inverted.json" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\spec\specs\inverted.yml" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\spec\specs\partials.json" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\spec\specs\partials.yml" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\spec\specs\sections.json" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\spec\specs\sections.yml" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\spec\specs\~lambdas.json" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\spec\specs\~lambdas.yml" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\spec\TESTING.md" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\test\templates\list.mustache" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\web\index.html.mustache" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\wrappers\amd.js.mustache" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\wrappers\common.js.mustache" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\wrappers\js.mustache" />
+    <None Include="Content\twitter-bootstrap\docs\build\node_modules\hogan.js\wrappers\mustache.js.mustache" />
+    <None Include="Content\twitter-bootstrap\docs\build\package.json" />
+    <None Include="Content\twitter-bootstrap\docs\templates\layout.mustache" />
+    <None Include="Content\twitter-bootstrap\docs\templates\pages\base-css.mustache" />
+    <None Include="Content\twitter-bootstrap\docs\templates\pages\components.mustache" />
+    <None Include="Content\twitter-bootstrap\docs\templates\pages\download.mustache" />
+    <None Include="Content\twitter-bootstrap\docs\templates\pages\examples.mustache" />
+    <None Include="Content\twitter-bootstrap\docs\templates\pages\index.mustache" />
+    <None Include="Content\twitter-bootstrap\docs\templates\pages\javascript.mustache" />
+    <None Include="Content\twitter-bootstrap\docs\templates\pages\less.mustache" />
+    <None Include="Content\twitter-bootstrap\docs\templates\pages\scaffolding.mustache" />
+    <None Include="Content\twitter-bootstrap\docs\templates\pages\upgrading.mustache" />
+    <None Include="Content\twitter-bootstrap\js\.jshintrc" />
+    <None Include="Content\twitter-bootstrap\js\README.md" />
+    <None Include="Content\twitter-bootstrap\less\accordion.less" />
+    <None Include="Content\twitter-bootstrap\less\alerts.less" />
+    <None Include="Content\twitter-bootstrap\less\bootstrap.less" />
+    <None Include="Content\twitter-bootstrap\less\breadcrumbs.less" />
+    <None Include="Content\twitter-bootstrap\less\button-groups.less" />
+    <None Include="Content\twitter-bootstrap\less\buttons.less" />
+    <None Include="Content\twitter-bootstrap\less\carousel.less" />
+    <None Include="Content\twitter-bootstrap\less\close.less" />
+    <None Include="Content\twitter-bootstrap\less\code.less" />
+    <None Include="Content\twitter-bootstrap\less\component-animations.less" />
+    <None Include="Content\twitter-bootstrap\less\dropdowns.less" />
+    <None Include="Content\twitter-bootstrap\less\forms.less" />
+    <None Include="Content\twitter-bootstrap\less\grid.less" />
+    <None Include="Content\twitter-bootstrap\less\hero-unit.less" />
+    <None Include="Content\twitter-bootstrap\less\labels-badges.less" />
+    <None Include="Content\twitter-bootstrap\less\layouts.less" />
+    <None Include="Content\twitter-bootstrap\less\mixins.less" />
+    <None Include="Content\twitter-bootstrap\less\modals.less" />
+    <None Include="Content\twitter-bootstrap\less\navbar.less" />
+    <None Include="Content\twitter-bootstrap\less\navs.less" />
+    <None Include="Content\twitter-bootstrap\less\pager.less" />
+    <None Include="Content\twitter-bootstrap\less\pagination.less" />
+    <None Include="Content\twitter-bootstrap\less\popovers.less" />
+    <None Include="Content\twitter-bootstrap\less\progress-bars.less" />
+    <None Include="Content\twitter-bootstrap\less\reset.less" />
+    <None Include="Content\twitter-bootstrap\less\responsive-1200px-min.less" />
+    <None Include="Content\twitter-bootstrap\less\responsive-767px-max.less" />
+    <None Include="Content\twitter-bootstrap\less\responsive-768px-979px.less" />
+    <None Include="Content\twitter-bootstrap\less\responsive-navbar.less" />
+    <None Include="Content\twitter-bootstrap\less\responsive-utilities.less" />
+    <None Include="Content\twitter-bootstrap\less\responsive.less" />
+    <None Include="Content\twitter-bootstrap\less\scaffolding.less" />
+    <None Include="Content\twitter-bootstrap\less\sprites.less" />
+    <None Include="Content\twitter-bootstrap\less\tables.less" />
+    <None Include="Content\twitter-bootstrap\less\thumbnails.less" />
+    <None Include="Content\twitter-bootstrap\less\tooltip.less" />
+    <None Include="Content\twitter-bootstrap\less\type.less" />
+    <None Include="Content\twitter-bootstrap\less\utilities.less" />
+    <None Include="Content\twitter-bootstrap\less\variables.less" />
+    <None Include="Content\twitter-bootstrap\less\wells.less" />
+    <None Include="Content\twitter-bootstrap\LICENSE" />
+    <None Include="Content\twitter-bootstrap\Makefile" />
+    <None Include="Content\twitter-bootstrap\package.json" />
+    <None Include="Content\twitter-bootstrap\README.md" />
     <None Include="Models\dbLINQ\AssignmentDB.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>AssignmentDB.designer.cs</LastGenOutput>
@@ -320,6 +563,21 @@
     <Content Include="Views\Student\GetTest.cshtml" />
     <Content Include="Views\Student\GetTestsForLevel.cshtml" />
     <Content Include="Views\Student\_LecturesPartial.cshtml" />
+    <None Include="Models\dbLINQ\XPDB.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>XPDB.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\Teacher\Course.cshtml" />
+    <Content Include="Views\Teacher\CourseLectures.cshtml" />
+    <Content Include="Views\Teacher\CourseLevels.cshtml" />
+    <Content Include="Views\Teacher\CreateLecture.cshtml" />
+    <Content Include="Views\Teacher\LectureForm.cshtml" />
+    <Content Include="Views\Teacher\LectureFormshit.cshtml" />
+    <Content Include="Views\Teacher\Navigation.cshtml" />
+    <Content Include="Views\Teacher\TeacherNavigation.cshtml" />
+    <Content Include="Views\Teacher\ViewGlossaryForCourse.cshtml" />
+    <Content Include="Views\Shared\ProfileManagement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -362,6 +620,11 @@
   <ItemGroup>
     <None Include="Models\dbLINQ\AssignmentDB.dbml.layout">
       <DependentUpon>AssignmentDB.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\dbLINQ\XPDB.dbml.layout">
+      <DependentUpon>XPDB.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
