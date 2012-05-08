@@ -3001,10 +3001,7 @@ input[type="submit"].btn.btn-mini {
   text-decoration: none;
   background-color: #CC0000;
 }
-.navbar .nav > a:active
-{
-    background-color: #0000FF;
-}
+
 .navbar .divider-vertical {
   height: 40px;
   width: 1px;
