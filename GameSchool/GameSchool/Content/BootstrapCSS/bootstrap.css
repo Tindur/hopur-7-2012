@@ -2491,6 +2491,10 @@ input[type="submit"].btn.btn-mini {
   text-decoration: none;
   background-color: #eeeeee;
 }
+.nav > li > a:active 
+{
+    background-color: #0000FF;
+}
 .nav > .pull-right {
   float: right;
 }
@@ -2523,7 +2527,7 @@ input[type="submit"].btn.btn-mini {
 }
 .nav-list > .active > a,
 .nav-list > .active > a:hover {
-  color: #ffffff;
+  color: #FFFFFF;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
   background-color: #0088cc;
 }
@@ -2793,13 +2797,13 @@ input[type="submit"].btn.btn-mini {
   min-height: 40px;
   padding-left: 20px;
   padding-right: 20px;
-  background-color: #FF0000;
-  background-image: -moz-linear-gradient(top, #FF0000, #FF0000);
-  background-image: -ms-linear-gradient(top, #FF0000, #FF0000);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FF0000), to(#FF0000));
-  background-image: -webkit-linear-gradient(top, #FF0000, #FF0000);
-  background-image: -o-linear-gradient(top, #FF0000, #FF0000);
-  background-image: linear-gradient(top, #FF0000, #FF0000);
+  background-color: #000000;
+  background-image: -moz-linear-gradient(top, #000000, #000000);
+  background-image: -ms-linear-gradient(top, #000000, #000000);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#000000), to(#000000));
+  background-image: -webkit-linear-gradient(top, #000000, #000000);
+  background-image: -o-linear-gradient(top, #000000, #000000);
+  background-image: linear-gradient(top, #000000, #000000);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#333333', endColorstr='#222222', GradientType=0);
   -webkit-border-radius: 4px;
@@ -2988,7 +2992,7 @@ input[type="submit"].btn.btn-mini {
 }
 .navbar .nav > li > a:hover {
   background-color: transparent;
-  color: #ffffff;
+  color: #FFFFFF;
   text-decoration: none;
 }
 .navbar .nav .active > a,
@@ -2996,6 +3000,10 @@ input[type="submit"].btn.btn-mini {
   color: #ffffff;
   text-decoration: none;
   background-color: #CC0000;
+}
+.navbar .nav > a:active
+{
+    background-color: #0000FF;
 }
 .navbar .divider-vertical {
   height: 40px;
