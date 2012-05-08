@@ -7,8 +7,7 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>Breyta Notanda</legend>
-
+        <legend class="ChangeCreateUser">Notaðu formið að neðan til að breyta upplýsingum notanda</legend>
 
         @Html.HiddenFor(model => model.User_ID)
 
@@ -69,7 +68,7 @@
         </div>
 
         <p>
-            <input type="submit" value="Save" />
+            <input id="EditUser" type="submit" value="Vista" />
         </p>
     </fieldset>
 }

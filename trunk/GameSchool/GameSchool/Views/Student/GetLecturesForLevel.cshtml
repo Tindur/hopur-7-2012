@@ -2,9 +2,16 @@
 
 @{
     ViewBag.Title = "GetLecturesForLevel";
+    Layout = "~/Views/Student/GetCourse.cshtml";
 }
 
-<h2>FyrirlestrarPOOP<h2>
+<h2>GetLecturesForLevel</h2>
+
+@{
+    ViewBag.Title = "GetLecturesForLevel";
+}
+
+<h2>Derp</h2>
 @foreach(var item in Model)
 {
     <h3>@item.Name</h3>
