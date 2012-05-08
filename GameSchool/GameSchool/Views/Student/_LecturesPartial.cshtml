@@ -34,13 +34,11 @@
 <script id="addComment_template" type="text/html">
   <div id="AddComment">
       <ul class="commentList">
-            <li class="commentAdd">
 			    <textarea id="CommentText" name="CommentText" rows="3" cols="20"></textarea>
 			    <label>
 				    <input id="${ID}" class="submit_comment" type="submit" value="Skrifa athugasemd" />
 			    </label>
 			    @Html.ValidationMessage( "CommentText" )
-	        </li>
         </ul>
         <a class="get_more_comments" href="#" id="${ID}">Load more comments</a>
     </div>

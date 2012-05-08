@@ -31,22 +31,30 @@
    </div>
    <div class="tab-content">
     <div class="tab-pane active" id="tab1">
-        <p>@Model.m_theCourse.Description</p>
-        @{Html.RenderAction("NewsFeed", "Student");}
+        <legend><h3 class="StudentHeadings">Áfangalýsing</h3></legend>
+        <div id="CourseText">
+            <p>@Model.m_theCourse.Description</p>
+        </div>
+        <div id="CourseStuff">
+            <legend><h3 class="StudentHeadings">Nýtt Efni</h3></legend>
+            @{Html.RenderAction("NewsFeed", "Student");}
+        </div>
     </div>
     <div class="tab-pane" id="tab2">
-      @{Html.RenderAction("GetLecturesForLevel", "Student");}
+         @{Html.RenderAction("GetLecturesForLevel", "Student");}
     </div>
     <div class="tab-pane" id="tab3">
-      <p>shit</p>
+      <legend><h3 class="StudentHeadings">Glósur</h3></legend>
     </div>
     <div class="tab-pane" id="tab4">
-        <p>I hate you!</p>
+        <legend><h3 class="StudentHeadings">Tilkynningar</h3></legend>
     </div>
     <div class="tab-pane" id="tab5">
+        <legend><h3 class="StudentHeadings">Próf</h3></legend>
         @{Html.RenderAction("GetTestsForLevel", "Student");}
     </div>
     <div class="tab-pane" id="tab6">
+        <legend><h3 class="StudentHeadings">Verkefni</h3></legend>
         @{Html.RenderAction("GetAssignmentsForLevel", "Student");}
     </div>
   </div>

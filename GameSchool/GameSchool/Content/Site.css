@@ -139,7 +139,7 @@
     text-decoration : none;
 }
 
-#Innskráning
+#LogOn
 {
     color: Black;
 	background: none;
@@ -345,9 +345,14 @@ tr:nth-of-type(odd)
     padding-top: 15px;
 }
 
+.ChangeCreateUser
+{
+    font-size: 130%;
+}
+
 /* CSS fyrir áfanga síður nemenda */
 
-#CourseDesc
+.StudentHeadings
 {
     padding-bottom: 5px;
 }
@@ -355,20 +360,4 @@ tr:nth-of-type(odd)
 #CourseText
 {
     padding-bottom: 20px;
-}
-
-#LectureHeading
-{
-    font-size: 18px;
-}
-
-/* CSS fyrir Navigation */
-#profileimage
-{
-    max-width: 150px;
-}
-
-#menu1
-{
-    list-style: none;
 }
