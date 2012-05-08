@@ -9,7 +9,7 @@ namespace GameSchool.Models.Interfaces
     interface ICommentRepository
     {
         IEnumerable<CommentModel> GetComments();
-        IQueryable<CommentModel> GetCommentForLecture(int lectureID);
+        IQueryable<CommentModel> GetMoreCommentForLecture(int lectureID);
         void AddComment(CommentModel c);
         void ConnectCommentToLecture(CommentModel com, int LectureID);
         IQueryable<LikeModel> GetLikesForLecture(int lectureID);

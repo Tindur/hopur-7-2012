@@ -43,12 +43,28 @@ namespace GameSchool.Models.Repositories
 			return result;
 		}
 
-        public IQueryable<CommentModel> GetCommentForLecture(int id)
+        public IQueryable<CommentModel> GetMoreCommentForLecture(int id)
         {
-            var result = from lc in m_commentsDB.LectureComments
+            var result = (from lc in m_commentsDB.LectureComments
                          join cm in m_commentsDB.CommentModels on lc.CommentID equals cm.ID
                          where lc.LectureID == id
-                         select cm;
+                         orderby cm.CommentDate descending
+                         select cm).Skip(3);
+            return result;
+        }
+        /// <summary>
+        /// Fyrir lecture_partial View svo listinn yfir öll kommentin verður ekki sjúklega langur nema
+        /// notandinn vilji það
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IQueryable<CommentModel> GetLatestCommentForLecture(int id)
+        {
+            var result = (from lc in m_commentsDB.LectureComments
+                         join cm in m_commentsDB.CommentModels on lc.CommentID equals cm.ID
+                         where lc.LectureID == id
+                         orderby cm.CommentDate descending
+                         select cm).Take(3);
             return result;
         }
 

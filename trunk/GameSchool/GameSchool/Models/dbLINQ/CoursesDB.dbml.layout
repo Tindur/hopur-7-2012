@@ -14,10 +14,10 @@
         <elementListCompartment Id="075a1923-d9a1-46a3-9b70-b8959f97d672" absoluteBounds="0.64000000000000012, 1.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="7bb746fa-783e-42fc-a69e-9ae231fbf081" absoluteBounds="2.25, 2.625, 2, 1.3862939453125">
+    <classShape Id="e8bfe94d-3844-4d75-8871-6f821a7eaa76" absoluteBounds="2.625, 2.75, 2, 1.3862939453125">
       <DataClassMoniker Name="/CoursesDBDataContext/TeacherRegistration" />
       <nestedChildShapes>
-        <elementListCompartment Id="c4c8bcc9-0e0d-43dc-8687-6323c12f2e51" absoluteBounds="2.265, 3.085, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="a8718633-fdd9-4d5e-9091-81c722b4d645" absoluteBounds="2.64, 3.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

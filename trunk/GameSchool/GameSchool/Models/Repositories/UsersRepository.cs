@@ -12,6 +12,7 @@ namespace GameSchool.Models.Repositories
     public class UsersRepository : IUsersRepository
     {
         UsersDBDataContext m_usersDB = new UsersDBDataContext();
+        CoursesDBDataContext m_courseDB = new CoursesDBDataContext();
 
         public IQueryable<aspnet_User> GetAllStudents()
         {
@@ -27,6 +28,15 @@ namespace GameSchool.Models.Repositories
         {
             var result = (from x in m_usersDB.aspnet_Users
                           where x.UserId.ToString() == id
+                          select x).SingleOrDefault();
+
+            return result;
+        }
+
+        public aspnet_User GetUserIDByUserName(string username)
+        {
+            var result = (from x in m_usersDB.aspnet_Users
+                          where x.UserName == username
                           select x).SingleOrDefault();
 
             return result;
@@ -89,6 +99,51 @@ namespace GameSchool.Models.Repositories
                           select x).SingleOrDefault();
             return result;
         }
+
+        public class TeacherForStudent
+        {
+            public string TeacherName { get; set; }
+            public string ImageSource { get; set; }
+        }
+
+        public IQueryable<ImageModel> GetImageForTeachersUser(string UserId)
+        {
+            
+            var UserName = GetUserById(UserId).UserName;
+
+            var result = from x in m_courseDB.CourseRegistrations
+                         where x.StudentUsername == UserName
+                         select x.CourseID;
+
+            var anotherResult = from x in m_courseDB.TeacherRegistrations
+                                where result.ToList().Contains(x.CourseID)
+                                select x.TeacherUsername;
+
+            List<String> tStud = new List<String>();
+            foreach (var teacher in anotherResult)
+	        {
+                var teacherUserID = GetUserIDByUserName(teacher).UserId.ToString();
+		        tStud.Add(teacherUserID);
+	        }
+
+            var finalResult = from x in m_usersDB.ImageModels
+                              where tStud.Contains(x.UserID.ToString())
+                              select x;
+            return finalResult;
+
+            
+
+            
+
+
+
+
+            /*var result = from cr in m_courseDB.CourseRegistrations
+                         join cm in m_courseDB.CourseModels on cr.CourseID equals cm.ID
+                         where cr.StudentUsername == studentUsername
+                         select cm;*/
+        }
+
         public void AddUserImage(ImageModel Image)
         {
             m_usersDB.ImageModels.InsertOnSubmit(Image);

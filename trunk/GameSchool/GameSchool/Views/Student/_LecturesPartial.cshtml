@@ -2,10 +2,10 @@
 
 <h2>Fyrirlestrar</h2>
 
-<div class="span3">
+<div class="span4">
     @foreach (var video in Model)
     {
-        <p><a href="#" class="video_link" id='video_ @video.ID' onclick="get_video(@video.ID)"> @video.Name</a> @video.DateAdded</p>
+        <p>@video.DateAdded: <a href="#" class="video_link" id='video_ @video.ID' onclick="get_video(@video.ID)"> @video.Name</a></p>
     }
 </div>
 
@@ -16,18 +16,17 @@
 
 
 <script id="comment_template" type="text/html">
-
     <li class ="comments" id="comment_${ID}">
         <div class="commentBody">
-            <a href="http://www.pen.is"><img src='/Content/Images/Prisonmike.png' alt="Notandi" </a>
-				<a href="http://www.pen.is">${UserName}</a>
-				<span>${CommentText}</span>
-				<div>
-					<abbr title='${ CommentDate }'>${ CommentDate }</abbr>
-					<a class="like" id="${ID}">Líkar þetta</a>
-                    <p id="like_${ID}"></p>
-				</div>
+           <a href="http://www.pen.is"><img src='/Content/Images/Prisonmike.png' alt="Notandi" </a>
+			<a href="http://www.pen.is">${UserName}</a>
+			<span>${CommentText}</span>
+			<div>
+				<abbr title='${ CommentDate }'>${CommentDate}</abbr>
+				<a class="like" id="${ID}">Líkar þetta</a>
+                <p id="like_${ID}"></p>
 			</div>
+		</div>
 	</li>
 </script>
 
@@ -43,6 +42,7 @@
 			    @Html.ValidationMessage( "CommentText" )
 	        </li>
         </ul>
+        <a class="get_more_comments" href="#" id="${ID}">Load more comments</a>
     </div>
 </script>
 
@@ -50,6 +50,7 @@
 <script id="like_template" type="text/html">
     <a class="liker" href="http://www.ru.is">${UserName}</a> líkar þetta <br>
 </script>
+
 
 <!--Error Template-->
     <script id="error_template" type="text/html">
@@ -70,14 +71,17 @@
 
     //Gets video, comment and likes
     function get_video(id) {
+        $("#video_span > *").remove();
         $.getJSON("/Student/GetLectureByID", { id: id }, function (data) {
             $("#video_template").tmpl(data).appendTo("#video_span");
             $("#addComment_template").tmpl(data).appendTo("#video_span");
         });
-        $.getJSON("/Student/GetCommentsByID", { id: id }, function (data) {
+        $.getJSON("/Student/GetLatestCommentsByID", { id: id }, function (data) {
             $("#comment_template").tmpl(data, get_likes(id)).insertBefore("#AddComment");
-            //get_likes(id);
         });
+        /*$.getJSON("/Student/GetCommentsByID", { id: id }, function (data) {
+            $("#comment_template").tmpl(data, get_likes(id)).insertBefore("#AddComment");
+        });*/
         function get_likes(id) {
             $.getJSON("/Student/GetLikesForLecture", { LectureID: id }, function (data) {
                 for (var i = 0; i < data.length; i++) {
@@ -86,19 +90,77 @@
                 }
             });
         }
-        //get_likes(id);
     }
 
+    //Get more comments!
+    $(".get_more_comments").live("click", function () {
+        var lecid = parseInt($(this).attr('id'));
+        $.getJSON("/Student/GetMoreCommentsByID", { id: lecid }, function (data) {
+            $("#comment_template").tmpl(data, get_likes(lecid)).insertBefore("#AddComment");
+        });
+        function get_likes(lecid) {
+            $.getJSON("/Student/GetLikesForLecture", { LectureID: lecid }, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i];
+                    $("#like_template").tmpl(item).appendTo("#like_" + item.CommentID);
+                }
+            });
+        }
+        $(".get_more_comments").hide();
+    });
+    
     //Post a comment!
     $(".submit_comment").live("click", function () {
         var lecid = parseInt($(this).attr('id'));
         var param = $("#CommentText").val();
         $.post("/Student/CreateCommentForLecture", { CommentText: param, id: lecid }, function (data) {
+           // processComments(data.Comments);
             $(".comments").remove();
             $("#comment_template").tmpl(data).insertBefore("#AddComment");
-
+            $("#CommentText").val("");
         });
     });
+
+    function processComments(data) {
+        for (var i = 0; i < data.length; i++) {
+            data[i].CommentDate = ConvertStringToJSDate(data[i].CommentDate);
+        }
+    }
+    function ConvertStringToJSDate(date) {
+        var dtE = /^\/Date\((-?[0-9]+)\)\/$/.exec(date);
+        if (dtE) {
+            var dt = new Date(parseInt(dtE[1], 10));
+            return dt;
+        }
+        return null;
+    }
+
+    function toShortDate(dt) {
+        var currentTime = new Date();
+
+        var diff = (currentTime - dt) / 1000;
+
+        if (diff < 10) {
+            return "fyrir nokkrum sekúndum";
+        }
+        else if (diff >= 10 && diff < 60) {
+            return "fyrir minna en mínútu síðan";
+        }
+        else if (diff >= 60 && diff < 120) {
+            return "fyrir einni mínútu síðan";
+        }
+        else if (diff >= 120 && diff < 3600) {
+            var minutes = parseInt(diff / 60);
+            return "fyrir " + minutes + " mínútum síðan";
+        }
+        else if (diff >= 3600 && diff < 86400) {
+            var hours = parseInt(diff / 360);
+            return "fyrir" + hours + " tímum síðan";
+        }
+        else {
+            return "more than one day ago";
+        }
+    }
 
     //Post a like!
     $(".like").live("click", (function () {

@@ -5,7 +5,7 @@
 <ul>
 @foreach (var lectures in Model.Lectures)
 {
-    <li>@Html.ActionLink(lectures.Name, "GetLecture/" + lectures.ID, "Student")</li>
+    <li>@lectures.DateAdded: @Html.ActionLink(lectures.Name, "GetLecture/" + lectures.ID, "Student")</li>
 }
 </ul>
 
