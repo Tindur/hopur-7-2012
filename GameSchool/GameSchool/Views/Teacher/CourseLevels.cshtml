@@ -1,6 +1,39 @@
 ﻿@model GameSchool.Models.ViewModels.TeacherViewModels.TLevelViewModel
 
-@foreach (var item in Model.Levels)
+@foreach (var lvl in Model.Levels)
 {
-    <p>@item.Name</p>
+    <h3>@lvl.NumberInCourse. @lvl.Name</h3>
+    
+        <h4>Próf</h4>
+        <ul>
+            @foreach (var test in Model.Tests)
+            {
+                if (test.LevelID == lvl.ID)
+                {
+                    <li>@test.Name</li>
+                }
+            }
+        </ul>
+            @Html.ActionLink("Búa til nýtt próf", "CreateTest", new { levelID = lvl.ID, courseID = lvl.CourseID })
+        <h4>Verkefni</h4>
+        <ul>
+            @foreach (var verk in Model.Assignments)
+            {
+                if (verk.LevelID == lvl.ID)
+                {
+                    <li>@verk.Name</li>
+                }
+            }
+        </ul>
+
+        <h4>Fyrirlestrar</h4>
+        <ul>
+            @foreach (var lc in Model.Lectures)
+            {
+                if (lc.LevelID == lvl.ID)
+                {
+                    <li>@lc.Name</li>
+                }
+            }
+        </ul>    
 }

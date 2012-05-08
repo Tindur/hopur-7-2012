@@ -7,6 +7,7 @@ using  GameSchool.Models;
 using GameSchool.Models.Repositories;
 using GameSchool.Models.dbLINQ;
 using GameSchool.Models.ViewModels;
+using GameSchool.Models.ViewModels.TeacherViewModels;
 
 
 namespace GameSchool.Controllers
@@ -16,6 +17,7 @@ namespace GameSchool.Controllers
     {
         //
         // GET: /Teacher
+        AssignmentRepository m_AssignmentRepo = new AssignmentRepository();
         CourseRepository m_CourseRepo = new CourseRepository();
         LevelRepository m_lvlRepo = new LevelRepository();
         LectureRepository m_LectureRepo = new LectureRepository();
@@ -104,48 +106,66 @@ namespace GameSchool.Controllers
 
         public ActionResult LevelsForCourse(int? courseID)
         {
-           /* if (courseID.HasValue)
+            if (courseID.HasValue)
             {
                 TLevelViewModel model = new TLevelViewModel
                 {
                     Levels = m_lvlRepo.GetAllLevelsForCourse(courseID.Value).ToList(),
                     Lectures = m_LectureRepo.GetLecturesForCourse(courseID.Value).ToList(),
+                    Assignments = new List<AssignmentModel>(),
                     Tests = new List<TestModel>()
+
                 };
-                
-                //if(model.Levels
-                    foreach (var level in model.Levels)
-	                {
-                        model.Tests.AddRange(m_TestRepo.GetAllTestsForLevel(level.ID));
-	                }
+
+                foreach (var level in model.Levels)
+	            {
+                    model.Tests.AddRange(m_TestRepo.GetAllTestsForLevel(level.ID));
+                    model.Assignments.AddRange(m_AssignmentRepo.GetAllAssignmentsForLevel(level.ID));
+	            }
                 
                
                 return PartialView("CourseLevels", model);
             }
-            else*/
+            else
                 return View("Error");
         }
 
-        /*
-        public ActionResult ViewTestsForCourse(int? CourseID)
+        /*public ActionResult ViewTestsForCourse(int? CourseID)
         {
             if (CourseID.HasValue)
             {
                 
             }
-        }
+        }*/
 
-        public ActionResult CreateTest()
+        public ActionResult CreateTest(int? levelID, int? CourseID)
         {
-            return View();
+            if (levelID.HasValue && CourseID.HasValue)
+            {
+                CreateTestViewModel model = new CreateTestViewModel 
+                { 
+                    Test = new TestModel { LevelID = levelID.Value },
+                    CourseID = CourseID.Value
+                };
+
+                return View(model);
+            }
+            else
+                return PartialView("ErrorPartial");
         }
 
         [HttpPost]
-        public ActionResult CreateTest(FormCollection formdata)
+        public ActionResult CreateTest(CreateTestViewModel model)
         {
+            //Virkar ekki því prófin eru aldrei tengd við borðið (þ.e. levelID == 0, alltaf)
+            if (model != null)
+            {
+                m_TestRepo.AddTest(model.Test);
 
-            return RedirectToAction("
+                return RedirectToAction("GetCourse", "Teacher", m_CourseRepo.GetCourseById(model.CourseID));
+            }
+            else
+                return View("Error");
         }
-        */
     }
 }

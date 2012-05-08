@@ -29,5 +29,10 @@ namespace GameSchool.Controllers
         {
             return View();
         }
+
+        public ActionResult Error()
+        {
+            return View("Error");
+        }
     }
 }
