@@ -48,8 +48,13 @@
 
 <!--Likes Template-->
 <script id="like_template" type="text/html">
-    <a class="liker" href="http://www.ru.is">${Name}</a> líkar þetta <br>
+    <a class="liker" href="http://www.ru.is">${UserName}</a> líkar þetta <br>
 </script>
+
+<!--Error Template-->
+    <script id="error_template" type="text/html">
+        <p id="error">Slakaðu á djeng, þú ert nú þegar búinn að líka þetta</p>
+    </script>
 
 <!--Video Template-->
 <script id="video_template" type="text/html">
@@ -70,16 +75,18 @@
             $("#addComment_template").tmpl(data).appendTo("#video_span");
         });
         $.getJSON("/Student/GetCommentsByID", { id: id }, function (data) {
-            $("#comment_template").tmpl(data).insertBefore("#");
+            $("#comment_template").tmpl(data, get_likes(id)).insertBefore("#AddComment");
+            //get_likes(id);
         });
-        function get_likes() {
-            $.getJSON("/Student/GetLikesForLecture", { id: id }, function (data) {
+        function get_likes(id) {
+            $.getJSON("/Student/GetLikesForLecture", { LectureID: id }, function (data) {
                 for (var i = 0; i < data.length; i++) {
                     var item = data[i];
-                    $("#like_template").tmpl(item).appendTo("#like_" + item.Comment_ID);
+                    $("#like_template").tmpl(item).appendTo("#like_" + item.CommentID);
                 }
             });
         }
+        //get_likes(id);
     }
 
     //Post a comment!

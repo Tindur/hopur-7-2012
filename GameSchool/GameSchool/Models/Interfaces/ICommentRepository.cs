@@ -12,5 +12,8 @@ namespace GameSchool.Models.Interfaces
         IQueryable<CommentModel> GetCommentForLecture(int lectureID);
         void AddComment(CommentModel c);
         void ConnectCommentToLecture(CommentModel com, int LectureID);
+        IQueryable<LikeModel> GetLikesForLecture(int lectureID);
+        IQueryable<LikeModel> GetLikesForComment(int commentID);
+        void AddLike(LikeModel c);
     }
 }
