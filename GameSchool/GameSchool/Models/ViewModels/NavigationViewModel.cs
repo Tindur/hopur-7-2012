@@ -9,9 +9,9 @@ namespace GameSchool.Models.ViewModels
 {
     public class NavigationViewModel
     {
-
         public UserViewModel TheUser { get; set; }
         public ImageModel TheImage { get; set; }
-       public  IQueryable<CourseModel> TheCourses {  get; set; }
+        public IEnumerable<ImageModel> TeachersImages { get; set; }
+        public  IQueryable<CourseModel> TheCourses {  get; set; }
     }
 }

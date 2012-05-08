@@ -37,12 +37,15 @@ namespace GameSchool.Controllers
             aspnet_Membership TheMembership = m_UserRepo.GetMembershipById(TheUser.UserId.ToString());
             UserViewModel TheUserModel = new UserViewModel(TheUser, TheMembership, null, null);
             ImageModel TheImage = m_UserRepo.GetImageForUser(TheUser.UserId.ToString());
+            IQueryable<ImageModel> TeachersImages = m_UserRepo.GetImageForTeachersUser(TheUser.UserId.ToString());
             IQueryable<CourseModel> TheCourses = m_CourseRepo.GetCoursesForStudent(TheUser.UserName);
+            
             NavigationViewModel model = new NavigationViewModel();
 
             model.TheCourses = TheCourses;
             model.TheImage = TheImage;
             model.TheUser = TheUserModel;
+            model.TeachersImages = TeachersImages;
 
     
             return PartialView("Navigation", model);
@@ -113,15 +116,15 @@ namespace GameSchool.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetCommentsByID(int? id)
+        public ActionResult GetMoreCommentsByID(int? id)
         {
             if (id.HasValue)
             {
-                var model = m_CommentRepo.GetCommentForLecture(id.Value);
+                var model = m_CommentRepo.GetMoreCommentForLecture(id.Value);
                 var newResult = (from k in model 
                                  select new 
                                  { 
-                                     CommentDate = k.CommentDate.ToShortDateString(), 
+                                     CommentDate = k.CommentDate.ToLongDateString(), 
                                      ID = k.ID, 
                                      CommentText = k.CommentText,
                                      UserName = k.UserName
@@ -136,18 +139,42 @@ namespace GameSchool.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult GetLatestCommentsByID(int? id)
+        {
+            if (id.HasValue)
+            {
+                var model = m_CommentRepo.GetLatestCommentForLecture(id.Value);
+                var newResult = (from k in model
+                                 select new
+                                 {
+                                     CommentDate = k.CommentDate,
+                                     ID = k.ID,
+                                     CommentText = k.CommentText,
+                                     UserName = k.UserName
+                                 });
+                return Json(newResult, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                //TODO?
+                return RedirectToAction("StudentIndex");
+            }
+        }
+
+
         [HttpPost]
         public ActionResult CreateCommentForLecture(string CommentText, int id)
         {
                 CommentModel model = new CommentModel();
                 model.CommentText = CommentText;
-                model.UserName = User.Identity.Name;
+                model.UserName = m_UserRepo.GetUserByName(User.Identity.Name).Name;
             
                 m_CommentRepo.AddComment(model);
                 m_CommentRepo.ConnectCommentToLecture(model, id);
 
-                var result = m_CommentRepo.GetCommentForLecture(id);
-                var newResult = (from k in result select new { CommentDate = k.CommentDate.ToShortDateString(), ID = k.ID, CommentText = k.CommentText, UserName = k.UserName });
+                var result = m_CommentRepo.GetLatestCommentForLecture(id);
+                var newResult = (from k in result select new { CommentDate = k.CommentDate, ID = k.ID, CommentText = k.CommentText, UserName = k.UserName });
                 return Json(newResult);
         }
 
@@ -288,7 +315,6 @@ namespace GameSchool.Controllers
         [HttpPost]
         public ActionResult CreateLikeForComment(int CommentID)
         {
-            string theLiker = m_UserRepo.GetUserByName(User.Identity.Name).Name;
             string theLiker = m_UserRepo.GetUserByName(User.Identity.Name).Name;
             //Kanna hvort notandinn hafi like'að commentið áður
             var check = m_CommentRepo.GetLikesForComment(CommentID);

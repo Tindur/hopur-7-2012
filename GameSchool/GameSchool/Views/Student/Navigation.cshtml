@@ -22,3 +22,11 @@
     </ul>
                                     
   <li class="nav-header">Your Teachers Face!</li>
+        <div id="teacherForStudent">
+            <div id="teacherimage">
+                @foreach (var item in Model.TeachersImages)
+                {
+                    <img src="@item.Source" alt="Mynd af kennaranum þínum" />
+                }
+            </div>
+        </div>
