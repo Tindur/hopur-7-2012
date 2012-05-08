@@ -578,6 +578,10 @@
     <Content Include="Views\Teacher\TeacherNavigation.cshtml" />
     <Content Include="Views\Teacher\ViewGlossaryForCourse.cshtml" />
     <Content Include="Views\Shared\ProfileManagement.cshtml" />
+    <Content Include="Views\Student\GetAssignment.cshtml" />
+    <Content Include="Views\Student\GetAssignmentsForLevel.cshtml" />
+    <Content Include="Views\Student\NewsFeed.cshtml" />
+    <Content Include="Views\Student\ProfileManagement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

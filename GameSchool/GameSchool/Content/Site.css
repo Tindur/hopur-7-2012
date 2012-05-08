@@ -76,6 +76,11 @@
     float: left;
 }
 
+.commentList
+{
+    list-style: none;
+}
+
 .commentList > textarea
 {
 	height: 40px;	
