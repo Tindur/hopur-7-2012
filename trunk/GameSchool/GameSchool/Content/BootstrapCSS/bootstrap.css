@@ -83,7 +83,9 @@ sup {
 sub {
   bottom: -0.25em;
 }
-img {
+img 
+{
+  padding-bottom: 5px;
   max-width: 100%;
   vertical-align: middle;
   border: 0;
