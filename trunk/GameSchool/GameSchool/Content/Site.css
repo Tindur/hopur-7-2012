@@ -367,6 +367,19 @@ tr:nth-of-type(odd)
     padding-bottom: 20px;
 }
 
+/* CSS fyrir navigation bar */
+
+#profileimage
+{
+    max-width: 150px;
+}
+
+#menu1
+{
+    list-style: none;
+}
+}
+
 /* Style fyrir Side scroller í navigation */
 #demo-frame > div.demo { padding: 10px !important; }
 .scroll-pane { overflow: auto; width: 99%; float:left; }

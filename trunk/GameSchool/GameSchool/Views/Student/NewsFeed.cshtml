@@ -3,13 +3,13 @@
 <p>Nýjustu fyrirlestrar</p>
 
 <div class="tabbable">
-<ul>
-@foreach (var lectures in Model.Lectures)
-{
-    <!--<li>@lectures.DateAdded: @Html.ActionLink(lectures.Name, "GetLecture/" + lectures.ID, "Student")</li>-->
-    <li>@lectures.DateAdded: <a href="#tab2" data-toggle="tab">@lectures.Name</a></li>
-}
-</ul>
+    <ul>
+    @foreach (var lectures in Model.Lectures)
+    {
+        <!--<li>@lectures.DateAdded: @Html.ActionLink(lectures.Name, "GetLecture/" + lectures.ID, "Student")</li>-->
+        <li>@lectures.DateAdded: <a href="#tab2" data-toggle="tab">@lectures.Name</a></li>
+    }
+    </ul>
 </div>
 
 <p>Nýjustu verkefni</p>
