@@ -10,7 +10,29 @@ namespace GameSchool.Models.Repositories
 	public class CommentRepository : ICommentRepository
 	{
         CommentDBDataContext m_commentsDB = new CommentDBDataContext();
-       
+
+        public IQueryable<LikeModel> GetLikesForLecture(int lectureID)
+        {
+            var result = from comment in m_commentsDB.LectureComments
+                         join like in m_commentsDB.LikeModels on comment.CommentID equals like.CommentID
+                         where comment.LectureID == lectureID
+                         select like;
+            return result;
+        }
+
+        public void AddLike(LikeModel c)
+        {
+            m_commentsDB.LikeModels.InsertOnSubmit(c);
+            m_commentsDB.SubmitChanges();
+        }
+
+        public IQueryable<LikeModel> GetLikesForComment(int commentID)
+        {
+            var result = from x in m_commentsDB.LikeModels
+                         where x.CommentID == commentID
+                         select x;
+            return result;
+        }
 
 		public IEnumerable<CommentModel> GetComments( )
 		{

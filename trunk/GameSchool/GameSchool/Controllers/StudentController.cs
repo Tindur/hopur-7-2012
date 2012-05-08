@@ -22,7 +22,6 @@ namespace GameSchool.Controllers
         CommentRepository m_CommentRepo = new CommentRepository();
         AssignmentRepository m_AssignmentRepo = new AssignmentRepository();
         UsersRepository m_UserRepo = new UsersRepository();
-        LikeRepository m_LikeRepo = new LikeRepository();
 
 
         public ActionResult StudentIndex()
@@ -280,19 +279,19 @@ namespace GameSchool.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetLikesForLecture(int id)
+        public ActionResult GetLikesForLecture(int LectureID)
         {
-            var model = m_LikeRepo.GetLikesForLecture(id);
+            var model = m_CommentRepo.GetLikesForLecture(LectureID);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public ActionResult CreateLikeForComment(int CommentID)
         {
-            //TODO:  Útfæra að ná í fullt nafn þess sem er að lika
+            string theLiker = m_UserRepo.GetUserByName(User.Identity.Name).Name;
             string theLiker = m_UserRepo.GetUserByName(User.Identity.Name).Name;
             //Kanna hvort notandinn hafi like'að commentið áður
-            var check = m_LikeRepo.GetLikesForComment(CommentID);
+            var check = m_CommentRepo.GetLikesForComment(CommentID);
             foreach (var item in check)
             {
                 if (item.UserName == theLiker)
@@ -303,9 +302,9 @@ namespace GameSchool.Controllers
             newLike.UserName = theLiker;
             newLike.CommentID = CommentID;
             //Bæti like'inu í gagnagrunninn
-            m_LikeRepo.AddLike(newLike);
+            m_CommentRepo.AddLike(newLike);
             //Sæki nýjasta like'ið fyrir Json
-            var latest = (from x in m_LikeRepo.GetLikesForComment(CommentID)
+            var latest = (from x in m_CommentRepo.GetLikesForComment(CommentID)
                           select x).ToList().Last();
             return Json(latest);
         }
