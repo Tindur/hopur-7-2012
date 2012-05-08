@@ -42,5 +42,11 @@ namespace GameSchool.Models.Repositories
                        select test.Name).SingleOrDefault();
             return name;
         }
+
+        public void AddTest(TestModel test)
+        {
+            m_testDB.TestModels.InsertOnSubmit(test);
+            m_testDB.SubmitChanges();
+        }
     }
 }

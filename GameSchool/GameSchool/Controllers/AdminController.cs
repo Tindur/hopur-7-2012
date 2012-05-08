@@ -127,8 +127,13 @@ namespace GameSchool.Controllers
                 TheUser.SSN = model.SSN;
                 TheUser.Address = model.Address;
                 TheUser.Phone = model.Phone;
-				ImageModel TheImage = new ImageModel();
-                Guid TheUserId = new Guid(model.User_ID);
+                ImageModel TheImage = new ImageModel
+                {
+                    Source = "../../Content/Images/Prisonmike.png",
+                    UserID = TheUser.UserId
+                };
+                m_UsersRepo.AddUserImage(TheImage);
+                //Guid TheUserId = new Guid(TheUser.UserId);
 
                 m_UsersRepo.SetUserToRole(TheUserRole);
                 m_UsersRepo.Save();
