@@ -12,6 +12,8 @@ namespace GameSchool.Models.Interfaces
         IQueryable<QuestionModel> GetAllQuestionsForTest(int TheTestID);
         IQueryable<AnswerModel> GetAllAnswersForQuestion(int TheQuestionID);
         void AddTest(TestModel test);
+        string getTestNameByID(int id);
+        TestModel GetTestByID(int testID);
 
     }
 }
