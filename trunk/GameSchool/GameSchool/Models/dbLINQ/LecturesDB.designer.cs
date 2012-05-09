@@ -30,12 +30,12 @@ namespace GameSchool.Models.dbLINQ
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertLectureModel(LectureModel instance);
-    partial void UpdateLectureModel(LectureModel instance);
-    partial void DeleteLectureModel(LectureModel instance);
     partial void InsertLecturesInLevel(LecturesInLevel instance);
     partial void UpdateLecturesInLevel(LecturesInLevel instance);
     partial void DeleteLecturesInLevel(LecturesInLevel instance);
+    partial void InsertLectureModel(LectureModel instance);
+    partial void UpdateLectureModel(LectureModel instance);
+    partial void DeleteLectureModel(LectureModel instance);
     #endregion
 		
 		public LecturesDBDataContext() : 
@@ -68,6 +68,14 @@ namespace GameSchool.Models.dbLINQ
 			OnCreated();
 		}
 		
+		public System.Data.Linq.Table<LecturesInLevel> LecturesInLevels
+		{
+			get
+			{
+				return this.GetTable<LecturesInLevel>();
+			}
+		}
+		
 		public System.Data.Linq.Table<LectureModel> LectureModels
 		{
 			get
@@ -75,12 +83,114 @@ namespace GameSchool.Models.dbLINQ
 				return this.GetTable<LectureModel>();
 			}
 		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LecturesInLevel")]
+	public partial class LecturesInLevel : INotifyPropertyChanging, INotifyPropertyChanged
+	{
 		
-		public System.Data.Linq.Table<LecturesInLevel> LecturesInLevels
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private int _LevelID;
+		
+		private int _LectureID;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnLevelIDChanging(int value);
+    partial void OnLevelIDChanged();
+    partial void OnLectureIDChanging(int value);
+    partial void OnLectureIDChanged();
+    #endregion
+		
+		public LecturesInLevel()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
 		{
 			get
 			{
-				return this.GetTable<LecturesInLevel>();
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LevelID", DbType="Int NOT NULL")]
+		public int LevelID
+		{
+			get
+			{
+				return this._LevelID;
+			}
+			set
+			{
+				if ((this._LevelID != value))
+				{
+					this.OnLevelIDChanging(value);
+					this.SendPropertyChanging();
+					this._LevelID = value;
+					this.SendPropertyChanged("LevelID");
+					this.OnLevelIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LectureID", DbType="Int NOT NULL")]
+		public int LectureID
+		{
+			get
+			{
+				return this._LectureID;
+			}
+			set
+			{
+				if ((this._LectureID != value))
+				{
+					this.OnLectureIDChanging(value);
+					this.SendPropertyChanging();
+					this._LectureID = value;
+					this.SendPropertyChanged("LectureID");
+					this.OnLectureIDChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -103,6 +213,10 @@ namespace GameSchool.Models.dbLINQ
 		
 		private System.Nullable<System.DateTime> _DateAdded;
 		
+		private System.Nullable<int> _Points;
+		
+		private System.Nullable<int> _CourseID;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -119,6 +233,10 @@ namespace GameSchool.Models.dbLINQ
     partial void OnLevelIDChanged();
     partial void OnDateAddedChanging(System.Nullable<System.DateTime> value);
     partial void OnDateAddedChanged();
+    partial void OnPointsChanging(System.Nullable<int> value);
+    partial void OnPointsChanged();
+    partial void OnCourseIDChanging(System.Nullable<int> value);
+    partial void OnCourseIDChanged();
     #endregion
 		
 		public LectureModel()
@@ -246,112 +364,42 @@ namespace GameSchool.Models.dbLINQ
 			}
 		}
 		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LecturesInLevel")]
-	public partial class LecturesInLevel : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID;
-		
-		private int _LevelID;
-		
-		private int _LectureID;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnLevelIDChanging(int value);
-    partial void OnLevelIDChanged();
-    partial void OnLectureIDChanging(int value);
-    partial void OnLectureIDChanged();
-    #endregion
-		
-		public LecturesInLevel()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Points", DbType="Int")]
+		public System.Nullable<int> Points
 		{
 			get
 			{
-				return this._ID;
+				return this._Points;
 			}
 			set
 			{
-				if ((this._ID != value))
+				if ((this._Points != value))
 				{
-					this.OnIDChanging(value);
+					this.OnPointsChanging(value);
 					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
+					this._Points = value;
+					this.SendPropertyChanged("Points");
+					this.OnPointsChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LevelID", DbType="Int NOT NULL")]
-		public int LevelID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CourseID", DbType="Int")]
+		public System.Nullable<int> CourseID
 		{
 			get
 			{
-				return this._LevelID;
+				return this._CourseID;
 			}
 			set
 			{
-				if ((this._LevelID != value))
+				if ((this._CourseID != value))
 				{
-					this.OnLevelIDChanging(value);
+					this.OnCourseIDChanging(value);
 					this.SendPropertyChanging();
-					this._LevelID = value;
-					this.SendPropertyChanged("LevelID");
-					this.OnLevelIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LectureID", DbType="Int NOT NULL")]
-		public int LectureID
-		{
-			get
-			{
-				return this._LectureID;
-			}
-			set
-			{
-				if ((this._LectureID != value))
-				{
-					this.OnLectureIDChanging(value);
-					this.SendPropertyChanging();
-					this._LectureID = value;
-					this.SendPropertyChanged("LectureID");
-					this.OnLectureIDChanged();
+					this._CourseID = value;
+					this.SendPropertyChanged("CourseID");
+					this.OnCourseIDChanged();
 				}
 			}
 		}

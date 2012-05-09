@@ -9,6 +9,7 @@ namespace GameSchool.Models.Interfaces
     interface IAssignmentRepository
     {
         IQueryable<AssignmentModel> GetAllAssignmentsForLevel(int LevelID);
+        IQueryable<AssignmentModel> GetAssignmentsForCourse(int CourseID);
         IQueryable<AssignmentModel> GetFiveLatest(int LevelID);
         AssignmentModel GetAssignmentById(int AssignmentID);
         bool HasStudentFinishedAssignment(aspnet_User Student, AssignmentModel Assignment);

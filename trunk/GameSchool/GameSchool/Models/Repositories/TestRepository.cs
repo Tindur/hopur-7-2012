@@ -19,6 +19,15 @@ namespace GameSchool.Models.Repositories
             return result;
         }
 
+        public IQueryable<TestModel> GetTestsForCourse(int CourseID)
+        {
+            var result = from x in m_testDB.TestModels
+                         where x.CourseID == CourseID
+                         select x;
+            return result;
+
+
+        }
         public IQueryable<QuestionModel> GetAllQuestionsForTest(int TheTestID)
         {
             var result = from x in m_testDB.QuestionModels

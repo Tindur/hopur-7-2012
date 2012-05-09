@@ -36,7 +36,7 @@
             <p>@Model.m_theCourse.Description</p>
         </div>
         <div id="CourseStuff">
-            <legend><h3 class="StudentHeadings">Nýtt Efni</h3></legend>
+            <legend><h3 class="StudentHeadings">Áfangastraumur</h3></legend>
             @{Html.RenderAction("NewsFeed", "Student");}
         </div>
     </div>
@@ -78,8 +78,41 @@
                 }
         
                 <li class="alert @finished">@Html.ActionLink("Borð " + lvl.NumberInCourse + ": " + lvl.Name, 
-                                                                    "/GetLevel/" + lvl.ID , "Student")</li>
+                                                                    "/GetLevel/" + lvl.ID , "Student")
+                
+                <p class="nav-header">Fyrirlestrar</p>
+                @foreach (var lecture in Model.m_theLectures)
+                {
+                    if (lecture.LevelID == lvl.ID)
+                    {
+                        <p class="nav">@lecture.Name</p>
+                        //TODO CHECKBOX!!
+                    }
+                }
+
+                <p class="nav-header">Verkefni</p>
+                @foreach (var assignment in Model.m_theAssignments)
+                {
+                    if (assignment.LevelID == lvl.ID)
+                    {
+                        <p class="nav">@assignment.Name</p>
+                        //TODO checkbox
+                    }
+                }
+
+                <p class="nav-header">Próf</p>
+                @foreach (var test in Model.m_theTests)
+                {
+                    if (test.LevelID == lvl.ID)
+                    {
+                        <p class="nav">@test.Name</p>
+                        //TODO checkbox
+                    }
+                }
+                </li>
             }
+                
+            
         }
     </ul>
 </div>

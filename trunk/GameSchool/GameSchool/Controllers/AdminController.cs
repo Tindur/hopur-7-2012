@@ -251,6 +251,7 @@ namespace GameSchool.Controllers
             }
             return RedirectToAction("GetCourses");
         }
+
         [HttpPost]
         public ActionResult AddStudentToCourse(int CourseID, string StudentName)
         {

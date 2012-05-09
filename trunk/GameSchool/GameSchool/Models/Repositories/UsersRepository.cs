@@ -92,6 +92,14 @@ namespace GameSchool.Models.Repositories
             return result;
         }
 
+        public aspnet_User GetUserByNamez(string fullName)
+        {
+            var result = (from x in m_usersDB.aspnet_Users
+                          where x.Name == fullName
+                          select x).SingleOrDefault();
+            return result;
+        }
+
         public ImageModel GetImageForUser(string UserId)
         {
             var result = (from x in m_usersDB.ImageModels
@@ -100,13 +108,13 @@ namespace GameSchool.Models.Repositories
             return result;
         }
 
-        public string GetImageForUserName(string username)
+        public string GetImageForName(string name)
         {
-            var UserID = GetUserByName(username).UserId.ToString();
-            var result = (from x in m_usersDB.ImageModels
-                         where x.UserID.ToString() == UserID
-                         select x.Source).SingleOrDefault();
-            return result;
+                var NameID = GetUserByNamez(name).UserId;
+                var result = (from x in m_usersDB.ImageModels
+                              where x.UserID == NameID
+                              select x.Source).SingleOrDefault();
+                return result;
         }
 
         public class TeacherForStudent

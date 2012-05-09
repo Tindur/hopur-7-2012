@@ -2,37 +2,57 @@
            
 <h4 class="HeadingsForNewStuff">Nýjustu fyrirlestrar</h4>
 
-
-<ul class="NewStuffForStudents">
-    @foreach (var lectures in Model.Lectures)
-        {
-            <!--<li>@lectures.DateAdded: @Html.ActionLink(lectures.Name, "GetLecture/" + lectures.ID, "Student")</li>-->
-            <li class="ListOfNewThings">@lectures.DateAdded: <a href="#tab2" data-toggle="tab">@lectures.Name</a></li>
-        }
-</ul>
-
+@if (Model.Lectures.Count() != 0)
+{
+    <ul class="NewStuffForStudents">
+        @foreach (var lectures in Model.Lectures)
+            {
+                <!--<li>@lectures.DateAdded: @Html.ActionLink(lectures.Name, "GetLecture/" + lectures.ID, "Student")</li>-->
+                <li class="ListOfNewThings">@lectures.DateAdded: <a href="#tab2" data-toggle="tab">@lectures.Name</a></li>
+            }
+    </ul>
+}
+else
+{
+    <p>Engir nýjir fyrirlestrar</p>
+}
 
 <h4 class="HeadingsForNewStuff">Nýjustu verkefni</h4>
 
-<ul class="NewStuffForStudents">
-    @foreach (var assignments in Model.Assignments)
-    {
-        <li class="ListOfNewThings">@Html.ActionLink(assignments.Name, "GetAssignment/" + assignments.ID, "Student")</li>
-    }
-</ul>
+@if(Model.Assignments.Count() != 0)
+{
+    <ul class="NewStuffForStudents">
+        @foreach (var assignments in Model.Assignments)
+        {
+            <li class="ListOfNewThings">@Html.ActionLink(assignments.Name, "GetAssignment/" + assignments.ID, "Student")</li>
+        }
+    </ul>
+}
+else
+{
+    <p>Engin ný verkefni</p>
+}
 
 <h4 class="HeadingsForNewStuff">Nýjustu tilkynningar</h4>
 
-
- <li class ="comments" id="comment_${ID}">
-    <div class="commentBody">
-        <a href="http://www.pen.is"><img src='@Model.SourceTeacherImage' alt="Notandi" </a>
-		<a href="http://www.pen.is">//todo nafn</a>
-		<span>//todo texti</span>
-		<div>
-			<abbr>${LongCommentDate} ${ShortCommentDate}</abbr>
-			<a class="like" id="${ID}">Líkar þetta</a>
-            <p id="like_${ID}"></p>
-		</div>
-	</div>
-</li>
+@if (Model.Notifications != null)
+{
+    foreach (var notification in Model.Notifications)
+    {
+		 <li class ="comments" id="comment_${ID}">
+            <div class="commentBody">
+                <a href="http://www.pen.is"><img src='@Model.SourceTeacherImage' alt="Notandi" </a>
+		        <a href="http://www.pen.is">@notification.UserName</a>
+		        <span>@notification.Text</span>
+		        <div>
+			        <abbr>@notification.DateAdded</abbr>
+		        </div>
+	        </div>
+        </li>
+    }
+}
+else
+{
+    <p>Engar nýjar tilkynningar</p>
+}
+ 
