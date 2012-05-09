@@ -14,9 +14,8 @@
    </li>
        
    <li class="nav-header">Your Courses</li>
-   <ul>
+
    @foreach (var item in Model.TheCourses)
     {
             <li>@Html.ActionLink(item.Name, "/GetCourse/" + item.ID, "Teacher")</li>
     }
-    </ul>
