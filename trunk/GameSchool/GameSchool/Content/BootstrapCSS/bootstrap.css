@@ -2491,10 +2491,7 @@ input[type="submit"].btn.btn-mini {
   text-decoration: none;
   background-color: #eeeeee;
 }
-.nav > li > a:active 
-{
-    background-color: #0000FF;
-}
+
 .nav > .pull-right {
   float: right;
 }
