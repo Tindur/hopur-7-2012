@@ -355,6 +355,24 @@ tr:nth-of-type(odd)
 .scroll-bar-wrap .ui-slider-handle { top:.2em; height: 1.5em; }
 .scroll-bar-wrap .ui-slider-handle .ui-icon { margin: -8px auto 0; position: relative; top: 50%; }
 
+#lvl
+{
+    position:relative;
+    border-radius: 120px;
+    background: #000;
+    color : white;
+    padding : 7px 9px;
+    position: relative; 
+    top:-20px;
+    right: -100px
+}
+#profileimage
+{
+    margin: 0 auto;
+    display: block;
+}
+.scroll-bar-wrap .ui-slider-handle .ui-icon { margin: -8px auto 0; position: relative; top: 50%; }
+
 /* CSS fyrir Búa til próf */
 
 .AddAnswer

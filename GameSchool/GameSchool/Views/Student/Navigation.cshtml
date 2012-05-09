@@ -20,6 +20,15 @@
 
                                     
   <li class="nav-header">Your Teachers Face!</li>
+        <div id="slideShowContainer">
+            <div id="slideShow">
+                
+                    @foreach (var item in Model.TeachersImages)
+                    {
+                        <li><img src="@item.Source" alt="Mynd af kennaranum þínum" /></li>
+                    }
+                
+  <div id="teacherForStudent">
 <div class="demo">
     <div id="teacherForStudent">
         <div class="scroll-pane ui-widget ui-widget-header ui-corner-all">
@@ -31,7 +40,13 @@
                     </div>
                 }
             </div>
-            <div class="scroll-bar-wrap ui-widget-content ui-corner-bottom">
+<<<<<<< .mine            <a id="previousLink" href="#">»</a>
+            <a id="nextLink" href "#">«</a>
+        </div>
+
+     
+
+=======            <div class="scroll-bar-wrap ui-widget-content ui-corner-bottom">
 		        <div class="scroll-bar"></div>
 	        </div>
         </div>
@@ -111,4 +126,4 @@
 		//init scrollbar size
 		setTimeout( sizeScrollbar, 10 );//safari wants a timeout
 	});
-</script>
+</script>>>>>>>> .theirs
