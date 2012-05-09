@@ -2,4 +2,9 @@
     ViewBag.Title = "GameSchool";
 }
 
-<h3></h3>
+<h2>@ViewBag.Message</h2>
+<div class="offset7 span3">
+<ul class="nav-pills nav-stacked">
+     @Html.Action("XPList", "Student")
+</ul>
+</div>
