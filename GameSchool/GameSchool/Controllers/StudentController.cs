@@ -249,12 +249,14 @@ namespace GameSchool.Controllers
                 IQueryable<LectureModel> TheLectures = m_LectureRepo.GetFiveLatest(id.Value);
                 IQueryable<AssignmentModel> TheAssignments = m_AssignmentRepo.GetFiveLatest(id.Value);
                 IQueryable<NotificationModel> TheNotifications = m_NotificationRepo.GetFiveLatest(id.Value);
+                string SourceTeacherImage = m_UserRepo.GetImageForUserName(m_NotificationRepo.GetNameOfTeacher(id.Value));
 
 
                 NewsFeedViewModel model = new NewsFeedViewModel();
                 model.Lectures = TheLectures;
                 model.Assignments = TheAssignments;
                 model.Notifications = TheNotifications;
+                model.SourceTeacherImage = SourceTeacherImage;
 
                 return PartialView(model);
 

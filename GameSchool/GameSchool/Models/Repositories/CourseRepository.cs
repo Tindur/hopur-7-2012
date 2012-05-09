@@ -24,6 +24,7 @@ namespace GameSchool.Models.Repositories
             var result = from cr in m_courseDB.CourseRegistrations
                          join cm in m_courseDB.CourseModels on cr.CourseID equals cm.ID
                          where cr.StudentUsername == studentUsername
+                         orderby cm.Name ascending
                          select cm;
 
             return result;

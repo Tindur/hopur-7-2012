@@ -24,6 +24,7 @@
 <ul>
 @foreach (var notifications in Model.Notifications)
 {
+    <img src="@Model.SourceTeacherImage" alt="Teacher" />
     <li>@notifications.Text</li>
 }
 </ul>
