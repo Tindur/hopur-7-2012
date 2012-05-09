@@ -13,5 +13,7 @@ namespace GameSchool.Models.Interfaces
         AssignmentModel GetAssignmentById(int AssignmentID);
         bool HasStudentFinishedAssignment(aspnet_User Student, AssignmentModel Assignment);
         void RegisterAssignmentCompletion(int AssignmentID, string StudentID, double Grade);
+        void AddAssignmnet(AssignmentModel TheAssignment);
+        void Save();
     }
 }

@@ -40,12 +40,12 @@ namespace GameSchool.Models.Repositories
 
         public void AddLecture(LectureModel TheLecture)
         {
-            throw new NotImplementedException();
+            m_lectureDB.LectureModels.InsertOnSubmit(TheLecture);
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            m_lectureDB.SubmitChanges();
         }
     }
 }

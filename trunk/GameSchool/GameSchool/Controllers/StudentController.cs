@@ -22,6 +22,7 @@ namespace GameSchool.Controllers
         CommentRepository m_CommentRepo = new CommentRepository();
         AssignmentRepository m_AssignmentRepo = new AssignmentRepository();
         UsersRepository m_UserRepo = new UsersRepository();
+        NotificationRepository m_NotificationRepo = new NotificationRepository();
 
 
         public ActionResult StudentIndex()
@@ -237,11 +238,13 @@ namespace GameSchool.Controllers
             {
                 IQueryable<LectureModel> TheLectures = m_LectureRepo.GetFiveLatest(id.Value);
                 IQueryable<AssignmentModel> TheAssignments = m_AssignmentRepo.GetFiveLatest(id.Value);
+                IQueryable<NotificationModel> TheNotifications = m_NotificationRepo.GetFiveLatest(id.Value);
 
 
                 NewsFeedViewModel model = new NewsFeedViewModel();
                 model.Lectures = TheLectures;
                 model.Assignments = TheAssignments;
+                model.Notifications = TheNotifications;
 
                 return PartialView(model);
 

@@ -43,5 +43,13 @@ namespace GameSchool.Models.Repositories
         {
             throw new NotImplementedException();
         }
+        public void AddAssignmnet(AssignmentModel TheAssignment)
+        {
+            m_assignmentDB.AssignmentModels.InsertOnSubmit(TheAssignment);
+        }
+        public void Save()
+        {
+            m_assignmentDB.SubmitChanges();
+        }
     }
 }

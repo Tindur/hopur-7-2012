@@ -24,6 +24,7 @@ namespace GameSchool.Controllers
         TestRepository m_TestRepo = new TestRepository();
         CommentRepository m_CommentRepo = new CommentRepository();
         UsersRepository m_UserRepo = new UsersRepository();
+        NotificationRepository m_NewsFeedRepo = new NotificationRepository();
 
         public ActionResult TeacherIndex()
         {
@@ -51,18 +52,15 @@ namespace GameSchool.Controllers
         {
             if (id.HasValue)
             {
-                /*IEnumerable<LevelModel> levels = m_lvlRepo.GetAllLevelsForCourse(id.Value);
+                IEnumerable<LevelModel> levels = m_lvlRepo.GetAllLevelsForCourse(id.Value);
 
                 return View("Course", new CourseView
                 {
                     m_theCourse = m_CourseRepo.GetCourseById(id.Value),
                     m_theLevels = levels.ToList(),
-                    m_finishedLvlID = m_lvlRepo.GetFinishedLevelsForStudent(User.Identity.Name).ToList(),
+                    m_finishedLvlID = null /*m_lvlRepo.GetFinishedLevelsForStudent(User.Identity.Name).ToList()*/,
                     m_theLectures = m_LectureRepo.GetLecturesForCourse(id.Value).ToList()
-                });*/
-
-                var model = m_CourseRepo.GetCourseById(id.Value);
-                return View("Course", model);
+                });
             }
             else
             {
@@ -87,19 +85,25 @@ namespace GameSchool.Controllers
 
         public ActionResult CreateLecture()
         {
-            return View();
+            return View(new LectureModel());
         }
 
         [HttpPost]
-        public ActionResult CreateLecture(LectureModel model)
+        public ActionResult CreateLecture(LectureModel model/*, string ReturnUrl*/)
         {
             if (model != null)
             {
-                LectureModel TheNewLecture = new LectureModel();
+                model.DateAdded = DateTime.Now;
 
-                TheNewLecture.DateAdded = DateTime.Now;
-                UpdateModel(model);
-                return RedirectToAction("TeacherIndex");
+                m_LectureRepo.AddLecture(model);
+                m_LectureRepo.Save();
+                /*if (Url.IsLocalUrl(ReturnUrl) && ReturnUrl.Length > 1 && ReturnUrl.StartsWith("/")
+                        && !ReturnUrl.StartsWith("//") && !ReturnUrl.StartsWith("/\\"))
+                {
+                    return Redirect(ReturnUrl);
+                }
+                else*/
+                    return RedirectToAction("TeacherIndex");
             }
             return View("Error");
         }
@@ -167,7 +171,57 @@ namespace GameSchool.Controllers
             else
                 return View("Error");
         }
+        public ActionResult CreateAssignment()
+        {
+            return View(new AssignmentModel());
+        }
 
+        [HttpPost]
+        public ActionResult CreateAssignment(AssignmentModel model)
+        {
+            if (model != null)
+            {
+                model.DateAdded = DateTime.Now;
+
+                m_AssignmentRepo.AddAssignmnet(model);
+                m_AssignmentRepo.Save();
+
+                return View("TeacherIndex");
+            }
+            else
+            {
+                return View("Error");
+            }
+        }
+
+        public ActionResult CreateNotification(int? id)
+        {
+            if (id.HasValue)
+            {
+                NotificationModel model = new NotificationModel();
+                model.CourseID = id.Value;
+
+                return View(model);
+            }
+            else
+                return View("Error");            
+        }
+
+        [HttpPost]
+        public ActionResult CreateNotification(NotificationModel model)
+        {
+            if (model != null)
+            {
+                model.DateAdded = DateTime.Now;
+                model.UserName = User.Identity.Name;
+
+                m_NewsFeedRepo.AddNotification(model);
+                m_NewsFeedRepo.Save();
+
+                return View("TeacherIndex");
+            }
+            return View("Error");
+        }
         public ActionResult EditTest(int? theTestID)
         {
             if (theTestID.HasValue)
@@ -191,5 +245,7 @@ namespace GameSchool.Controllers
             else
                 return View("Error");
         }
+
+            
     }
 }

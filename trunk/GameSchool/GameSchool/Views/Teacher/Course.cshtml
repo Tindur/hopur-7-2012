@@ -1,14 +1,14 @@
-﻿@model GameSchool.Models.dbLINQ.CourseModel
+﻿@model GameSchool.Models.ViewModels.CourseView
 
 @{
-    ViewBag.Title = Model.Name;
+    ViewBag.Title = "GameSchool | " + Model.m_theCourse.Name;
 }
 
-<h2>@Model.Name</h2>
+<h2>@Model.m_theCourse.Name</h2>
 <div class="span7">
     <div class="tabbable">
       <ul class="nav nav-tabs">
-        <li class="active"><a href="#tab1" data-toggle="tab">@Model.Name</a></li>
+        <li class="active"><a href="#tab1" data-toggle="tab">@Model.m_theCourse.Name</a></li>
         <li><a href="#tab2" data-toggle="tab">Fyrirlestrar</a></li>
         <li><a href="#tab3" data-toggle="tab">Próf</a></li>
         <li><a href="#tab4" data-toggle="tab">Verkefni</a></li>
@@ -18,21 +18,22 @@
    </div>
    <div class="tab-content">
     <div class="tab-pane active" id="tab1">
-        <p>@Model.Description</p>
+        <p>@Model.m_theCourse.Description</p>
     </div>
     <div class="tab-pane" id="tab2">
-        @Html.ActionLink("Búa til fyrirlestur", "CreateLecture", "Teacher")
+        @Html.ActionLink("Búa til fyrirlestur", "CreateLecture/", "Teacher")
     </div>
     <div class="tab-pane" id="tab3">
       <p>shit</p>
     </div>
     <div class="tab-pane" id="tab4">
-        <p>I hate you!</p>
+        @Html.ActionLink("Búa til verkefni", "CreateAssignment", "Teacher")
     </div>
     <div class="tab-pane" id="tab5">
-       @Html.Action("LevelsForCourse", "Teacher", new { CourseID = Model.ID})
+       
     </div>
     <div class="tab-pane" id="tab6">
+       @Html.ActionLink("Senda tilkynningu", "CreateNotification/" + Model.m_theCourse.ID, "Teacher")
     </div>
   </div>
 
