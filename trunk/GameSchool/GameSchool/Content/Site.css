@@ -342,6 +342,7 @@ tr:nth-of-type(odd)
     list-style: none;
 }
 
+
 /* Style fyrir Side scroller í navigation */
 #demo-frame > div.demo { padding: 10px !important; }
 .scroll-pane { overflow: auto; width: 99%; float:left; }
@@ -353,3 +354,10 @@ tr:nth-of-type(odd)
 .scroll-bar-wrap .ui-handle-helper-parent { position: relative; width: 100%; height: 100%; margin: 0 auto; }
 .scroll-bar-wrap .ui-slider-handle { top:.2em; height: 1.5em; }
 .scroll-bar-wrap .ui-slider-handle .ui-icon { margin: -8px auto 0; position: relative; top: 50%; }
+
+/* CSS fyrir Búa til próf */
+
+.AddAnswer
+{
+    list-style-type:none;   
+}
