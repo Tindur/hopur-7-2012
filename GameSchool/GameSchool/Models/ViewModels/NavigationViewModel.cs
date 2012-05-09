@@ -13,5 +13,7 @@ namespace GameSchool.Models.ViewModels
         public ImageModel TheImage { get; set; }
         public IEnumerable<ImageModel> TeachersImages { get; set; }
         public  IQueryable<CourseModel> TheCourses {  get; set; }
+        public int? TheLevel { get; set; }
+        public int? TheXP { get; set; }
     }
 }
