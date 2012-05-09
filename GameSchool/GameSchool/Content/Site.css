@@ -330,6 +330,25 @@ tr:nth-of-type(odd)
     float: right;
 }
 
+#ListOfTeacherFace
+{
+    margin-left: 0;
+}
+
+#NotificationsFromTeacher
+{
+    list-style: none;
+    padding-top: 5px;
+}
+
+#NewsFeedTeacherFace
+{
+    padding-top: 5px;
+    height: 40px;
+    width: 40px;
+    float: left;
+}
+
 /* CSS fyrir navigation bar */
 
 #profileimage
@@ -340,6 +359,12 @@ tr:nth-of-type(odd)
 #menu1
 {
     list-style: none;
+}
+
+#TeacherFaceBox
+{
+    margin-top: 20px;
+    height: 200px;
 }
 
 

@@ -21,10 +21,17 @@
 </ul>
 
 <p>Nýjustu tilkynningar</p>
-<ul>
-@foreach (var notifications in Model.Notifications)
-{
-    <img src="@Model.SourceTeacherImage" alt="Teacher" />
-    <li>@notifications.Text</li>
-}
-</ul>
+
+
+ <li class ="comments" id="comment_${ID}">
+    <div class="commentBody">
+        <a href="http://www.pen.is"><img src='@Model.SourceTeacherImage' alt="Notandi" </a>
+		<a href="http://www.pen.is">//todo nafn</a>
+		<span>//todo texti</span>
+		<div>
+			<abbr>${LongCommentDate} ${ShortCommentDate}</abbr>
+			<a class="like" id="${ID}">Líkar þetta</a>
+            <p id="like_${ID}"></p>
+		</div>
+	</div>
+</li>
