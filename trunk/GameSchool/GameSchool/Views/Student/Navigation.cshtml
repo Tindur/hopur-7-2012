@@ -9,9 +9,6 @@
                  <div id="profileinfo">
                     <p>@Html.ActionLink(@Model.TheUser.m_User.Name, "ProfileManagement", "Account")</p>
                  </div>
-                 <div class="demo">
-                    <div id="progressbar"></div>
-                 </div><!-- End demo -->
         </div>
                 <progress  id="xpbar" value="@Model.TheXP" max="100"></progress>
    </li>
@@ -22,10 +19,7 @@
             <li>@Html.ActionLink(item.Name, "/GetCourse/" + item.ID, "Student")</li>
     }
     </ul>
-                                    
-  <li class="nav-header">Your Teachers Face!</li>
-
-  <li class="nav-header">Your Teachers Face!</li>
+ <li class="nav-header">Your Teachers Face!</li>
 <div class="demo">
     <div id="teacherForStudent">
         <div class="scroll-pane ui-widget ui-widget-header ui-corner-all">
