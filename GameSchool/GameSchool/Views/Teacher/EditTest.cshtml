@@ -8,12 +8,45 @@
 {
     <h3>@question.Question</h3>
 }
-<p><a id="newQuestion" href=""></a>Búa til nýja spurningu</p>
+
+<div id="new_question_position">
+    <p><a id="newQuestion" onclick="addQuestionTempl()">Búa til nýja spurningu</a></p>
+</div>
 
 <script type="text/html" id="new_question_template">
-    
+    <div id="add_question">
+      <ul>
+			    <textarea id="question_body" name="question_body" rows="3" cols="50"></textarea>
+			    <label>
+				    <input id="question_levelID" class="submit_question" type="submit" value="Búa til spurningu" />
+			    </label>
+			    @Html.ValidationMessage( "question_body" )
+        </ul>
+        <ul class=" AddAnswer">
+            
+            <span id="herpDerp"></span>
+            <li><a onclick="addAnswerTemplate()">Bæta við svarmöguleika</a></li>
+        </ul>
+    </div>
 </script>
 
 <script type="text/html" id="new_question_link_template">
     <p><a id="newQuestion" href=""></a>Búa til nýja spurningu</p>
+</script>
+
+<script type="text/html" id="add_answer_template">
+    <label for="answer_text"> svarmögleiki </label>
+    <input type="radio" name="answer" value="radiobutton"></br>
+    <li><textarea class="answer_text" name="answer_text" rows="1" cols="30"></textarea></li>
+</script>
+
+<script type="text/javascript">
+    function addQuestionTempl() {
+        $("#new_question_template").tmpl().appendTo("#new_question_position");
+        $("#newQuestion").remove();
+    }
+
+    function addAnswerTemplate() {
+        $("#add_answer_template").tmpl().insertBefore("#herpDerp");
+    }
 </script>
