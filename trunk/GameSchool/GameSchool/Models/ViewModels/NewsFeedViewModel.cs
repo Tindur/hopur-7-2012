@@ -13,5 +13,9 @@ namespace GameSchool.Models.ViewModels
         public IQueryable<AssignmentModel> Assignments { get; set; }
 
         public IQueryable<NotificationModel> Notifications { get; set; }
+
+        public string SourceTeacherImage { get; set; }
+
+        public IQueryable<NotificationComment> NotifComments { get; set; }
     }
 }

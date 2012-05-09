@@ -105,6 +105,14 @@ namespace GameSchool.Models.dbLINQ
 				return this.GetTable<LikeModel>();
 			}
 		}
+		
+		public System.Data.Linq.Table<NotificationComment> NotificationComments
+		{
+			get
+			{
+				return this.GetTable<NotificationComment>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CommentModel")]
@@ -567,6 +575,69 @@ namespace GameSchool.Models.dbLINQ
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.NotificationComments")]
+	public partial class NotificationComment
+	{
+		
+		private int _ID;
+		
+		private int _CommentID;
+		
+		private int _NotificationID;
+		
+		public NotificationComment()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this._ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CommentID", DbType="Int NOT NULL")]
+		public int CommentID
+		{
+			get
+			{
+				return this._CommentID;
+			}
+			set
+			{
+				if ((this._CommentID != value))
+				{
+					this._CommentID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NotificationID", DbType="Int NOT NULL")]
+		public int NotificationID
+		{
+			get
+			{
+				return this._NotificationID;
+			}
+			set
+			{
+				if ((this._NotificationID != value))
+				{
+					this._NotificationID = value;
+				}
 			}
 		}
 	}
