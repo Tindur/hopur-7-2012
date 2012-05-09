@@ -343,10 +343,26 @@ namespace GameSchool.Controllers
             newLike.CommentID = CommentID;
             //Bæti like'inu í gagnagrunninn
             m_CommentRepo.AddLike(newLike);
+            //TODO Redda því að checka á hvort commentari sé að likea commentið sitt.
+                var shit = m_UserRepo.GetUserByName(User.Identity.Name);
+                shit.XP += 10;
+            
+            m_UserRepo.Save();
             //Sæki nýjasta like'ið fyrir Json
             var latest = (from x in m_CommentRepo.GetLikesForComment(CommentID)
                           select x).ToList().Last();
             return Json(latest);
+        }
+        [HttpGet]
+        public ActionResult XPList()
+        {
+            aspnet_User TheUser = m_UserRepo.GetUserByName(User.Identity.Name);
+            IQueryable<int>UserXP = m_UserRepo.GetXPForUsers();
+            int CurrentXP = m_UserRepo.GetXPForCurrentUser(TheUser.UserId.ToString());
+            UserViewModel model = new UserViewModel();
+            model.m_XP = UserXP;
+            model.m_CurrentXP = CurrentXP;
+            return PartialView("XPListView", model);
         }
     }
 }

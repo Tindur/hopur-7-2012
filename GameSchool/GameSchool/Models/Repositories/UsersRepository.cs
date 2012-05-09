@@ -160,7 +160,6 @@ namespace GameSchool.Models.Repositories
                          where cr.StudentUsername == studentUsername
                          select cm;*/
         }
-
         public void AddUserImage(ImageModel Image)
         {
             m_usersDB.ImageModels.InsertOnSubmit(Image);
@@ -174,6 +173,22 @@ namespace GameSchool.Models.Repositories
         public void SetUserToRole(aspnet_UsersInRole usr)
         {
             m_usersDB.aspnet_UsersInRoles.InsertOnSubmit(usr);
+        }
+        public IQueryable<int> GetXPForUsers()
+        {
+            var result = from x in GetAllStudents()
+                                  orderby x.XP.Value descending
+                                  select x.XP.Value;
+
+            return result;           
+        }
+        public int GetXPForCurrentUser(string CurrentID)
+        {
+            var result = (from x in  GetAllStudents()
+                                where x.UserId.ToString() == CurrentID.ToString()
+                                select x.XP.Value).SingleOrDefault();
+
+            return result;
         }
     }
 }

@@ -426,3 +426,65 @@ tr:nth-of-type(odd)
 {
     list-style-type:none;   
 }
+progress,          /* All HTML5 progress enabled browsers */
+progress[role]     /* polyfill */
+{
+    border: 2px solid #000000;
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	background-size: auto;
+}
+progress,                          /* Firefox  */
+progress[role][aria-valuenow] {    /* Polyfill */
+   background: #F5F5F5 !important; /* !important is needed by the polyfill */
+}
+
+/* Chrome */
+progress::-webkit-progress-bar {
+    background:  #F5F5F5;
+}
+
+/* IE10 */
+progress value {
+    color: blue;
+}
+
+/* Firefox */
+progress::-moz-progress-bar {
+    background: black;
+}
+
+/* Chrome */
+progress::-webkit-progress-value {
+    background: red;
+}
+
+/* Polyfill */
+progress[aria-valuenow]:before  {
+    background: black;
+}
+
+#XpProgress
+{
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    width: 180px;
+    height: 40px;
+    margin-left: 60px;
+    margin-bottom: 60px;  
+}
+progress::-webkit-progress-value
+ {
+    background: black;
+}
+#xplist
+{
+    font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+    padding-left: 900px;
+    padding-top: 100px;
+}
+#xplist  p
+{
+    margin-top: 10px;
+}
