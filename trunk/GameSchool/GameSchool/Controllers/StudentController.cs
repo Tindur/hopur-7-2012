@@ -48,6 +48,9 @@ namespace GameSchool.Controllers
             model.TheUser = TheUserModel;
             model.TeachersImages = TeachersImages;
 
+            model.TheLevel = TheUser.XP / 100;
+
+            model.TheXP = TheUser.XP % 100;
     
             return PartialView("Navigation", model);
         }
