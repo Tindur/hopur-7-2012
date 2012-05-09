@@ -18,11 +18,11 @@
 <script id="comment_template" type="text/html">
     <li class ="comments" id="comment_${ID}">
         <div class="commentBody">
-           <a href="http://www.pen.is"><img src='/Content/Images/Prisonmike.png' alt="Notandi" </a>
-			<a href="http://www.pen.is">${UserName}</a>
+           <a href="http://www.pen.is"><img src='${UserImage}' alt="Notandi" </a>
+			<a href="http://www.pen.is">${Name}</a>
 			<span>${CommentText}</span>
 			<div>
-				<abbr title='${ CommentDate }'>${CommentDate}</abbr>
+				<abbr>${LongCommentDate} ${ShortCommentDate}</abbr>
 				<a class="like" id="${ID}">Líkar þetta</a>
                 <p id="like_${ID}"></p>
 			</div>
@@ -39,8 +39,7 @@
 				    <input id="${ID}" class="submit_comment" type="submit" value="Skrifa athugasemd" />
 			    </label>
 			    @Html.ValidationMessage( "CommentText" )
-        </ul>
-        <a class="get_more_comments" href="#" id="${ID}">Load more comments</a>
+        </ul>   
     </div>
 </script>
 
@@ -74,7 +73,7 @@
             $("#video_template").tmpl(data).appendTo("#video_span");
             $("#addComment_template").tmpl(data).appendTo("#video_span");
         });
-        $.getJSON("/Student/GetLatestCommentsByID", { id: id }, function (data) {
+        $.getJSON("/Student/GetCommentsByID", { id: id }, function (data) {
             $("#comment_template").tmpl(data, get_likes(id)).insertBefore("#AddComment");
         });
         /*$.getJSON("/Student/GetCommentsByID", { id: id }, function (data) {
@@ -90,7 +89,7 @@
         }
     }
 
-    //Get more comments!
+    /*//Get more comments!
     $(".get_more_comments").live("click", function () {
         var lecid = parseInt($(this).attr('id'));
         $.getJSON("/Student/GetMoreCommentsByID", { id: lecid }, function (data) {
@@ -105,7 +104,7 @@
             });
         }
         $(".get_more_comments").hide();
-    });
+    });*/
     
     //Post a comment!
     $(".submit_comment").live("click", function () {
