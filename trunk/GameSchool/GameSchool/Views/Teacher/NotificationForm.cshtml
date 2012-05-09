@@ -7,21 +7,20 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>NewsFeedModel</legend>
+        <legend class="Form">Notaðu formið að neðan til að búa til nýja tilkynningu</legend>
 
         @Html.HiddenFor(model => model.ID)
         @Html.HiddenFor(model => model.CourseID)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Text)
+            <p>Texti</p>
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Text)
-            @Html.ValidationMessageFor(model => model.Text)
+            <textarea rows="5" cols="20"></textarea>
         </div>
 
         <p>
-            <input type="submit" value="Save" />
+            <input class="SaveChanges" type="submit" value="Vista" />
         </p>
     </fieldset>
 }

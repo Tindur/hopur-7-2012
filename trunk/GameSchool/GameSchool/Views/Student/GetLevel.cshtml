@@ -1,9 +1,13 @@
 ﻿@model GameSchool.Models.ViewModels.LevelViewModel
            
-<legend><h2>@Model.TheLevel.NumberInCourse. @Model.TheLevel.Name</h2></legend>
+<h2>@Model.TheLevel.NumberInCourse.@Model.TheLevel.Name</h2>
 
-<h3>Borðalýsing</h3>
+<legend class="LevelDesc">
+    <h3 class="StudentHeadings">Borðalýsing</h3>
+</legend>
 
 <p>@Model.TheLevel.Description</p>
 
-<h3>Verkefni</h3>
+<legend class="LevelDesc">
+    <h3 class="StudentHeadings">Verkefni</h3>
+</legend>
