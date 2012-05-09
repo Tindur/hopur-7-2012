@@ -18,21 +18,26 @@
    </div>
    <div class="tab-content">
     <div class="tab-pane active" id="tab1">
+        <legend><h3 class="StudentHeadings">Áfangalýsing</h3></legend>
         <p>@Model.m_theCourse.Description</p>
     </div>
     <div class="tab-pane" id="tab2">
+        <legend><h3 class="StudentHeadings">Fyrirlestrar</h3></legend>
         @Html.ActionLink("Búa til fyrirlestur", "CreateLecture/", "Teacher")
     </div>
     <div class="tab-pane" id="tab3">
-      <p>shit</p>
+        <legend><h3 class="StudentHeadings">Próf</h3></legend>
+        <p>shit</p>
     </div>
     <div class="tab-pane" id="tab4">
+        <legend><h3 class="StudentHeadings">Verkefni</h3></legend>
         @Html.ActionLink("Búa til verkefni", "CreateAssignment", "Teacher")
     </div>
     <div class="tab-pane" id="tab5">
-       
+       <legend><h3 class="StudentHeadings">Borð</h3></legend>
     </div>
     <div class="tab-pane" id="tab6">
+        <legend><h3 class="StudentHeadings">Tilkynningar</h3></legend>
        @Html.ActionLink("Senda tilkynningu", "CreateNotification/" + Model.m_theCourse.ID, "Teacher")
     </div>
   </div>

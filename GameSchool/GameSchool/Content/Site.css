@@ -233,7 +233,9 @@
 
 .editor-field > img
 {
-    padding: 10px 0 10px 0;
+    padding: 50px 0 30px 0;
+    width: 250px;
+    height: 280px;
 }
 
 /* CSS fyrir Admin */
@@ -364,6 +366,11 @@ tr:nth-of-type(odd)
     margin-bottom: 8px;
 }
 
+.navig
+{
+    margin-left: 15px;
+}
+
 /* CSS fyrir navigation bar */
 
 #profileimage
@@ -435,32 +442,27 @@ progress[role]     /* polyfill */
 	-webkit-appearance: none;
 	background-size: auto;
 }
-progress,                          /* Firefox  */
-progress[role][aria-valuenow] {    /* Polyfill */
-   background: #F5F5F5 !important; /* !important is needed by the polyfill */
+progress,                          
+progress[role][aria-valuenow] {    
+   background: #F5F5F5 !important; 
 }
 
-/* Chrome */
 progress::-webkit-progress-bar {
     background:  #F5F5F5;
 }
 
-/* IE10 */
 progress value {
     color: blue;
 }
 
-/* Firefox */
 progress::-moz-progress-bar {
     background: black;
 }
 
-/* Chrome */
 progress::-webkit-progress-value {
     background: red;
 }
 
-/* Polyfill */
 progress[aria-valuenow]:before  {
     background: black;
 }
