@@ -59,13 +59,13 @@ namespace GameSchool.Models.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IQueryable<CommentModel> GetLatestCommentForLecture(int id)
+        public IQueryable<CommentModel> GetCommentForLecture(int id)
         {
-            var result = (from lc in m_commentsDB.LectureComments
+            var result = from lc in m_commentsDB.LectureComments
                          join cm in m_commentsDB.CommentModels on lc.CommentID equals cm.ID
                          where lc.LectureID == id
                          orderby cm.CommentDate descending
-                         select cm).Take(3);
+                         select cm;
             return result;
         }
 

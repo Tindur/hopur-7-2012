@@ -141,18 +141,20 @@ namespace GameSchool.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetLatestCommentsByID(int? id)
+        public ActionResult GetCommentsByID(int? id)
         {
             if (id.HasValue)
             {
-                var model = m_CommentRepo.GetLatestCommentForLecture(id.Value);
+                var model = m_CommentRepo.GetCommentForLecture(id.Value);
                 var newResult = (from k in model
                                  select new
                                  {
-                                     CommentDate = k.CommentDate,
+                                     ShortCommentDate = k.CommentDate.ToShortTimeString(),
+                                     LongCommentDate = k.CommentDate.ToShortDateString(),
                                      ID = k.ID,
                                      CommentText = k.CommentText,
-                                     UserName = k.UserName
+                                     Name = m_UserRepo.GetUserByName(User.Identity.Name).Name,
+                                     UserImage = m_UserRepo.GetImageForUserName(k.UserName)
                                  });
                 return Json(newResult, JsonRequestBehavior.AllowGet);
             }
@@ -163,19 +165,22 @@ namespace GameSchool.Controllers
             }
         }
 
-
         [HttpPost]
         public ActionResult CreateCommentForLecture(string CommentText, int id)
         {
                 CommentModel model = new CommentModel();
                 model.CommentText = CommentText;
-                model.UserName = m_UserRepo.GetUserByName(User.Identity.Name).Name;
+                model.UserName = m_UserRepo.GetUserByName(User.Identity.Name).UserName/*.Name*/;
             
                 m_CommentRepo.AddComment(model);
                 m_CommentRepo.ConnectCommentToLecture(model, id);
 
-                var result = m_CommentRepo.GetLatestCommentForLecture(id);
-                var newResult = (from k in result select new { CommentDate = k.CommentDate, ID = k.ID, CommentText = k.CommentText, UserName = k.UserName });
+                var result = m_CommentRepo.GetCommentForLecture(id);
+                var newResult = (from k in result select new { LongCommentDate = k.CommentDate.ToShortDateString(), 
+                                                               ShortCommentDate = k.CommentDate.ToShortTimeString(), 
+                                                               ID = k.ID, 
+                                                               CommentText = k.CommentText, 
+                                                               UserName = k.UserName });
                 return Json(newResult);
         }
 

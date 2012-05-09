@@ -100,6 +100,15 @@ namespace GameSchool.Models.Repositories
             return result;
         }
 
+        public string GetImageForUserName(string username)
+        {
+            var UserID = GetUserByName(username).UserId.ToString();
+            var result = (from x in m_usersDB.ImageModels
+                         where x.UserID.ToString() == UserID
+                         select x.Source).SingleOrDefault();
+            return result;
+        }
+
         public class TeacherForStudent
         {
             public string TeacherName { get; set; }
