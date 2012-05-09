@@ -85,13 +85,15 @@
 {
 	height: 40px;	
 	display: inline-block;
-	width: 390px;
+	width: 415px;
 	overflow: hidden;
 	color: black;
 	border: 1px solid #BDC7D8;
 	font-size: 11px;
 	padding: 3px;
 	margin: 3px;
+	left: -29px;
+	position: relative;
 }
 
 .commentList > label
@@ -117,6 +119,7 @@
 	white-space: nowrap;	
 	box-shadow: 0 1px 0 rgba(0, 0, 0, .1);
 	-webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+	margin-right: 32px;
 }
 
 .commentList > label > input
@@ -144,7 +147,13 @@
     text-decoration : none;
 }
 
-#LogOn
+#RememberMe
+{
+    float: left;
+    padding-right: 10px;
+}
+
+.SaveChanges
 {
     color: Black;
 	background: none;
@@ -160,12 +169,6 @@
 	padding: 4px 7px 4px 7px;
 	white-space: nowrap;
 	margin-top: 15px;
-}
-
-#RememberMe
-{
-    float: left;
-    padding-right: 10px;
 }
 
 /*  CSS fyrir próf  */
@@ -213,23 +216,6 @@
  {
      padding-top: 5px;
  }
- 
-#SubmitAssign
-{
-    color: Black;
-	background: none;
-	background-color: #D3D3D3;
-	border: 0;
-	cursor: pointer;
-	display: -moz-inline-box;
-	display: inline-block;
-	font-size: 13px;
-	font-weight: bold;
-	margin: 0;
-	outline: none;
-	padding: 4px 7px 4px 7px;
-	white-space: nowrap;
-}
 
 /* CSS fyrir ProfileManagement */
 
@@ -250,61 +236,7 @@
     padding: 10px 0 10px 0;
 }
 
-.SaveChanges
-{
-    color: Black;
-	background: none;
-	background-color: #D3D3D3;
-	border: 0;
-	cursor: pointer;
-	display: -moz-inline-box;
-	display: inline-block;
-	font-size: 13px;
-	font-weight: bold;
-	margin: 0;
-	outline: none;
-	padding: 4px 7px 4px 7px;
-	white-space: nowrap;
-	margin-top: 15px;
-}
-
 /* CSS fyrir Admin */
-
-#CreateUser
-{
-    color: Black;
-	background: none;
-	background-color: #D3D3D3;
-	border: 0;
-	cursor: pointer;
-	display: -moz-inline-box;
-	display: inline-block;
-	font-size: 13px;
-	font-weight: bold;
-	margin: 0;
-	outline: none;
-	padding: 4px 7px 4px 7px;
-	white-space: nowrap;
-	margin-top: 15px;
-}
-
-#EditUser
-{
-    color: Black;
-	background: none;
-	background-color: #D3D3D3;
-	border: 0;
-	cursor: pointer;
-	display: -moz-inline-box;
-	display: inline-block;
-	font-size: 13px;
-	font-weight: bold;
-	margin: 0;
-	outline: none;
-	padding: 4px 7px 4px 7px;
-	white-space: nowrap;
-	margin-top: 15px;
-}
 
 .UserList
 {
@@ -355,6 +287,17 @@ tr:nth-of-type(odd)
     font-size: 130%;
 }
 
+.UserTable
+{
+    margin-bottom: 10px;
+}
+
+.UserTableNames
+{
+    padding-bottom: 5px;
+}
+
+
 /* CSS fyrir áfanga síður nemenda */
 
 .StudentHeadings
@@ -365,6 +308,26 @@ tr:nth-of-type(odd)
 #CourseText
 {
     padding-bottom: 20px;
+}
+
+.tabbable
+{
+    width: 680px;
+}
+
+.TestList
+{
+    padding-bottom: 10px;
+}
+
+.tab-content
+{
+    width: 750px;
+}
+
+.span3
+{
+    float: right;
 }
 
 /* CSS fyrir navigation bar */

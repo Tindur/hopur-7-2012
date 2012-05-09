@@ -12,12 +12,12 @@
    </li>
        
    <li class="nav-header">Your Courses</li>
-   <ul>
+
    @foreach (var item in Model.TheCourses)
     {
-            <li>@Html.ActionLink(item.Name, "/GetCourse/" + item.ID, "Student")</li>
+            <li class="nav">@Html.ActionLink(item.Name, "/GetCourse/" + item.ID, "Student")</li>
     }
-    </ul>
+
                                     
   <li class="nav-header">Your Teachers Face!</li>
 <div class="demo">
