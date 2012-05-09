@@ -19,3 +19,11 @@
     <li>@Html.ActionLink(assignments.Name, "GetAssignment/" + assignments.ID, "Student")</li>
 }
 </ul>
+
+<p>Nýjustu tilkynningar</p>
+<ul>
+@foreach (var notifications in Model.Notifications)
+{
+    <li>@notifications.Text</li>
+}
+</ul>
