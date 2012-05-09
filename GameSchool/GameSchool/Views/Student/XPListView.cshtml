@@ -1,0 +1,14 @@
+﻿@model  GameSchool.Models.ViewModels.UserViewModel
+        <li>Þú ert með: @Model.m_CurrentXP stig</li>
+        <li>Hæstu stig: @Model.m_XP.Max()</li>
+        <li>Lægstu stig: @Model.m_XP.Min()</li>
+        @if (Model.m_CurrentXP == Model.m_XP.Max())
+        {
+            <li>Þú ert efst(ur)!</li>
+        }
+        <progress id="XpProgress" class="example3" min="@Model.m_XP.Min()" max="@Model.m_XP.Max()" value ="@Model.m_CurrentXP">tits</progress>
+     
+ 
+    
+
+    
