@@ -43,6 +43,15 @@ namespace GameSchool.Models.Repositories
             return name;
         }
 
+        public TestModel GetTestByID(int testID)
+        {
+            var test = (from x in m_testDB.TestModels
+                       where x.ID == testID
+                       select x).SingleOrDefault();
+
+            return test;
+        }
+
         public void AddTest(TestModel test)
         {
             m_testDB.TestModels.InsertOnSubmit(test);

@@ -167,5 +167,29 @@ namespace GameSchool.Controllers
             else
                 return View("Error");
         }
+
+        public ActionResult EditTest(int? theTestID)
+        {
+            if (theTestID.HasValue)
+            {
+                TestModel theTest = m_TestRepo.GetTestByID(theTestID.Value);
+
+                EditTestViewModel model = new EditTestViewModel
+                {
+                    Test = theTest,
+                    Questions = m_TestRepo.GetAllQuestionsForTest(theTest.ID).ToList(),
+                    Answers = new List<AnswerModel>()
+                };
+
+                foreach (var question in model.Questions)
+                {
+                    model.Answers.AddRange(m_TestRepo.GetAllAnswersForQuestion(question.ID));
+                }
+
+                return View(model);
+            }
+            else
+                return View("Error");
+        }
     }
 }

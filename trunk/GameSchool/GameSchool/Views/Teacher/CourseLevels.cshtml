@@ -10,7 +10,7 @@
             {
                 if (test.LevelID == lvl.ID)
                 {
-                    <li>@test.Name</li>
+                    <li>@Html.ActionLink(test.Name, "EditTest", new { theTestID = test.ID })</li>
                 }
             }
         </ul>

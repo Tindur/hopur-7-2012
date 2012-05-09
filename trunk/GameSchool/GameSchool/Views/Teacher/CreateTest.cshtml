@@ -24,6 +24,12 @@
             @Html.EditorFor(model => model.Test.Description)
             @Html.ValidationMessageFor(model => model.Test.Description)
         </div>
+        <div class="editor-label">
+            @Html.HiddenFor(model => model.Test.LevelID)
+        </div>
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.Test.LevelID)
+        </div>
         <p>
             <input type="submit" value="Create" />
         </p>
