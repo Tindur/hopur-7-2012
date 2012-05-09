@@ -371,6 +371,11 @@ tr:nth-of-type(odd)
     margin-left: 15px;
 }
 
+.LevelDesc > h3
+{
+    padding-top: 10px;
+}
+
 /* CSS fyrir navigation bar */
 
 #profileimage
