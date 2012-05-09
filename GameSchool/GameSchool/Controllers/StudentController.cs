@@ -153,7 +153,7 @@ namespace GameSchool.Controllers
                                      LongCommentDate = k.CommentDate.ToShortDateString(),
                                      ID = k.ID,
                                      CommentText = k.CommentText,
-                                     Name = m_UserRepo.GetUserByName(User.Identity.Name).Name,
+                                     Name = m_UserRepo.GetUserByName(k.UserName).Name,
                                      UserImage = m_UserRepo.GetImageForUserName(k.UserName)
                                  });
                 return Json(newResult, JsonRequestBehavior.AllowGet);
@@ -179,8 +179,10 @@ namespace GameSchool.Controllers
                 var newResult = (from k in result select new { LongCommentDate = k.CommentDate.ToShortDateString(), 
                                                                ShortCommentDate = k.CommentDate.ToShortTimeString(), 
                                                                ID = k.ID, 
-                                                               CommentText = k.CommentText, 
-                                                               UserName = k.UserName });
+                                                               CommentText = k.CommentText,
+                                                               UserImage = m_UserRepo.GetImageForUserName(k.UserName),
+                                                               Name = m_UserRepo.GetUserByName(k.UserName).Name
+                                                               });
                 return Json(newResult);
         }
 
