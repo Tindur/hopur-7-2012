@@ -43,14 +43,14 @@
                         {
                             <tr>
                                 <td>@student.UserName</td>
-                                <td id="@student.UserName"><a href="" id="link_ @student.UserName" onclick="RemoveStudentFromCourse(@Model.Course.ID, '@student.UserName')">-</a></td>
+                                <td id="@student.UserName"><a href="" class="student_link" onclick="RemoveStudentFromCourse(@Model.Course.ID, '@student.UserName')">-</a></td>
                             </tr>
                         }
                         else
                         {
                             <tr>
                                 <td>@student.UserName</td>
-                                <td id="@student.UserName"><a href="" id="link_ @student.UserName" onclick="SetStudentToCourse(@Model.Course.ID, '@student.UserName')">+</a></td>
+                                <td id="@student.UserName"><a href="" class="student_link" onclick="SetStudentToCourse(@Model.Course.ID, '@student.UserName')">+</a></td>
                             </tr>
                         }
                     }
@@ -82,14 +82,14 @@
                         {
                             <tr>
                                 <td>@teacher.UserName</td>
-                                <td id="@teacher.UserName"><a href="" id="link_ @teacher.UserName" onclick="RemoveTeacherFromCourse(@Model.Course.ID, '@teacher.UserName')">-</a></td>
+                                <td id="@teacher.UserName"><a href="" class="teacher_link" onclick="RemoveTeacherFromCourse(@Model.Course.ID, '@teacher.UserName')">-</a></td>
                             </tr>
                         }
                         else
                         {
                              <tr>
                                 <td>@teacher.UserName</td>
-                                <td id="@teacher.UserName"><a href="" id="link_ @teacher.UserName" onclick="SetTeacherToCourse(@Model.Course.ID, '@teacher.UserName')">+</a></td>
+                                <td id="@teacher.UserName"><a href="" class="teacher_link" onclick="SetTeacherToCourse(@Model.Course.ID, '@teacher.UserName')">+</a></td>
                             </tr>
                         }
                     }
@@ -116,6 +116,7 @@
 </div>
 
 <script type="text/javascript">
+
     function SetStudentToCourse(CourseID, UserName) {
         $.post("/Admin/AddStudentToCourse", { CourseID: CourseID, StudentName: UserName }, function (data) {
             $("#" + UserName + "> a").remove();
@@ -133,14 +134,15 @@
             $("#" + UserName + "> a").remove();
             $("#teacher_minus_template").tmpl(data).appendTo("#" + UserName);
         });
+    }
        /* $.post("/Admin/AddTeacherToCourse", { CourseID: CourseID, TeachersUserName: UserName })
         $("#" + UserName + "> a").remove();
-        $("#teacher_minus_template").tmpl(data).appendTo("#" + UserName);*/
+        $("#teacher_minus_template").tmpl(data).appendTo("#" + UserName);
     }
     function RemoveTeacherFromCourse(CourseID, UserName) {
         $.post("/Admin/RemoveTeacherFromCourse", { CourseID: CourseID, TeachersUserName: UserName }, function (data) {
             $("#" + UserName + "> a").remove();
             $("#teacher_plus_template").tmpl(data).appendTo("#" + UserName);
         });
-    }
+    }*/
 </script>

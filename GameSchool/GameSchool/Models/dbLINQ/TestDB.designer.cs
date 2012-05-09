@@ -30,15 +30,15 @@ namespace GameSchool.Models.dbLINQ
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertTestModel(TestModel instance);
-    partial void UpdateTestModel(TestModel instance);
-    partial void DeleteTestModel(TestModel instance);
-    partial void InsertAnswerModel(AnswerModel instance);
-    partial void UpdateAnswerModel(AnswerModel instance);
-    partial void DeleteAnswerModel(AnswerModel instance);
     partial void InsertQuestionModel(QuestionModel instance);
     partial void UpdateQuestionModel(QuestionModel instance);
     partial void DeleteQuestionModel(QuestionModel instance);
+    partial void InsertAnswerModel(AnswerModel instance);
+    partial void UpdateAnswerModel(AnswerModel instance);
+    partial void DeleteAnswerModel(AnswerModel instance);
+    partial void InsertTestModel(TestModel instance);
+    partial void UpdateTestModel(TestModel instance);
+    partial void DeleteTestModel(TestModel instance);
     #endregion
 		
 		public TestDBDataContext() : 
@@ -71,11 +71,11 @@ namespace GameSchool.Models.dbLINQ
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<TestModel> TestModels
+		public System.Data.Linq.Table<QuestionModel> QuestionModels
 		{
 			get
 			{
-				return this.GetTable<TestModel>();
+				return this.GetTable<QuestionModel>();
 			}
 		}
 		
@@ -87,28 +87,26 @@ namespace GameSchool.Models.dbLINQ
 			}
 		}
 		
-		public System.Data.Linq.Table<QuestionModel> QuestionModels
+		public System.Data.Linq.Table<TestModel> TestModels
 		{
 			get
 			{
-				return this.GetTable<QuestionModel>();
+				return this.GetTable<TestModel>();
 			}
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TestModel")]
-	public partial class TestModel : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.QuestionModel")]
+	public partial class QuestionModel : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _ID;
 		
-		private string _Name;
+		private int _TestID;
 		
-		private string _Description;
-		
-		private int _LevelID;
+		private string _Question;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -116,15 +114,13 @@ namespace GameSchool.Models.dbLINQ
     partial void OnCreated();
     partial void OnIDChanging(int value);
     partial void OnIDChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    partial void OnLevelIDChanging(int value);
-    partial void OnLevelIDChanged();
+    partial void OnTestIDChanging(int value);
+    partial void OnTestIDChanged();
+    partial void OnQuestionChanging(string value);
+    partial void OnQuestionChanged();
     #endregion
 		
-		public TestModel()
+		public QuestionModel()
 		{
 			OnCreated();
 		}
@@ -149,62 +145,42 @@ namespace GameSchool.Models.dbLINQ
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string Name
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TestID", DbType="Int NOT NULL")]
+		public int TestID
 		{
 			get
 			{
-				return this._Name;
+				return this._TestID;
 			}
 			set
 			{
-				if ((this._Name != value))
+				if ((this._TestID != value))
 				{
-					this.OnNameChanging(value);
+					this.OnTestIDChanging(value);
 					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
+					this._TestID = value;
+					this.SendPropertyChanged("TestID");
+					this.OnTestIDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(MAX)")]
-		public string Description
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Question", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Question
 		{
 			get
 			{
-				return this._Description;
+				return this._Question;
 			}
 			set
 			{
-				if ((this._Description != value))
+				if ((this._Question != value))
 				{
-					this.OnDescriptionChanging(value);
+					this.OnQuestionChanging(value);
 					this.SendPropertyChanging();
-					this._Description = value;
-					this.SendPropertyChanged("Description");
-					this.OnDescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LevelID", DbType="Int NOT NULL")]
-		public int LevelID
-		{
-			get
-			{
-				return this._LevelID;
-			}
-			set
-			{
-				if ((this._LevelID != value))
-				{
-					this.OnLevelIDChanging(value);
-					this.SendPropertyChanging();
-					this._LevelID = value;
-					this.SendPropertyChanged("LevelID");
-					this.OnLevelIDChanged();
+					this._Question = value;
+					this.SendPropertyChanged("Question");
+					this.OnQuestionChanged();
 				}
 			}
 		}
@@ -364,19 +340,23 @@ namespace GameSchool.Models.dbLINQ
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.QuestionModel")]
-	public partial class QuestionModel : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TestModel")]
+	public partial class TestModel : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _ID;
 		
-		private int _TestID;
+		private string _Name;
 		
-		private string _Question;
+		private string _Description;
+		
+		private int _LevelID;
 		
 		private System.Nullable<int> _Points;
+		
+		private System.Nullable<int> _CourseID;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -384,15 +364,19 @@ namespace GameSchool.Models.dbLINQ
     partial void OnCreated();
     partial void OnIDChanging(int value);
     partial void OnIDChanged();
-    partial void OnTestIDChanging(int value);
-    partial void OnTestIDChanged();
-    partial void OnQuestionChanging(string value);
-    partial void OnQuestionChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnLevelIDChanging(int value);
+    partial void OnLevelIDChanged();
     partial void OnPointsChanging(System.Nullable<int> value);
     partial void OnPointsChanged();
+    partial void OnCourseIDChanging(System.Nullable<int> value);
+    partial void OnCourseIDChanged();
     #endregion
 		
-		public QuestionModel()
+		public TestModel()
 		{
 			OnCreated();
 		}
@@ -417,42 +401,62 @@ namespace GameSchool.Models.dbLINQ
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TestID", DbType="Int NOT NULL")]
-		public int TestID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Name
 		{
 			get
 			{
-				return this._TestID;
+				return this._Name;
 			}
 			set
 			{
-				if ((this._TestID != value))
+				if ((this._Name != value))
 				{
-					this.OnTestIDChanging(value);
+					this.OnNameChanging(value);
 					this.SendPropertyChanging();
-					this._TestID = value;
-					this.SendPropertyChanged("TestID");
-					this.OnTestIDChanged();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Question", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string Question
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(MAX)")]
+		public string Description
 		{
 			get
 			{
-				return this._Question;
+				return this._Description;
 			}
 			set
 			{
-				if ((this._Question != value))
+				if ((this._Description != value))
 				{
-					this.OnQuestionChanging(value);
+					this.OnDescriptionChanging(value);
 					this.SendPropertyChanging();
-					this._Question = value;
-					this.SendPropertyChanged("Question");
-					this.OnQuestionChanged();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LevelID", DbType="Int NOT NULL")]
+		public int LevelID
+		{
+			get
+			{
+				return this._LevelID;
+			}
+			set
+			{
+				if ((this._LevelID != value))
+				{
+					this.OnLevelIDChanging(value);
+					this.SendPropertyChanging();
+					this._LevelID = value;
+					this.SendPropertyChanged("LevelID");
+					this.OnLevelIDChanged();
 				}
 			}
 		}
@@ -473,6 +477,26 @@ namespace GameSchool.Models.dbLINQ
 					this._Points = value;
 					this.SendPropertyChanged("Points");
 					this.OnPointsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CourseID", DbType="Int")]
+		public System.Nullable<int> CourseID
+		{
+			get
+			{
+				return this._CourseID;
+			}
+			set
+			{
+				if ((this._CourseID != value))
+				{
+					this.OnCourseIDChanging(value);
+					this.SendPropertyChanging();
+					this._CourseID = value;
+					this.SendPropertyChanged("CourseID");
+					this.OnCourseIDChanged();
 				}
 			}
 		}

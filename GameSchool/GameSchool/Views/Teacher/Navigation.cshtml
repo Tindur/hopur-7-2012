@@ -8,8 +8,7 @@
                     <img src="@Model.TheImage.Source" alt="Mynd af þínu fési"/>
                 </div>
                  <div id="profileinfo">
-                    <p>Nafn: @Model.TheUser.m_User.Name</p>
-                    @Html.ActionLink("Breyta", "ProfileManagement", "Account")
+                    @Html.ActionLink(@Model.TheUser.m_User.Name, "ProfileManagement", "Account")
                  </div>
         </div>
    </li>

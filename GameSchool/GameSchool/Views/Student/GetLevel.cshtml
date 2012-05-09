@@ -1,5 +1,9 @@
-﻿@model GameSchool.Models.dbLINQ.LevelModel
+﻿@model GameSchool.Models.ViewModels.LevelViewModel
            
-<legend><h2>@Model.Name</h2></legend>
+<legend><h2>@Model.TheLevel.NumberInCourse. @Model.TheLevel.Name</h2></legend>
 
-<p>@Model.Description</p>
+<h3>Borðalýsing</h3>
+
+<p>@Model.TheLevel.Description</p>
+
+<h3>Verkefni</h3>

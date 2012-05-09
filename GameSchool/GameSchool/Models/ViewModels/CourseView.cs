@@ -26,7 +26,11 @@ namespace GameSchool.Models.ViewModels
 
         public List<int> m_finishedLvlID { get; set; }
 
-        public IEnumerable<LectureModel> m_theLectures { get; set; }
+        public IQueryable<LectureModel> m_theLectures { get; set; }
+
+        public IQueryable<AssignmentModel> m_theAssignments { get; set; }
+
+        public IQueryable<TestModel> m_theTests { get; set; }
 
         //TODO:  Setja í CourseViewModel Próf, Verkefni, Tilkynningar, glósur, kennara? e.t.v. fl.  Kv Björn
 

@@ -92,6 +92,8 @@ namespace GameSchool.Models.dbLINQ
 		
 		private System.Nullable<int> _Points;
 		
+		private System.Nullable<int> _CourseID;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -108,6 +110,8 @@ namespace GameSchool.Models.dbLINQ
     partial void OnDateAddedChanged();
     partial void OnPointsChanging(System.Nullable<int> value);
     partial void OnPointsChanged();
+    partial void OnCourseIDChanging(System.Nullable<int> value);
+    partial void OnCourseIDChanged();
     #endregion
 		
 		public AssignmentModel()
@@ -231,6 +235,26 @@ namespace GameSchool.Models.dbLINQ
 					this._Points = value;
 					this.SendPropertyChanged("Points");
 					this.OnPointsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CourseID", DbType="Int")]
+		public System.Nullable<int> CourseID
+		{
+			get
+			{
+				return this._CourseID;
+			}
+			set
+			{
+				if ((this._CourseID != value))
+				{
+					this.OnCourseIDChanging(value);
+					this.SendPropertyChanging();
+					this._CourseID = value;
+					this.SendPropertyChanged("CourseID");
+					this.OnCourseIDChanged();
 				}
 			}
 		}

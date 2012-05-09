@@ -8,6 +8,7 @@
       <Column Name="LevelID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="DateAdded" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Points" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CourseID" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

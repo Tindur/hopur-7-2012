@@ -19,6 +19,13 @@ namespace GameSchool.Models.Repositories
             return result;
         }
 
+        public IQueryable<AssignmentModel> GetAssignmentsForCourse(int CourseID)
+        {
+            var result = from x in m_assignmentDB.AssignmentModels
+                         where x.CourseID == CourseID
+                         select x;
+            return result;
+        }
         public IQueryable<AssignmentModel> GetFiveLatest(int LevelID)
         {
             var result = (from x in m_assignmentDB.AssignmentModels

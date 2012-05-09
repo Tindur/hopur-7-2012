@@ -2,16 +2,16 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="LecturesDB">
   <DataContextMoniker Name="/LecturesDBDataContext" />
   <nestedChildShapes>
-    <classShape Id="1816a91e-a338-4b0f-9012-138803e89751" absoluteBounds="4.125, 0.875, 2, 1.9631982421875">
-      <DataClassMoniker Name="/LecturesDBDataContext/LectureModel" />
-      <nestedChildShapes>
-        <elementListCompartment Id="a4d1529e-1f3c-4f79-9a11-f0f9400839fa" absoluteBounds="4.14, 1.335, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="1c8f4868-9ea9-4d43-8fc9-1e3740de1731" absoluteBounds="1.5, 1.125, 2, 1.3862939453125">
       <DataClassMoniker Name="/LecturesDBDataContext/LecturesInLevel" />
       <nestedChildShapes>
         <elementListCompartment Id="18169fe1-f568-426e-b661-01a803ee5369" absoluteBounds="1.5150000000000001, 1.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="21e550d6-f937-45ab-8090-cfeac470ec53" absoluteBounds="3.75, 1.125, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/LecturesDBDataContext/LectureModel" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f0a7ecce-ad14-4c63-9616-4e45297913b4" absoluteBounds="3.7649999999999997, 1.585, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

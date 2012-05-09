@@ -9,6 +9,7 @@ namespace GameSchool.Models.Interfaces
     interface ITestRepository
     {
         IQueryable<TestModel> GetAllTestsForLevel(int TheLevelID);
+        IQueryable<TestModel> GetTestsForCourse(int CourseID);
         IQueryable<QuestionModel> GetAllQuestionsForTest(int TheTestID);
         IQueryable<AnswerModel> GetAllAnswersForQuestion(int TheQuestionID);
         void AddTest(TestModel test);

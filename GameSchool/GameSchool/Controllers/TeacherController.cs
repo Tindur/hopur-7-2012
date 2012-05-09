@@ -59,7 +59,7 @@ namespace GameSchool.Controllers
                     m_theCourse = m_CourseRepo.GetCourseById(id.Value),
                     m_theLevels = levels.ToList(),
                     m_finishedLvlID = null /*m_lvlRepo.GetFinishedLevelsForStudent(User.Identity.Name).ToList()*/,
-                    m_theLectures = m_LectureRepo.GetLecturesForCourse(id.Value).ToList()
+                    m_theLectures = m_LectureRepo.GetLecturesForLevel(id.Value)
                 });
             }
             else
@@ -115,7 +115,7 @@ namespace GameSchool.Controllers
                 TLevelViewModel model = new TLevelViewModel
                 {
                     Levels = m_lvlRepo.GetAllLevelsForCourse(courseID.Value).ToList(),
-                    Lectures = m_LectureRepo.GetLecturesForCourse(courseID.Value).ToList(),
+                    Lectures = m_LectureRepo.GetLecturesForLevel(courseID.Value).ToList(),
                     Assignments = new List<AssignmentModel>(),
                     Tests = new List<TestModel>()
 
@@ -213,7 +213,7 @@ namespace GameSchool.Controllers
             if (model != null)
             {
                 model.DateAdded = DateTime.Now;
-                model.UserName = User.Identity.Name;
+                model.UserName = m_UserRepo.GetUserByName(User.Identity.Name).Name;
 
                 m_NewsFeedRepo.AddNotification(model);
                 m_NewsFeedRepo.Save();

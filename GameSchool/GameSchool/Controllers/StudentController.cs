@@ -27,8 +27,6 @@ namespace GameSchool.Controllers
 
         public ActionResult StudentIndex()
         {
-            ViewBag.Message = "Welcome to GameSchool 0.2";
-
             return View();
         }
 
@@ -68,12 +66,14 @@ namespace GameSchool.Controllers
                 IEnumerable<LevelModel> levels = m_lvlRepo.GetAllLevelsForCourse(id.Value);
 
                 return View("Course", new CourseView
-                {
-                    m_theCourse = m_CourseRepo.GetCourseById(id.Value),
-                    m_theLevels = levels.ToList(),
-                    m_finishedLvlID = m_lvlRepo.GetFinishedLevelsForStudent(User.Identity.Name).ToList(),
-                    m_theLectures = m_LectureRepo.GetLecturesForCourse(id.Value).ToList()
-                });
+                                    {
+                                        m_theCourse = m_CourseRepo.GetCourseById(id.Value),
+                                        m_theLevels = levels.ToList(),
+                                        m_finishedLvlID = m_lvlRepo.GetFinishedLevelsForStudent(User.Identity.Name).ToList(),
+                                        m_theLectures = m_LectureRepo.GetLecturesForCourse(id.Value),
+                                        m_theAssignments = m_AssignmentRepo.GetAssignmentsForCourse(id.Value),
+                                        m_theTests = m_TestRepo.GetTestsForCourse(id.Value)
+                                    });
             }
             else
             {
@@ -85,8 +85,17 @@ namespace GameSchool.Controllers
         {
             if (id.HasValue)
             {
-                var level = m_lvlRepo.GetLevelByID(id.Value);
-                return View(level);
+                LevelModel Level = m_lvlRepo.GetLevelByID(id.Value);
+                IQueryable<LectureModel> Lectures = m_LectureRepo.GetLecturesForLevel(id.Value);
+                IQueryable<AssignmentModel> Assignments = m_AssignmentRepo.GetAllAssignmentsForLevel(id.Value);
+                IQueryable<TestModel> Tests = m_TestRepo.GetAllTestsForLevel(id.Value);
+
+                LevelViewModel model = new LevelViewModel();
+                model.TheLevel = Level;
+                model.Lectures = Lectures;
+                model.Assignments = Assignments;
+                model.Tests = Tests;
+                return View(model);
             }
             else
                 return RedirectToAction("StudentIndex");
@@ -96,7 +105,7 @@ namespace GameSchool.Controllers
         {
             if (id.HasValue)
             {
-                var model = m_LectureRepo.GetLecturesForCourse(id.Value).ToList();
+                var model = m_LectureRepo.GetLecturesForLevel(id.Value).ToList();
 
                 return PartialView("_LecturesPartial", model);
             }
@@ -120,30 +129,6 @@ namespace GameSchool.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetMoreCommentsByID(int? id)
-        {
-            if (id.HasValue)
-            {
-                var model = m_CommentRepo.GetMoreCommentForLecture(id.Value);
-                var newResult = (from k in model 
-                                 select new 
-                                 { 
-                                     CommentDate = k.CommentDate.ToLongDateString(), 
-                                     ID = k.ID, 
-                                     CommentText = k.CommentText,
-                                     UserName = k.UserName
-                                 });
-              //  return Json(newResult);
-                return Json(newResult, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                //ATH TODO!! bjarkfiance
-                return RedirectToAction("StudentIndex");
-            }
-        }
-
-        [HttpGet]
         public ActionResult GetCommentsByID(int? id)
         {
             if (id.HasValue)
@@ -157,7 +142,7 @@ namespace GameSchool.Controllers
                                      ID = k.ID,
                                      CommentText = k.CommentText,
                                      Name = m_UserRepo.GetUserByName(k.UserName).Name,
-                                     UserImage = m_UserRepo.GetImageForUserName(k.UserName)
+                                     UserImage = m_UserRepo.GetImageForName(m_UserRepo.GetUserByName(k.UserName).Name)
                                  });
                 return Json(newResult, JsonRequestBehavior.AllowGet);
             }
@@ -183,7 +168,7 @@ namespace GameSchool.Controllers
                                                                ShortCommentDate = k.CommentDate.ToShortTimeString(), 
                                                                ID = k.ID, 
                                                                CommentText = k.CommentText,
-                                                               UserImage = m_UserRepo.GetImageForUserName(k.UserName),
+                                                               UserImage = m_UserRepo.GetImageForName(m_UserRepo.GetUserByName(k.UserName).Name),
                                                                Name = m_UserRepo.GetUserByName(k.UserName).Name
                                                                });
                 return Json(newResult);
@@ -249,16 +234,30 @@ namespace GameSchool.Controllers
                 IQueryable<LectureModel> TheLectures = m_LectureRepo.GetFiveLatest(id.Value);
                 IQueryable<AssignmentModel> TheAssignments = m_AssignmentRepo.GetFiveLatest(id.Value);
                 IQueryable<NotificationModel> TheNotifications = m_NotificationRepo.GetFiveLatest(id.Value);
-                string SourceTeacherImage = m_UserRepo.GetImageForUserName(m_NotificationRepo.GetNameOfTeacher(id.Value));
+                if (TheNotifications.Any())
+                {
+                    string SourceTeacherImage = m_UserRepo.GetImageForName(m_NotificationRepo.GetNameOfTeacher(id.Value));
+                    NewsFeedViewModel model = new NewsFeedViewModel();
+                    model.Lectures = TheLectures;
+                    model.Assignments = TheAssignments;
+                    model.Notifications = TheNotifications;
+                    model.SourceTeacherImage = SourceTeacherImage;
+                    return PartialView(model);
+                }
+                else
+                {
+                    NewsFeedViewModel model = new NewsFeedViewModel();
+                    model.Lectures = TheLectures;
+                    model.Assignments = TheAssignments;
+                    model.Notifications = null;
+                    model.SourceTeacherImage = null;
+                    return PartialView(model);
+                }
 
 
-                NewsFeedViewModel model = new NewsFeedViewModel();
-                model.Lectures = TheLectures;
-                model.Assignments = TheAssignments;
-                model.Notifications = TheNotifications;
-                model.SourceTeacherImage = SourceTeacherImage;
+                
 
-                return PartialView(model);
+                
 
             }
             return View("Error");

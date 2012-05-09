@@ -11,15 +11,23 @@ namespace GameSchool.Models.Repositories
     {
         LecturesDBDataContext m_lectureDB = new LecturesDBDataContext();
 
-        public IQueryable<LectureModel> GetLecturesForCourse(int CourseID)
+        public IQueryable<LectureModel> GetLecturesForLevel(int LevelID)
         {
             var result = from x in m_lectureDB.LectureModels
-                         where x.LevelID == CourseID
+                         where x.LevelID == LevelID
                          orderby x.DateAdded descending
                          select x;
             return result;
         }
 
+        public IQueryable<LectureModel> GetLecturesForCourse(int CourseID)
+        {
+            var result = from x in m_lectureDB.LectureModels
+                         where x.CourseID == CourseID
+                         orderby x.Name ascending
+                         select x;
+            return result;
+        }
         public IQueryable<LectureModel> GetFiveLatest(int LevelID)
         {
             var result = (from x in m_lectureDB.LectureModels
