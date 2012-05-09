@@ -378,7 +378,6 @@ tr:nth-of-type(odd)
 {
     list-style: none;
 }
-}
 
 /* Style fyrir Side scroller í navigation */
 #demo-frame > div.demo { padding: 10px !important; }

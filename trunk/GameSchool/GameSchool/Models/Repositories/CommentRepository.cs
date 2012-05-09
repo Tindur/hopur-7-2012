@@ -64,7 +64,7 @@ namespace GameSchool.Models.Repositories
             var result = from lc in m_commentsDB.LectureComments
                          join cm in m_commentsDB.CommentModels on lc.CommentID equals cm.ID
                          where lc.LectureID == id
-                         orderby cm.CommentDate descending
+                         orderby cm.CommentDate ascending
                          select cm;
             return result;
         }
