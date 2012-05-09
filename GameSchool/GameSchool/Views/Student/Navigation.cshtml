@@ -23,33 +23,18 @@
 else
 {     
    <li class="nav-header">Your Courses</li>
-   <ul>
-   @foreach (var item in Model.TheCourses)
+   foreach (var item in Model.TheCourses)
     {
-            <li>@Html.ActionLink(item.Name, "/GetCourse/" + item.ID, "Student")</li>
+            <li class="nav">@Html.ActionLink(item.Name, "/GetCourse/" + item.ID, "Student")</li>
     }
-    </ul>
-                                    
-  <li class="nav-header">Your Teachers Face!</li>
-        <div class="demo">
-            <div id="teacherForStudent">
-                <div class="scroll-pane ui-widget ui-widget-header ui-corner-all">
-	                <div class="scroll-content">
-                        @foreach (var item in Model.TeachersImages)
-                        {
-                            <div class="scroll-content-item ui-widget-header">
-                            <img src="@item.Source" alt="Mynd af kennaranum þínum" />
-                            </div>
-                        }
-                    </div>
-                    <div class="scroll-bar-wrap ui-widget-content ui-corner-bottom">
-		                <div class="scroll-bar"></div>
-	                </div>
-                </div>
-            </div>
-        </div><!-- End demo -->
-}
 
+    <p id="YourTeachers">YourTeachers</p>
+    foreach (var item in Model.TeachersImages)
+    {                    
+        <img class="YourTeachersFace" src="@item.Source" alt="Mynd af kennaranum þínum" />                  
+    }
+                
+}
 
 <script type="text/javascript">
 	$(function() {

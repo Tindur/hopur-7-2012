@@ -1,26 +1,27 @@
 ﻿@model GameSchool.Models.ViewModels.NewsFeedViewModel
            
-<p>Nýjustu fyrirlestrar</p>
+<h4 class="HeadingsForNewStuff">Nýjustu fyrirlestrar</h4>
 
-<div class="tabbable">
-    <ul>
+
+<ul class="NewStuffForStudents">
     @foreach (var lectures in Model.Lectures)
-    {
-        <!--<li>@lectures.DateAdded: @Html.ActionLink(lectures.Name, "GetLecture/" + lectures.ID, "Student")</li>-->
-        <li>@lectures.DateAdded: <a href="#tab2" data-toggle="tab">@lectures.Name</a></li>
-    }
-    </ul>
-</div>
-
-<p>Nýjustu verkefni</p>
-<ul>
-@foreach (var assignments in Model.Assignments)
-{
-    <li>@Html.ActionLink(assignments.Name, "GetAssignment/" + assignments.ID, "Student")</li>
-}
+        {
+            <!--<li>@lectures.DateAdded: @Html.ActionLink(lectures.Name, "GetLecture/" + lectures.ID, "Student")</li>-->
+            <li class="ListOfNewThings">@lectures.DateAdded: <a href="#tab2" data-toggle="tab">@lectures.Name</a></li>
+        }
 </ul>
 
-<p>Nýjustu tilkynningar</p>
+
+<h4 class="HeadingsForNewStuff">Nýjustu verkefni</h4>
+
+<ul class="NewStuffForStudents">
+    @foreach (var assignments in Model.Assignments)
+    {
+        <li class="ListOfNewThings">@Html.ActionLink(assignments.Name, "GetAssignment/" + assignments.ID, "Student")</li>
+    }
+</ul>
+
+<h4 class="HeadingsForNewStuff">Nýjustu tilkynningar</h4>
 
 
  <li class ="comments" id="comment_${ID}">
