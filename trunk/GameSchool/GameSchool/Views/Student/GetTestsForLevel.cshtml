@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<GameSchool.Models.dbLINQ.TestModel>
-           
+         
 @foreach (var item in Model)
 {
-    @Html.ActionLink(item.Name, "GetTest/" + item.ID, "Student")
+    <div class="TestList">
+        @Html.ActionLink(item.Name, "GetTest/" + item.ID, "Student")
+    </div>
 }

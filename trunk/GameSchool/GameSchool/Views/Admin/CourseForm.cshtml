@@ -13,14 +13,14 @@
         @Html.HiddenFor(model => model.Course.ID)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Course.Name)
+            <p>Nafn</p>
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Course.Name)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Course.Description)
+            <p>Lýsing</p>
         </div>
         <div class="editor-field">
             @Html.TextAreaFor(model => model.Course.Description)
@@ -29,7 +29,7 @@
 
         <div class="editor-field">
             <table id="Students" class="UserTable">
-                <caption>@Html.LabelFor(model => model.Students)</caption>
+                <caption class="UserTableNames">@Html.LabelFor(model => model.Students)</caption>
                 <thead>
                     <tr>
                         <th>Nafn</th>
@@ -68,7 +68,7 @@
 
         <div class="editor-field">
             <table id="Teachers" class="UserTable">
-                <caption>@Html.LabelFor(model => model.Teachers)</caption>
+                <caption class="UserTableNames">@Html.LabelFor(model => model.Teachers)</caption>
                 <thead>
                     <tr>
                         <th>Nafn</th>
@@ -106,7 +106,7 @@
         </script>
 
         <p>
-            <input type="submit" value="Save" />
+            <input class="SaveChanges" type="submit" value="Save" />
         </p>
     </fieldset>
 }

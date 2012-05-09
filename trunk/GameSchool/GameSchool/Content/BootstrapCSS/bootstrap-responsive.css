@@ -542,7 +542,6 @@
   }
   .row-fluid [class*="span"] {
     display: block;
-    float: left;
     width: 100%;
     min-height: 28px;
     margin-left: 2.564102564%;
