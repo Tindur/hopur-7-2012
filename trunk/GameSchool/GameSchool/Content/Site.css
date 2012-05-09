@@ -349,6 +349,21 @@ tr:nth-of-type(odd)
     float: left;
 }
 
+.ListOfNewThings
+{
+    list-style: none;
+}
+
+.NewStuffForStudents
+{
+    margin-left: 0;
+}
+
+.HeadingsForNewStuff
+{
+    margin-bottom: 8px;
+}
+
 /* CSS fyrir navigation bar */
 
 #profileimage
@@ -361,12 +376,19 @@ tr:nth-of-type(odd)
     list-style: none;
 }
 
-#TeacherFaceBox
+.YourTeachersFace
 {
-    margin-top: 20px;
-    height: 200px;
+    height: 50px;
+    width: 50px;
+    margin-right: 7px;
+    margin-bottom: 5px;
 }
 
+#YourTeachers
+{
+    margin-top: 10px;
+    font-weight: bold;
+}
 
 /* Style fyrir Side scroller í navigation */
 #demo-frame > div.demo { padding: 10px !important; }
