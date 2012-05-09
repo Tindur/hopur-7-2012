@@ -79,16 +79,23 @@
         /*$.getJSON("/Student/GetCommentsByID", { id: id }, function (data) {
             $("#comment_template").tmpl(data, get_likes(id)).insertBefore("#AddComment");
         });*/
-        function get_likes(id) {
+        get_likes(id);/* {
             $.getJSON("/Student/GetLikesForLecture", { LectureID: id }, function (data) {
                 for (var i = 0; i < data.length; i++) {
                     var item = data[i];
                     $("#like_template").tmpl(item).appendTo("#like_" + item.CommentID);
                 }
             });
-        }
+        }*/
     }
-
+    function get_likes(like_id) {
+        $.getJSON("/Student/GetLikesForLecture", { LectureID: like_id }, function (data) {
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                $("#like_template").tmpl(item).appendTo("#like_" + item.CommentID);
+            }
+        });
+    }
     /*//Get more comments!
     $(".get_more_comments").live("click", function () {
         var lecid = parseInt($(this).attr('id'));
@@ -111,9 +118,10 @@
         var lecid = parseInt($(this).attr('id'));
         var param = $("#CommentText").val();
         $.post("/Student/CreateCommentForLecture", { CommentText: param, id: lecid }, function (data) {
-           // processComments(data.Comments);
+            // processComments(data.Comments);
             $(".comments").remove();
             $("#comment_template").tmpl(data).insertBefore("#AddComment");
+            get_likes(lecid);
             $("#CommentText").val("");
         });
     });
