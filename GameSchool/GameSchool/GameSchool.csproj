@@ -102,6 +102,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="Models\dbLINQ\NotificationDB.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NotificationDB.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Models\dbLINQ\TestDB.designer.cs">
       <DependentUpon>TestDB.dbml</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -119,33 +124,41 @@
     </Compile>
     <Compile Include="Models\Interfaces\IAssignmentRepository.cs" />
     <Compile Include="Models\Interfaces\ICommentRepository.cs" />
+    <Compile Include="Models\Interfaces\ICourseXPRepository.cs" />
     <Compile Include="Models\Interfaces\ILectureRepository.cs" />
     <Compile Include="Models\Interfaces\ILevelRepository.cs" />
+    <Compile Include="Models\Interfaces\INotificationRepository.cs" />
     <Compile Include="Models\Interfaces\IPointsRepo.cs" />
     <Compile Include="Models\Interfaces\ITestRepository.cs" />
     <Compile Include="Models\Interfaces\IUsersRepository.cs" />
     <Compile Include="Models\Repositories\AssignmentRepository.cs" />
     <Compile Include="Models\Repositories\CommentRepository.cs" />
+    <Compile Include="Models\Repositories\CourseXPRepository.cs" />
     <Compile Include="Models\Repositories\GlossaryRepository.cs" />
     <Compile Include="Models\Interfaces\IGlossaryRepository.cs" />
     <Compile Include="Models\Interfaces\ICourseRepository.cs" />
     <Compile Include="Models\Repositories\CourseRepository.cs" />
     <Compile Include="Models\Repositories\LectureRepository.cs" />
     <Compile Include="Models\Repositories\LevelRepository.cs" />
+    <Compile Include="Models\Repositories\NotificationRepository.cs" />
     <Compile Include="Models\Repositories\UsersRepository.cs" />
     <Compile Include="Models\Repositories\TestRepository.cs" />
     <Compile Include="Models\ViewModels\AdminViewModel.cs" />
     <Compile Include="Models\ViewModels\CourseEditViewModel.cs" />
     <Compile Include="Models\ViewModels\CourseView.cs" />
     <Compile Include="Models\ViewModels\LectureViewModel.cs" />
+    <Compile Include="Models\ViewModels\LevelViewModel.cs" />
     <Compile Include="Models\ViewModels\NavigationViewModel.cs" />
     <Compile Include="Models\ViewModels\NewsFeedViewModel.cs" />
     <Compile Include="Models\ViewModels\ProfileManagementView.cs" />
     <Compile Include="Models\ViewModels\RegistrationViewModel.cs" />
+    <Compile Include="Models\ViewModels\TakeTestViewModel.cs" />
     <Compile Include="Models\ViewModels\TeacherViewModels\CourseLectureViewModel.cs" />
     <Compile Include="Models\ViewModels\TeacherViewModels\CreateTestViewModel.cs" />
     <Compile Include="Models\ViewModels\TeacherViewModels\EditTestViewModel.cs" />
     <Compile Include="Models\ViewModels\TeacherViewModels\TLevelViewModel.cs" />
+    <Compile Include="Models\ViewModels\TestAlreadyCompletedViewModel.cs" />
+    <Compile Include="Models\ViewModels\TestCompletedViewModel.cs" />
     <Compile Include="Models\ViewModels\TestViewModel.cs" />
     <Compile Include="Models\ViewModels\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -202,6 +215,23 @@
     <Content Include="Scripts\BootstrapJS\bootstrap.min.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
+    <Content Include="Views\Student\Course.cshtml" />
+    <Content Include="Views\Student\CourseTabs.cshtml" />
+    <Content Include="Views\Student\GetAssignment.cshtml" />
+    <Content Include="Views\Student\GetAssignmentsForLevel.cshtml" />
+    <Content Include="Views\Student\GetCourse.cshtml" />
+    <Content Include="Views\Student\GetLecturesForLevel.cshtml" />
+    <Content Include="Views\Student\GetLevel.cshtml" />
+    <Content Include="Views\Student\GetTest.cshtml" />
+    <Content Include="Views\Student\GetTestsForLevel.cshtml" />
+    <Content Include="Views\Student\Navigation.cshtml" />
+    <Content Include="Views\Student\NewsFeed.cshtml" />
+    <Content Include="Views\Student\ProfileManagement.cshtml" />
+    <Content Include="Views\Student\StudentIndex.cshtml" />
+    <Content Include="Views\Student\TakeTest.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Student\_LecturesPartial.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -228,7 +258,6 @@
     <Content Include="Views\Account\LogOn.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Student\StudentIndex.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LogOnPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -266,6 +295,11 @@
       <LastGenOutput>LevelDB.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
+    <None Include="Models\dbLINQ\NotificationDB.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>NotificationDB.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Models\dbLINQ\TestDB.dbml">
       <SubType>Designer</SubType>
       <Generator>MSLinqToSQLGenerator</Generator>
@@ -290,23 +324,11 @@
     <Content Include="Views\Admin\AdminIndex.cshtml" />
     <Content Include="Views\Teacher\TeacherIndex.cshtml" />
     <Content Include="Views\Admin\StudentList.cshtml" />
-    <Content Include="Views\Student\Navigation.cshtml" />
-    <Content Include="Views\Student\GetCourse.cshtml" />
     <Content Include="Views\Admin\EditUser.cshtml" />
     <Content Include="Views\Admin\GetStudents.cshtml" />
     <Content Include="Views\Admin\GetTeachers.cshtml" />
     <Content Include="Views\Admin\UserForm.cshtml" />
     <Content Include="Views\Admin\UserListPartial.cshtml" />
-    <Content Include="Views\Student\GetLevel.cshtml" />
-    <Content Include="Views\Student\CourseTabs.cshtml" />
-    <Content Include="Views\Student\GetLecturesForLevel.cshtml" />
-    <Content Include="Views\Student\Course.cshtml" />
-    <Content Include="Views\Student\_LecturesPartial.cshtml" />
-    <Content Include="Views\Student\GetAssignment.cshtml" />
-    <Content Include="Views\Student\GetAssignmentsForLevel.cshtml" />
-    <Content Include="Views\Student\GetTest.cshtml" />
-    <Content Include="Views\Student\GetTestsForLevel.cshtml" />
-    <Content Include="Views\Student\NewsFeed.cshtml" />
     <Content Include="Views\Teacher\Course.cshtml" />
     <Content Include="Views\Teacher\Navigation.cshtml" />
     <Content Include="Views\Teacher\TeacherNavigation.cshtml" />
@@ -327,11 +349,12 @@
     </None>
     <Content Include="Views\Teacher\CreateLecture.cshtml" />
     <Content Include="Views\Teacher\LectureForm.cshtml" />
-    <Content Include="Views\Student\ProfileManagement.cshtml" />
-    <Content Include="Views\Student\GetAssignment.cshtml" />
-    <Content Include="Views\Student\GetAssignmentsForLevel.cshtml" />
-    <Content Include="Views\Student\NewsFeed.cshtml" />
-    <Content Include="Views\Student\ProfileManagement.cshtml" />
+    <Content Include="Views\Teacher\CreateTest.cshtml" />
+    <Content Include="Views\Shared\ErrorPartial.cshtml" />
+    <Content Include="Views\Teacher\EditTest.cshtml" />
+    <Content Include="Views\Student\TestCompleted.cshtml" />
+    <Content Include="Views\Student\TestAlreadyCompleted.cshtml" />
+    <Content Include="Views\Student\AssignmentAlreadyCompleted.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -374,6 +397,11 @@
   <ItemGroup>
     <None Include="Models\dbLINQ\XPDB.dbml.layout">
       <DependentUpon>XPDB.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\dbLINQ\NotificationDB.dbml.layout">
+      <DependentUpon>NotificationDB.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

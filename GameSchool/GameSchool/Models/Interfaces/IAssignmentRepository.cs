@@ -13,7 +13,7 @@ namespace GameSchool.Models.Interfaces
         IQueryable<AssignmentModel> GetFiveLatest(int LevelID);
         AssignmentModel GetAssignmentById(int AssignmentID);
         void RegisterAssignmentCompletion(AssignmentCompletion TheCompletion);
-        bool HasStudentFinishedAssignment(aspnet_User Student, AssignmentModel Assignment);//ekki verið að nota
+        bool HasStudentFinishedAssignment(string StudentName, int AssignmentID);
         void AddAssignmnet(AssignmentModel TheAssignment);//ekki verið að nota
         void Save();
         IQueryable<int> GetFinishedAssignmentsForUser(string UserName, int CourseID);
