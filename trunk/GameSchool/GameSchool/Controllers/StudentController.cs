@@ -32,6 +32,7 @@ namespace GameSchool.Controllers
             return View();
         }
 
+        #region Navigation
         public ActionResult Navigation()
         {
             aspnet_User TheUser = m_UserRepo.GetUserByName(User.Identity.Name);
@@ -54,7 +55,9 @@ namespace GameSchool.Controllers
     
             return PartialView("Navigation", model);
         }
+        #endregion
 
+        #region Courses
         public ActionResult CourseTabs(int id)
         {
             var model = m_CourseRepo.GetCourseById(id);
@@ -88,7 +91,9 @@ namespace GameSchool.Controllers
                 return RedirectToAction("StudentIndex");
             }
         }
+        #endregion
 
+        #region Levels
         //TODO: útfæra
         public bool checkForLevelCompletion(int? LevelID, string StudentName)
         {
@@ -148,6 +153,9 @@ namespace GameSchool.Controllers
                 return RedirectToAction("StudentIndex");
         }
 
+        #endregion
+
+        #region Lectures
         public ActionResult GetLecturesForLevel(int? id)
         {
             if (id.HasValue)
@@ -206,6 +214,9 @@ namespace GameSchool.Controllers
             }
         }
 
+        #endregion
+
+        #region Comments
         [HttpGet]
         public ActionResult GetCommentsByID(int? id)
         {
@@ -251,7 +262,50 @@ namespace GameSchool.Controllers
                                                                });
                 return Json(newResult);
         }
+        #endregion
 
+        #region Likes
+        [HttpGet]
+        public ActionResult GetLikesForLecture(int LectureID)
+        {
+            var model = m_CommentRepo.GetLikesForLecture(LectureID);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult CreateLikeForComment(int CommentID)
+        {
+            string theLiker = m_UserRepo.GetUserByName(User.Identity.Name).Name;
+            string theChecker = m_CommentRepo.GetNameForComment(CommentID);
+            //Kanna hvort notandinn hafi like'að commentið áður
+            var check = m_CommentRepo.GetLikesForComment(CommentID);
+            foreach (var item in check)
+            {
+                if (item.UserName == theLiker)
+                    return Json(null);
+            }
+            //Púsla like'inu saman
+            LikeModel newLike = new LikeModel();
+            newLike.UserName = theLiker;
+            newLike.CommentID = CommentID;
+            //Bæti like'inu í gagnagrunninn
+            m_CommentRepo.AddLike(newLike);
+            //TODO Redda því að checka á hvort commentari sé að likea commentið sitt.
+            if (theLiker != theChecker)
+            {
+                var shit = m_UserRepo.GetUserByName(theChecker);
+                shit.XP += 10;
+            }
+
+            m_UserRepo.Save();
+            //Sæki nýjasta like'ið fyrir Json
+            var latest = (from x in m_CommentRepo.GetLikesForComment(CommentID)
+                          select x).ToList().Last();
+            return Json(latest);
+        }
+        #endregion
+
+        #region Tests
         public ActionResult GetTestsForLevel(int? id)
         {
             if (id.HasValue)
@@ -284,222 +338,6 @@ namespace GameSchool.Controllers
                 return View(model);
             }
             return View("Error");
-        }
-
-        public ActionResult GetAssignmentsForLevel(int? id)
-        {
-            if (id.HasValue)
-            {
-                IQueryable<AssignmentModel> model = m_AssignmentRepo.GetAllAssignmentsForLevel(id.Value);
-                return PartialView(model);
-            }
-            return View("Error");
-        }
-
-        public ActionResult GetAssignment(int? id)
-        {
-            if (id.HasValue)
-            {
-                AssignmentModel model = m_AssignmentRepo.GetAssignmentById(id.Value);
-                return View(model);
-            }
-            return View("Error");
-        }
-
-        [HttpPost]
-        public ActionResult GetAssignment(AssignmentModel model /*, HttpPostedFileBase file*/)
-        {
-            /*if (file.ContentLength > 0)
-            {
-                var fileName = Path.GetFileName(file.FileName);
-                var path = Path.Combine(Server.MapPath("~/App_Data/Uploads"), fileName);
-                file.SaveAs(path);
-            }*/
-
-            if (model != null)
-            {
-                //Marking assignment as completed
-                AssignmentCompletion Completion = new AssignmentCompletion();
-                Completion.AssignmentID = model.ID;
-                Completion.UserName = User.Identity.Name;
-                Completion.CourseID = model.CourseID;
-
-
-                m_AssignmentRepo.RegisterAssignmentCompletion(Completion);
-                m_AssignmentRepo.Save();
-
-                //Updating CourseXP
-                CourseXP TheUserCourseXP = m_CourseXPRepo.GetCourseXPByUserName(User.Identity.Name);
-                if (TheUserCourseXP == null)
-                {
-                    TheUserCourseXP = m_CourseXPRepo.CreateNewXPForUserName(User.Identity.Name, model.CourseID.Value);
-                    m_CourseXPRepo.RegisterXPForCourse(TheUserCourseXP);
-                }
-                
-                TheUserCourseXP.XP += model.Points.Value;
-                m_CourseXPRepo.Save();
-
-                //Updating UserXP
-                aspnet_User TheUser = m_UserRepo.GetUserByName(User.Identity.Name);
-
-                TheUser.XP += model.Points.Value;
-                m_UserRepo.Save();
-
-                
-
-
-                return RedirectToAction("GetCourse", "Student", model.CourseID.Value);
-            }
-            else
-                return View("Error");
-
-        }
-
-        public ActionResult NewsFeed(int? id)
-        {
-            if(id.HasValue)
-            {
-                IQueryable<LectureModel> TheLectures = m_LectureRepo.GetFiveLatest(id.Value);
-                IQueryable<AssignmentModel> TheAssignments = m_AssignmentRepo.GetFiveLatest(id.Value);
-                IQueryable<NotificationModel> TheNotifications = m_NotificationRepo.GetFiveLatest(id.Value);
-                IQueryable<TestModel> TheTests = m_TestRepo.GetFiveLatest(id.Value);
-                if (TheNotifications.Any())
-                {
-                    string SourceTeacherImage = m_UserRepo.GetImageForName(m_NotificationRepo.GetNameOfTeacher(id.Value));
-                    NewsFeedViewModel model = new NewsFeedViewModel();
-                    model.Lectures = TheLectures;
-                    model.Assignments = TheAssignments;
-                    model.Tests = TheTests;
-                    model.Notifications = TheNotifications;
-                    model.SourceTeacherImage = SourceTeacherImage;
-                    return PartialView(model);
-                }
-                else
-                {
-                    NewsFeedViewModel model = new NewsFeedViewModel();
-                    model.Lectures = TheLectures;
-                    model.Assignments = TheAssignments;
-                    model.Tests = TheTests;
-                    model.Notifications = null;
-                    model.SourceTeacherImage = null;
-                    return PartialView(model);
-                }
-
-
-                
-
-                
-
-            }
-            return View("Error");
-        }
-
-        public ActionResult ProfileManagement()
-        {
-            string TheUserName = User.Identity.Name;
-            aspnet_User TheUser = m_UserRepo.GetUserByName(TheUserName);
-            ImageModel UserImage = m_UserRepo.GetImageForUser(TheUser.UserId.ToString());
-            aspnet_Membership Membership = m_UserRepo.GetMembershipById(TheUser.UserId.ToString());
-
-            ProfileManagementView model = new ProfileManagementView();
-
-            model.ImageSource = UserImage.Source;
-            model.Email = Membership.Email;
-            model.NewPassword = null;
-            model.OldPassword = null;
-            model.ConfirmPassword = null;
-
-            return View(model);
-
-        }
-        [HttpPost]
-        public ActionResult ProfileManagement(ProfileManagementView model)
-        {
-            string TheUserName = User.Identity.Name;
-            aspnet_User TheUser = m_UserRepo.GetUserByName(TheUserName);
-            ImageModel UserImage = m_UserRepo.GetImageForUser(TheUser.UserId.ToString());
-            aspnet_Membership TheMembership = m_UserRepo.GetMembershipById(TheUser.UserId.ToString());
-           
-            TheMembership.Email = model.Email;
-            UserImage.Source = model.ImageSource;
-            m_UserRepo.Save();
-            if (model.NewPassword != null && model.OldPassword != null)
-            {
-                bool changePasswordSucceeded;
-                try
-                {
-                    MembershipUser currentUser = Membership.GetUser(TheUserName, true /*Notandi er online */);
-                    changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
-                }
-                catch (Exception)
-                {
-                    changePasswordSucceeded = false;
-                }
-                if (changePasswordSucceeded)
-                {
-                    return RedirectToAction("StudentIndex");
-                }
-                else
-                {
-                    return View("Error");
-                }
-            }
-            else
-            {
-                return RedirectToAction("StudentIndex");
-            }
-        }
-
-        [HttpGet]
-        public ActionResult GetLikesForLecture(int LectureID)
-        {
-            var model = m_CommentRepo.GetLikesForLecture(LectureID);
-            return Json(model, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public ActionResult CreateLikeForComment(int CommentID)
-        {
-            string theLiker = m_UserRepo.GetUserByName(User.Identity.Name).Name;
-            string theChecker = m_CommentRepo.GetNameForComment(CommentID);
-            //Kanna hvort notandinn hafi like'að commentið áður
-            var check = m_CommentRepo.GetLikesForComment(CommentID);
-            foreach (var item in check)
-            {
-                if (item.UserName == theLiker)
-                    return Json(null);
-            }
-            //Púsla like'inu saman
-            LikeModel newLike = new LikeModel();
-            newLike.UserName = theLiker;
-            newLike.CommentID = CommentID;
-            //Bæti like'inu í gagnagrunninn
-            m_CommentRepo.AddLike(newLike);
-            //TODO Redda því að checka á hvort commentari sé að likea commentið sitt.
-            if (theLiker != theChecker)
-            {
-                var shit = m_UserRepo.GetUserByName(theChecker);
-                shit.XP += 10;
-            }
-            
-            m_UserRepo.Save();
-            //Sæki nýjasta like'ið fyrir Json
-            var latest = (from x in m_CommentRepo.GetLikesForComment(CommentID)
-                          select x).ToList().Last();
-            return Json(latest);
-        }
-        [HttpGet]
-        public ActionResult XPList()
-        {
-            aspnet_User TheUser = m_UserRepo.GetUserByName(User.Identity.Name);
-            IQueryable<int>UserXP = m_UserRepo.GetXPForUsers();
-            int CurrentXP = m_UserRepo.GetXPForCurrentUser(TheUser.UserId.ToString());
-            int Counter = m_UserRepo.GetAllStudents().Count();
-            UserViewModel model = new UserViewModel();
-            model.m_XP = UserXP;
-            model.m_CurrentXP = CurrentXP;
-            model.m_Counter = Counter;
-            return PartialView("XPListView", model);
         }
 
         public ActionResult TakeTest(int? testID)
@@ -590,5 +428,192 @@ namespace GameSchool.Controllers
             else
                 return View("Error");
         }
+        #endregion
+
+        #region Assignments
+        public ActionResult GetAssignmentsForLevel(int? id)
+        {
+            if (id.HasValue)
+            {
+                IQueryable<AssignmentModel> model = m_AssignmentRepo.GetAllAssignmentsForLevel(id.Value);
+                return PartialView(model);
+            }
+            return View("Error");
+        }
+
+        public ActionResult GetAssignment(int? id)
+        {
+            if (id.HasValue)
+            {
+                AssignmentModel model = m_AssignmentRepo.GetAssignmentById(id.Value);
+                return View(model);
+            }
+            return View("Error");
+        }
+
+        [HttpPost]
+        public ActionResult GetAssignment(AssignmentModel model /*, HttpPostedFileBase file*/)
+        {
+            /*if (file.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/App_Data/Uploads"), fileName);
+                file.SaveAs(path);
+            }*/
+
+            if (model != null)
+            {
+                //Marking assignment as completed
+                AssignmentCompletion Completion = new AssignmentCompletion();
+                Completion.AssignmentID = model.ID;
+                Completion.UserName = User.Identity.Name;
+                Completion.CourseID = model.CourseID;
+
+
+                m_AssignmentRepo.RegisterAssignmentCompletion(Completion);
+                m_AssignmentRepo.Save();
+
+                //Updating CourseXP
+                CourseXP TheUserCourseXP = m_CourseXPRepo.GetCourseXPByUserName(User.Identity.Name);
+                if (TheUserCourseXP == null)
+                {
+                    TheUserCourseXP = m_CourseXPRepo.CreateNewXPForUserName(User.Identity.Name, model.CourseID.Value);
+                    m_CourseXPRepo.RegisterXPForCourse(TheUserCourseXP);
+                }
+                
+                TheUserCourseXP.XP += model.Points.Value;
+                m_CourseXPRepo.Save();
+
+                //Updating UserXP
+                aspnet_User TheUser = m_UserRepo.GetUserByName(User.Identity.Name);
+
+                TheUser.XP += model.Points.Value;
+                m_UserRepo.Save();
+
+                
+
+
+                return RedirectToAction("GetCourse", "Student", model.CourseID.Value);
+            }
+            else
+                return View("Error");
+
+        }
+        #endregion
+
+        #region NewsFeed
+        public ActionResult NewsFeed(int? id)
+        {
+            if(id.HasValue)
+            {
+                IQueryable<LectureModel> TheLectures = m_LectureRepo.GetFiveLatest(id.Value);
+                IQueryable<AssignmentModel> TheAssignments = m_AssignmentRepo.GetFiveLatest(id.Value);
+                IQueryable<NotificationModel> TheNotifications = m_NotificationRepo.GetFiveLatest(id.Value);
+                IQueryable<TestModel> TheTests = m_TestRepo.GetFiveLatest(id.Value);
+                if (TheNotifications.Any())
+                {
+                    string SourceTeacherImage = m_UserRepo.GetImageForName(m_NotificationRepo.GetNameOfTeacher(id.Value));
+                    NewsFeedViewModel model = new NewsFeedViewModel();
+                    model.Lectures = TheLectures;
+                    model.Assignments = TheAssignments;
+                    model.Tests = TheTests;
+                    model.Notifications = TheNotifications;
+                    model.SourceTeacherImage = SourceTeacherImage;
+                    return PartialView(model);
+                }
+                else
+                {
+                    NewsFeedViewModel model = new NewsFeedViewModel();
+                    model.Lectures = TheLectures;
+                    model.Assignments = TheAssignments;
+                    model.Tests = TheTests;
+                    model.Notifications = null;
+                    model.SourceTeacherImage = null;
+                    return PartialView(model);
+                }
+
+
+                
+
+                
+
+            }
+            return View("Error");
+        }
+        #endregion
+
+        #region Profile Management
+        public ActionResult ProfileManagement()
+        {
+            string TheUserName = User.Identity.Name;
+            aspnet_User TheUser = m_UserRepo.GetUserByName(TheUserName);
+            ImageModel UserImage = m_UserRepo.GetImageForUser(TheUser.UserId.ToString());
+            aspnet_Membership Membership = m_UserRepo.GetMembershipById(TheUser.UserId.ToString());
+
+            ProfileManagementView model = new ProfileManagementView();
+
+            model.ImageSource = UserImage.Source;
+            model.Email = Membership.Email;
+            model.NewPassword = null;
+            model.OldPassword = null;
+            model.ConfirmPassword = null;
+
+            return View(model);
+
+        }
+        [HttpPost]
+        public ActionResult ProfileManagement(ProfileManagementView model)
+        {
+            string TheUserName = User.Identity.Name;
+            aspnet_User TheUser = m_UserRepo.GetUserByName(TheUserName);
+            ImageModel UserImage = m_UserRepo.GetImageForUser(TheUser.UserId.ToString());
+            aspnet_Membership TheMembership = m_UserRepo.GetMembershipById(TheUser.UserId.ToString());
+           
+            TheMembership.Email = model.Email;
+            UserImage.Source = model.ImageSource;
+            m_UserRepo.Save();
+            if (model.NewPassword != null && model.OldPassword != null)
+            {
+                bool changePasswordSucceeded;
+                try
+                {
+                    MembershipUser currentUser = Membership.GetUser(TheUserName, true /*Notandi er online */);
+                    changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
+                }
+                catch (Exception)
+                {
+                    changePasswordSucceeded = false;
+                }
+                if (changePasswordSucceeded)
+                {
+                    return RedirectToAction("StudentIndex");
+                }
+                else
+                {
+                    return View("Error");
+                }
+            }
+            else
+            {
+                return RedirectToAction("StudentIndex");
+            }
+        }
+        #endregion
+
+        #region XP
+        [HttpGet]
+        public ActionResult XPList()
+        {
+            aspnet_User TheUser = m_UserRepo.GetUserByName(User.Identity.Name);
+            IQueryable<int>UserXP = m_UserRepo.GetXPForUsers();
+            int CurrentXP = m_UserRepo.GetXPForCurrentUser(TheUser.UserId.ToString());
+            int Counter = m_UserRepo.GetAllStudents().Count();
+            UserViewModel model = new UserViewModel();
+            model.m_XP = UserXP;
+            model.m_CurrentXP = CurrentXP;
+            model.m_Counter = Counter;
+            return PartialView("XPListView", model);
+        }
+        #endregion
     }
 }
