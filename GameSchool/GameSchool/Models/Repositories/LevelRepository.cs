@@ -163,5 +163,13 @@ namespace GameSchool.Models.Repositories
         {
             throw new NotImplementedException();
         }
+
+        internal int GetLevelCourse(int p)
+        {
+            var result = (from x in m_levelDB.LevelModels
+                          where x.ID == p
+                          select x.CourseID).SingleOrDefault();
+            return result;
+        }
     }
 }

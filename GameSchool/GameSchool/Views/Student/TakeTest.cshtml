@@ -8,7 +8,7 @@
 
 @using(Html.BeginForm("TakeTest", "Student", FormMethod.Post))
 {
-    @Html.HiddenFor(model => model.StudentID)
+    @Html.HiddenFor(model => model.StudentName)
     @Html.HiddenFor(model => model.Test.ID)
 
     foreach (var question in Model.Questions)

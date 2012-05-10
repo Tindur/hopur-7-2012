@@ -38,7 +38,7 @@ namespace GameSchool.Models.ViewModels
 
         public IQueryable<AssignmentCompletion> m_FinishedAssignments { get; set; }
 
-        public IQueryable<TestCompletion> m_FinishedTests { get; set; }
+        public IQueryable<int> m_FinishedTestsID { get; set; }
 
         //TODO LECTURECOMPLETION!!!!
 

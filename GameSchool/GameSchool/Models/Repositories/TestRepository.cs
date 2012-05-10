@@ -112,15 +112,38 @@ namespace GameSchool.Models.Repositories
             m_testDB.SubmitChanges();
         }
 
-        public bool UserHasFinishedTest(Guid studentID, int testID)
+        public bool UserHasFinishedTest(string studentName, int testID)
         {
             var result = (from x in m_testDB.TestCompletions
-                          where x.StudentID == studentID && x.TestID == testID
+                          where x.StudentName == studentName && x.TestID == testID
                           select x).SingleOrDefault();
             if (result != null)
                 return true;
             else
                 return false;
+        }
+
+        public IQueryable<int> GetFinishedTestsInCourse(string StudentName, int CourseID)
+        {
+            //Finna öll próf í kúrsinum
+            List<TestModel> list = GetTestsForCourse(CourseID).ToList();
+
+            //Finnum ID á prófum sem nemandi hefur klárað
+            List<int> finishedTestsID = new List<int>();
+            foreach (var test in list)
+            {
+                if (UserHasFinishedTest(StudentName, test.ID))
+                {
+                    finishedTestsID.Add(test.ID);
+                }
+            }
+
+            //Finnum TestCompletion
+            var result = (from x in m_testDB.TestCompletions
+                          where finishedTestsID.Contains(x.TestID) && x.StudentName == StudentName
+                          select x.TestID);
+
+            return result;
         }
     }
 }

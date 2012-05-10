@@ -557,7 +557,7 @@ namespace GameSchool.Models.dbLINQ
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TestCompletion")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TestCompletions")]
 	public partial class TestCompletion : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -569,7 +569,7 @@ namespace GameSchool.Models.dbLINQ
 		
 		private int _TestID;
 		
-		private System.Guid _StudentID;
+		private string _StudentName;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -581,8 +581,8 @@ namespace GameSchool.Models.dbLINQ
     partial void OnLevelIDChanged();
     partial void OnTestIDChanging(int value);
     partial void OnTestIDChanged();
-    partial void OnStudentIDChanging(System.Guid value);
-    partial void OnStudentIDChanged();
+    partial void OnStudentNameChanging(string value);
+    partial void OnStudentNameChanged();
     #endregion
 		
 		public TestCompletion()
@@ -650,22 +650,22 @@ namespace GameSchool.Models.dbLINQ
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StudentID", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid StudentID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StudentName", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string StudentName
 		{
 			get
 			{
-				return this._StudentID;
+				return this._StudentName;
 			}
 			set
 			{
-				if ((this._StudentID != value))
+				if ((this._StudentName != value))
 				{
-					this.OnStudentIDChanging(value);
+					this.OnStudentNameChanging(value);
 					this.SendPropertyChanging();
-					this._StudentID = value;
-					this.SendPropertyChanged("StudentID");
-					this.OnStudentIDChanged();
+					this._StudentName = value;
+					this.SendPropertyChanged("StudentName");
+					this.OnStudentNameChanged();
 				}
 			}
 		}
