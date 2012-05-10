@@ -70,7 +70,7 @@ namespace GameSchool.Controllers
 
         public ActionResult CourseLectures(int? courseID)
         {
-           /* if (courseID.HasValue)
+            if (courseID.HasValue)
             {
                 CourseLectureViewModel model = new CourseLectureViewModel
                 {
@@ -79,31 +79,60 @@ namespace GameSchool.Controllers
                 };
                 return PartialView("CourseLectures", model);
             }
-            else*/
+            else
                 return View("Error");
         }
 
-        public ActionResult CreateLecture()
+        public ActionResult CourseAssignments(int? courseID)
         {
-            return View(new LectureModel());
+            if (courseID.HasValue)
+            {
+                CourseAssignmentsViewModel model = new CourseAssignmentsViewModel
+                {
+                    Assignments = m_AssignmentRepo.GetAssignmentsForCourse(courseID.Value).ToList(),
+                    Levels = m_lvlRepo.GetAllLevelsForCourse(courseID.Value).ToList()
+                };
+                return PartialView("CourseAssignments", model);
+            }
+            else
+                return View("Error");
+        }
+
+        public ActionResult CourseTests(int? courseID)
+        {
+            if (courseID.HasValue)
+            {
+                CourseTestViewModel model = new CourseTestViewModel
+                {
+                    Tests = m_TestRepo.GetTestsForCourse(courseID.Value).ToList(),
+                    Levels = m_lvlRepo.GetAllLevelsForCourse(courseID.Value).ToList()
+                };
+                return PartialView("CourseTests", model);
+            }
+            else
+                return View("Error");
+        }
+
+        public ActionResult CreateLecture(int LevelID, int CourseID)
+        {
+            LectureModel model = new LectureModel();
+            model.CourseID = CourseID;
+            model.LevelID = LevelID;
+
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult CreateLecture(LectureModel model/*, string ReturnUrl*/)
+        public ActionResult CreateLecture(LectureModel model)
         {
             if (model != null)
             {
                 model.DateAdded = DateTime.Now;
 
                 m_LectureRepo.AddLecture(model);
+
                 m_LectureRepo.Save();
-                /*if (Url.IsLocalUrl(ReturnUrl) && ReturnUrl.Length > 1 && ReturnUrl.StartsWith("/")
-                        && !ReturnUrl.StartsWith("//") && !ReturnUrl.StartsWith("/\\"))
-                {
-                    return Redirect(ReturnUrl);
-                }
-                else*/
-                    return RedirectToAction("TeacherIndex");
+                return RedirectToAction("GetCourse", "Teacher", new { id = model.CourseID });
             }
             return View("Error");
         }
@@ -129,6 +158,32 @@ namespace GameSchool.Controllers
                 
                
                 return PartialView("CourseLevels", model);
+            }
+            else
+                return View("Error");
+        }
+
+        public ActionResult CreateLevel(int? CourseID)
+        {
+            if (CourseID.HasValue)
+            {
+                LevelModel model = new LevelModel();
+                model.CourseID = CourseID.Value;
+                return View(model);
+            }
+            else
+                return View ("Error");
+        }
+
+        [HttpPost]
+        public ActionResult CreateLevel(LevelModel model)
+        {
+            if (model != null)
+            {
+                int number = m_lvlRepo.GetAllLevelsForCourse(model.CourseID).Count() + 1;
+                model.NumberInCourse = number;
+                m_lvlRepo.AddLevel(model);
+                return RedirectToAction("GetCourse", new { id = model.CourseID });
             }
             else
                 return View("Error");
@@ -263,9 +318,12 @@ namespace GameSchool.Controllers
         #endregion
 
         #region Assignments
-        public ActionResult CreateAssignment()
+        public ActionResult CreateAssignment(int LevelID, int CourseID)
         {
-            return View(new AssignmentModel());
+            AssignmentModel model = new AssignmentModel();
+            model.LevelID = LevelID;
+            model.CourseID = CourseID;
+            return View(model);
         }
 
         [HttpPost]
@@ -278,7 +336,7 @@ namespace GameSchool.Controllers
                 m_AssignmentRepo.AddAssignmnet(model);
                 m_AssignmentRepo.Save();
 
-                return View("TeacherIndex");
+                return RedirectToAction("GetCourse", "Teacher", new { id = model.CourseID });
             }
             else
             {

@@ -26,89 +26,101 @@
             @Html.TextAreaFor(model => model.Course.Description)
         </div>
 
-
-        <div class="editor-field">
-            <table id="Students" class="UserTable">
-                <caption class="UserTableNames">@Html.LabelFor(model => model.Students)</caption>
-                <thead>
-                    <tr>
-                        <th>Nafn</th>
-                        <th>Bæta í áfanga</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var student in Model.Students)
-                    {
-                        if (Model.StudentNameInCourse.Contains(student.UserName))
+        @if (Model.Course.ID != 0)
+        {
+            <div class="editor-field">
+                <table id="Students" class="UserTable">
+                    <caption class="UserTableNames">@Html.LabelFor(model => model.Students)</caption>
+                    <thead>
+                        <tr>
+                            <th>Nafn</th>
+                            <th>Bæta í áfanga</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var student in Model.Students)
                         {
-                            <tr>
-                                <td>@student.UserName</td>
-                                <td id="@student.UserName"><a href="" class="student_link" onclick="RemoveStudentFromCourse(@Model.Course.ID, '@student.UserName')">-</a></td>
-                            </tr>
+                            if (Model.StudentNameInCourse.Contains(student.UserName))
+                            {
+                                <tr>
+                                    <td>@student.UserName</td>
+                                    <td id="@student.UserName"><a href="#" class="student_link" onclick="RemoveStudentFromCourse(@Model.Course.ID, '@student.UserName')">-</a></td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>@student.UserName</td>
+                                    <td id="@student.UserName"><a href="#" class="student_link" onclick="SetStudentToCourse(@Model.Course.ID, '@student.UserName')">+</a></td>
+                                </tr>
+                            }
                         }
-                        else
+                    </tbody>
+                </table>
+            </div>
+        
+
+            <script type="text/html" id="student_plus_template">
+                <a href="#" class="student_link" onclick="SetStudentToCourse(${CourseID}, '${StudentUsername}')">+</a>
+            </script>
+
+            <script type="text/html" id="student_minus_template">
+                <a href="#" class="student_link" onclick="RemoveStudentFromCourse(${CourseID},'${StudentUsername}')">-</a>
+            </script>
+        
+            <script type="text/html" id="student_error_template">
+                <p id="error">Nemandinn þegar í sex áföngum</p>
+            </script>
+
+            <div class="editor-field">
+                <table id="Teachers" class="UserTable">
+                    <caption class="UserTableNames">@Html.LabelFor(model => model.Teachers)</caption>
+                    <thead>
+                        <tr>
+                            <th>Nafn</th>
+                            <th>Bæta í áfanga</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var teacher in Model.Teachers)
                         {
-                            <tr>
-                                <td>@student.UserName</td>
-                                <td id="@student.UserName"><a href="" class="student_link" onclick="SetStudentToCourse(@Model.Course.ID, '@student.UserName')">+</a></td>
-                            </tr>
+                            if (Model.TeachersNameInCourse.Contains(teacher.UserName))
+                            {
+                                <tr>
+                                    <td>@teacher.UserName</td>
+                                    <td id="@teacher.UserName">Kennari áfangans. Ekki hægt að fjarlægja. Vinsamlegast hafðu samband á mail : tindur11@ru.is</td>
+                                </tr>
+                            }
+                            else
+                            {
+                                 <tr>
+                                    <td>@teacher.UserName</td>
+                                    <td id="@teacher.UserName"><a href="#" class="teacher_link" onclick="SetTeacherToCourse(@Model.Course.ID, '@teacher.UserName')">+</a></td>
+                                </tr>
+                            }
                         }
-                    }
-                </tbody>
-            </table>
-        </div>
+                    </tbody>
+                </table>
+            </div>
 
-        <script type="text/html" id="student_plus_template">
-            <a id="link_ ${UserName}" href="" onclick="SetStudentToCourse(${CourseID}, '${UserName}')">+</a>
-        </script>
+            <script type="text/html" id="teacher_plus_template">
+                <a id="link_ ${UserName}" href="#" onclick="SetTeacherToCourse(${CourseID}, '${UserName}')">+</a>
+            </script>
 
-        <script type="text/html" id="student_minus_template">
-            <a id="link_ ${UserName}" href="" onclick="RemoveStudentFromCourse(${CourseID}, '${UserName}')">-</a>
-        </script>
-
-        <div class="editor-field">
-            <table id="Teachers" class="UserTable">
-                <caption class="UserTableNames">@Html.LabelFor(model => model.Teachers)</caption>
-                <thead>
-                    <tr>
-                        <th>Nafn</th>
-                        <th>Bæta í áfanga</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var teacher in Model.Teachers)
-                    {
-                        if (Model.TeachersNameInCourse.Contains(teacher.UserName))
-                        {
-                            <tr>
-                                <td>@teacher.UserName</td>
-                                <td id="@teacher.UserName"><a href="" class="teacher_link" onclick="RemoveTeacherFromCourse(@Model.Course.ID, '@teacher.UserName')">-</a></td>
-                            </tr>
-                        }
-                        else
-                        {
-                             <tr>
-                                <td>@teacher.UserName</td>
-                                <td id="@teacher.UserName"><a href="" class="teacher_link" onclick="SetTeacherToCourse(@Model.Course.ID, '@teacher.UserName')">+</a></td>
-                            </tr>
-                        }
-                    }
-                </tbody>
-            </table>
-        </div>
-
-        <script type="text/html" id="teacher_plus_template">
-            <a id="link_ ${UserName}" href="" onclick="SetTeacherToCourse(${CourseID}, '${UserName}')">+</a>
-        </script>
-
-        <script type="text/html" id="teacher_minus_template">
-            <a id="link_ ${UserName}" href="" onclick="RemoveTeacherFromCourse(${CourseID}, '${UserName}')">-</a>
-        </script>
-
+            <script type="text/html" id="teacher_minus_template">
+                <a id="link_ ${UserName}" href="#" onclick="RemoveTeacherFromCourse(${CourseID}, '${UserName}')">-</a>
+            </script>
+            
+            <script type="text/html" id="teacher_error_template">
+                <a id="error">Áfanginn er núþegar með kennara</a>
+            </script>
+        }
         <p>
             <input class="SaveChanges" type="submit" value="Save" />
         </p>
     </fieldset>
+    
+        
 }
 
 <div>
@@ -119,8 +131,16 @@
 
     function SetStudentToCourse(CourseID, UserName) {
         $.post("/Admin/AddStudentToCourse", { CourseID: CourseID, StudentName: UserName }, function (data) {
-            $("#" + UserName + "> a").remove();
-            $("#student_minus_template").tmpl(data).appendTo("#" + UserName);
+            if (data != "") {
+                $("#" + UserName + "> a").remove();
+                $("#student_minus_template").tmpl(data).appendTo("#" + UserName);
+            }
+            else {
+                $("#student_error_template").tmpl(data).appendTo("#" + UserName);
+                $("#error").fadeOut(5000, function () {
+                    $("#error").remove();
+                });
+            }
         });
     }
     function RemoveStudentFromCourse(CourseID, UserName) {
@@ -131,8 +151,16 @@
     }
     function SetTeacherToCourse(CourseID, UserName) {
         $.post("/Admin/AddTeacherToCourse", { CourseID: CourseID, TeachersUserName: UserName }, function (data) {
-            $("#" + UserName + "> a").remove();
-            $("#teacher_minus_template").tmpl(data).appendTo("#" + UserName);
+            if (data != "") {
+                $("#" + UserName + "> a").remove();
+                $("#teacher_minus_template").tmpl(data).appendTo("#" + UserName);
+            }
+            else {
+                $("#teacher_error_template").tmpl(data).appendTo("#" + UserName);
+                $("#error").fadeOut(5000, function () {
+                    $("#error").remove();
+                }); 
+            }
         });
     }
        /* $.post("/Admin/AddTeacherToCourse", { CourseID: CourseID, TeachersUserName: UserName })

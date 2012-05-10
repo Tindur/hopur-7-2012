@@ -23,15 +23,15 @@
     </div>
     <div class="tab-pane" id="tab2">
         <legend><h3 class="StudentHeadings">Fyrirlestrar</h3></legend>
-        @Html.ActionLink("Búa til fyrirlestur", "CreateLecture/", "Teacher")
+        @Html.Action("CourseLectures", "Teacher", new { courseID = Model.m_theCourse.ID })
     </div>
     <div class="tab-pane" id="tab3">
         <legend><h3 class="StudentHeadings">Próf</h3></legend>
-        <p>shit</p>
+        @Html.Action("CourseTests", "Teacher", new { courseID  = Model.m_theCourse.ID })
     </div>
     <div class="tab-pane" id="tab4">
         <legend><h3 class="StudentHeadings">Verkefni</h3></legend>
-        @Html.ActionLink("Búa til verkefni", "CreateAssignment", "Teacher")
+        @Html.Action("CourseAssignments", "Teacher", new { courseID = Model.m_theCourse.ID })
     </div>
     <div class="tab-pane" id="tab5">
        <legend><h3 class="StudentHeadings">Borð</h3></legend>

@@ -33,9 +33,10 @@ namespace GameSchool.Models.Repositories
 
         public bool HasStudentFinishedLevel(string userName, int levelID)
         {
-            var result = (from x in m_levelDB.LevelCompletions
-                          where x.StudentName == userName && x.LevelID == levelID
-                          select x).SingleOrDefault();
+            var result = (from student in m_levelDB.LevelCompletions
+                          where student.StudentName == userName && student.LevelID == levelID
+                          select student).SingleOrDefault();
+
             if (result != null)
                 return true;
             else
@@ -45,23 +46,11 @@ namespace GameSchool.Models.Repositories
 
         public int GetCurrentLevelForStudent(string userName, int courseID)  //Added by Björn
         {
-            
-         /*   var result = (from x in m_levelDB.LevelAmountCompletions
-                         where x.CourseID == courseID
-                         select x.LevelsCompleted.Value).SingleOrDefault();
 
-            var result2 = (from x in m_levelDB.LevelModels
-                          where x.CourseID == courseID
-                          select x.ID).Min();
-            
-            var result3 = result2 + result;*/
-            
-            //Ekki að virka sem skyldi!!
-
-           //Finnum öll borðin í áfanga
+            //Finnum öll borðin í áfanga
             var levelsInCourse = (from x in m_levelDB.LevelModels
-                          where x.CourseID == courseID
-                          select x);
+                                  where x.CourseID == courseID
+                                  select x);
 
             List<LevelModel> lev = new List<LevelModel>();
             foreach (var level in levelsInCourse)
@@ -83,7 +72,6 @@ namespace GameSchool.Models.Repositories
             complete.StudentName = studentName;
             complete.LevelID = idLevel;
             m_levelDB.LevelCompletions.InsertOnSubmit(complete);
-            m_levelDB.SubmitChanges();
         }
 
         public LevelModel GetLevelByID(int levelID)

@@ -46,7 +46,7 @@ namespace GameSchool.Models.Repositories
         {
             var result = from x in m_assignmentDB.AssignmentCompletions
                          where x.CourseID == CourseID && x.UserName == UserName
-                         select x.ID;
+                         select x.AssignmentID;
             return result;
         }
 

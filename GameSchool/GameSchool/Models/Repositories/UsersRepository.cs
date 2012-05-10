@@ -19,6 +19,7 @@ namespace GameSchool.Models.Repositories
             var Students = from aspnet_User in m_usersDB.aspnet_Users
                            join userinroles in m_usersDB.aspnet_UsersInRoles on aspnet_User.UserId equals userinroles.UserId
                            where userinroles.aspnet_Role.RoleName == "Student"
+                           orderby aspnet_User.Name
                            select aspnet_User;
 
             return Students;
@@ -198,6 +199,22 @@ namespace GameSchool.Models.Repositories
                                 where x.UserId.ToString() == CurrentID.ToString()
                                 select x.XP.Value).SingleOrDefault();
 
+            return result;
+        }
+
+        public aspnet_Role TeacherRole()
+        {
+            var result = (from x in m_usersDB.aspnet_Roles
+                         where x.RoleName == "Teacher"
+                         select x).SingleOrDefault();
+            return result;
+        }
+
+        public aspnet_Role StudentRole()
+        {
+            var result = (from x in m_usersDB.aspnet_Roles
+                          where x.RoleName == "Student"
+                          select x).SingleOrDefault();
             return result;
         }
     }

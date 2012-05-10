@@ -15,6 +15,7 @@ namespace GameSchool.Controllers
     {
         UsersRepository m_UsersRepo = new UsersRepository();
         CourseRepository m_CourseRepo = new CourseRepository();
+        int MAX_COURSES_FOR_STUDENT = 6;
         //
         // GET: /Admin/
         
@@ -22,7 +23,7 @@ namespace GameSchool.Controllers
         {
             return View();
         }
-        [HttpGet]
+
         public ActionResult GetStudents()
         {
             var model = m_UsersRepo.GetAllStudents();
@@ -33,7 +34,7 @@ namespace GameSchool.Controllers
             var model = m_UsersRepo.GetAllTeachers();
             return View(model);
         }
-        [HttpGet]
+
         public ActionResult EditUser(string id)
         {
             aspnet_User TheUser = m_UsersRepo.GetUserById(id);
@@ -71,6 +72,7 @@ namespace GameSchool.Controllers
                 aspnet_UsersInRole TheUsersRole = m_UsersRepo.GetUserRoleById(model.User_ID);
                 Guid TheUsersRoleGuid = new Guid(model.Role_ID);
                 Guid TheUsersID = new Guid(model.User_ID);
+                aspnet_Role TeacherRole = m_UsersRepo.TeacherRole();
 
                 m_UsersRepo.RemoveUserFromRole(TheUsersRole);
 
@@ -91,7 +93,10 @@ namespace GameSchool.Controllers
                 m_UsersRepo.SetUserToRole(role);
                 m_UsersRepo.Save();
 
-                return RedirectToAction("AdminIndex");
+                if (TheUsersRole.RoleId == TeacherRole.RoleId)
+                    return RedirectToAction("GetTeachers");
+                else
+                    return RedirectToAction("GetStudents");
 
             }
             return View("Error");
@@ -127,6 +132,7 @@ namespace GameSchool.Controllers
                 TheUser.SSN = model.SSN;
                 TheUser.Address = model.Address;
                 TheUser.Phone = model.Phone;
+                TheUser.XP = 0;
                 ImageModel TheImage = new ImageModel
                 {
                     Source = "../../Content/Images/Prisonmike.png",
@@ -255,37 +261,52 @@ namespace GameSchool.Controllers
         [HttpPost]
         public ActionResult AddStudentToCourse(int CourseID, string StudentName)
         {
-            CourseRegistration Registration = new CourseRegistration();
-            Registration.CourseID = CourseID;
-            Registration.StudentUsername = StudentName;
+            int NumberOfCoursesForStudent = m_CourseRepo.GetCoursesForStudent(StudentName).Count();
+            if (!(NumberOfCoursesForStudent >= MAX_COURSES_FOR_STUDENT))
+            {
+                CourseRegistration Registration = new CourseRegistration();
+                Registration.CourseID = CourseID;
+                Registration.StudentUsername = StudentName;
 
-            m_CourseRepo.AddStudentToCourse(Registration);
-            m_CourseRepo.Save();
+                m_CourseRepo.AddStudentToCourse(Registration);
+                m_CourseRepo.Save();
 
-            return Json(Registration, JsonRequestBehavior.AllowGet);
+                return Json(Registration);
+            }
+            else
+                return Json(null);
         }
 
         [HttpPost]
         public ActionResult AddTeacherToCourse(int CourseID, string TeachersUserName)
         {
+            IQueryable<TeacherRegistration> RegistrationOfTeachers = m_CourseRepo.GetTeacherRegistrations();
             TeacherRegistration Registration = new TeacherRegistration();
             Registration.CourseID = CourseID;
             Registration.TeacherUsername = TeachersUserName;
 
-            m_CourseRepo.AddTeacherToCourse(Registration);
-            m_CourseRepo.Save();
+            if((RegistrationOfTeachers.Contains(Registration)))
+            {
+                m_CourseRepo.AddTeacherToCourse(Registration);
+                m_CourseRepo.Save();
 
-            return Json(Registration, JsonRequestBehavior.AllowGet);
-            //return Json(null);
+                return Json(Registration);
+            }
+            else
+                return Json(null);
         }
 
         [HttpPost]
         public ActionResult RemoveStudentFromCourse(int courseID, string StudentName)
         {
+            CourseRegistration Registration = new CourseRegistration();
+            Registration.CourseID = courseID;
+            Registration.StudentUsername = StudentName;
+
             m_CourseRepo.RemoveStudentFromCourse(courseID, StudentName);
             m_CourseRepo.Save();
 
-            return Json(null);
+            return Json(Registration);
         }
     }
 }

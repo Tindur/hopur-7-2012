@@ -2,13 +2,12 @@
 
 
    <li class="nav-header">
-        Þinn Prófíll
         <div id="profile">
                 <div id="profileimage">
                     <img src="@Model.TheImage.Source" alt="Mynd af þínu fési"/>
                 </div>
                  <div id="profileinfo">
-                    @Html.ActionLink(@Model.TheUser.m_User.Name, "ProfileManagement", "Account")
+                    <p>@Html.ActionLink(@Model.TheUser.m_User.Name, "ProfileManagement", "Account")</p>
                  </div>
         </div>
    </li>

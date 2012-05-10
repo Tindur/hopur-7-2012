@@ -1,0 +1,15 @@
+﻿@model GameSchool.Models.ViewModels.TeacherViewModels.CourseAssignmentsViewModel
+
+@foreach (var level in Model.Levels)
+{
+    <div>
+        <h3>@level.NumberInCourse. @level.Name</h3>
+        @foreach (var assignment in Model.Assignments)
+	    {
+            if (assignment.LevelID == level.ID)
+            {
+                <p>@assignment.Name</p>
+            }
+	    }
+    </div>
+}
