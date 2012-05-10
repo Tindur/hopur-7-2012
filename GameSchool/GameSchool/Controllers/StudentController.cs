@@ -639,5 +639,18 @@ namespace GameSchool.Controllers
             return PartialView("XPListView", model);
         }
         #endregion
+        [HttpGet]
+        public ActionResult XPCourseList()
+        {
+            aspnet_User TheUser = m_UserRepo.GetUserByName(User.Identity.Name);
+            IQueryable<int> AllXP = m_CourseXPRepo.GetXPForStudentsInCourse();
+            int CurrentXP = m_CourseXPRepo.GetXPForCurrentUserInCourse(TheUser.UserName.ToString());
+            int Counter = m_CourseXPRepo.GetXPForStudentsInCourse().Count();
+            UserViewModel model = new UserViewModel();
+            model.m_XP = AllXP;
+            model.m_CurrentXP = CurrentXP;
+            model.m_Counter = Counter;
+            return PartialView("XPCourseList", model);
+        }
     }
 }
