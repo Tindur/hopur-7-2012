@@ -4,13 +4,14 @@
         <li>Lægstu stig: @Model.m_XP.Min()</li>
         @if (Model.m_CurrentXP == Model.m_XP.Max())
         {
-            <li>Þú ert efst(ur)!</li>
+            <li>Þú ert efst(ur) af @Model.m_Counter</li>
         }
         @if (Model.m_CurrentXP == Model.m_XP.Min())
         {
-            <li>Úff þú er neðst(ur)! Þarft að fara bæta þig</li>
+            <li>Úff þú er neðst(ur) af @Model.m_Counter  Þarft að fara bæta þig</li>
         }
-        <progress id="XpProgress" class="example3" min="@Model.m_XP.Min()" max="@Model.m_XP.Max()" value ="@Model.m_CurrentXP">tits</progress>
+        <progress title="@Model.m_CurrentXP / @Model.m_XP.Max()" id="XpProgress" class="example3" min="@Model.m_XP.Min()" max="@Model.m_XP.Max()" value ="@Model.m_CurrentXP"></progress>
+      
      
  
     

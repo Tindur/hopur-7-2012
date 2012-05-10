@@ -410,9 +410,11 @@ namespace GameSchool.Controllers
             aspnet_User TheUser = m_UserRepo.GetUserByName(User.Identity.Name);
             IQueryable<int>UserXP = m_UserRepo.GetXPForUsers();
             int CurrentXP = m_UserRepo.GetXPForCurrentUser(TheUser.UserId.ToString());
+            int Counter = m_UserRepo.GetAllStudents().Count();
             UserViewModel model = new UserViewModel();
             model.m_XP = UserXP;
             model.m_CurrentXP = CurrentXP;
+            model.m_Counter = Counter;
             return PartialView("XPListView", model);
         }
 
