@@ -1,56 +1,70 @@
 ﻿@model GameSchool.Models.ViewModels.NewsFeedViewModel
-           
+         
+<ul class="thumbnails">         
+    <li class="span3">
+        <div id="StudentNewsFeed1">
+            <img class="thumbnailImg" src="http://www.quicksilver-boats.com/media/287862/video_icon.png" alt="Fyrirlestrar" />
+                <h4 class="HeadingsForNewStuff"><i class="icon-info-sign"></i>Nýjustu fyrirlestrar</h4>
 
-<h4 class="HeadingsForNewStuff"><i class="icon-info-sign"></i>Nýjustu fyrirlestrar</h4>
+                        @if (Model.Lectures.Count() != 0)
+                        {
+                            <ul class="NewStuffForStudents">
+                                @foreach (var lectures in Model.Lectures)
+                                    {
+                                        <!--<li>@lectures.DateAdded: @Html.ActionLink(lectures.Name, "GetLecture/" + lectures.ID, "Student")</li>-->
+                                        <li class="ListOfNewThings"><a href="#tab2" data-toggle="tab">@lectures.Name</a></li>
+                                    }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p>Engir nýjir fyrirlestrar</p>
+                        }
+        </div>
+    </li>
 
-        @if (Model.Lectures.Count() != 0)
-        {
-            <ul class="NewStuffForStudents">
-                @foreach (var lectures in Model.Lectures)
-                    {
-                        <!--<li>@lectures.DateAdded: @Html.ActionLink(lectures.Name, "GetLecture/" + lectures.ID, "Student")</li>-->
-                        <li class="ListOfNewThings"><a href="#tab2" data-toggle="tab">@lectures.Name</a></li>
-                    }
-            </ul>
-        }
-        else
-        {
-            <p>Engir nýjir fyrirlestrar</p>
-        }
+    <li class="span3">
+        <div id="StudentNewsFeed2">
+            <img class="thumbnailImg" src="../../Content/Images/doc_icon_black.png" alt="Verkefni" />
+                <h4 class="HeadingsForNewStuff"><i class="icon-info-sign"></i>Nýjustu verkefni</h4>
 
-        <h4 class="HeadingsForNewStuff"><i class="icon-info-sign"></i>Nýjustu verkefni</h4>
-
-        @if(Model.Assignments.Count() != 0)
-        {
-            <ul class="NewStuffForStudents">
-                @foreach (var assignments in Model.Assignments)
+                @if(Model.Assignments.Count() != 0)
                 {
-                    <li class="ListOfNewThings">@Html.ActionLink(assignments.Name, "GetAssignment/" + assignments.ID, "Student")</li>
+                    <ul class="NewStuffForStudents">
+                        @foreach (var assignments in Model.Assignments)
+                        {
+                            <li class="ListOfNewThings">@Html.ActionLink(assignments.Name, "GetAssignment/" + assignments.ID, "Student")</li>
+                        }
+                    </ul>
                 }
-            </ul>
-        }
-        else
-        {
-            <p>Engin ný verkefni</p>
-        }
-
-        <h4 class="HeadingsForNewStuff"><i class="icon-info-sign"></i>Nýjustu Próf</h4>
-
-        @if (Model.Tests.Count() != 0)
-        {
-            <ul class="NewStuffForStudents">
-                @foreach (var tests in Model.Tests)
+                else
                 {
-                    <li class="ListOfNewThings">@Html.ActionLink(tests.Name, "TakeTest", new { testID = tests.ID })</li>
+                    <p>Engin ný verkefni</p>
                 }
-            </ul>
-        }
-        else
-        {
-            <p>Engin ný próf</p>
-        }
+        </div>
+    </li>
 
+    <li class="span3">
+        <div id="StudentNewsFeed3">
+            <img class="thumbnailImg" src="../../Content/Images/clip01-20110830214436-00018.png" alt="Próf" />
+                <h4 class="HeadingsForNewStuff"><i class="icon-info-sign"></i>Nýjustu Próf</h4>
+                @if (Model.Tests.Count() != 0)
+                {
+                    <ul class="NewStuffForStudents">
+                        @foreach (var tests in Model.Tests)
+                        {
+                            <li class="ListOfNewThings">@Html.ActionLink(tests.Name, "TakeTest", new { testID = tests.ID })</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p>Engin ný próf</p>
+                }
+        </div>
+    </li>
 
+<div id="StudentNewsFeed4">
 <h4 class="HeadingsForNewStuff"><i class="icon-info-sign"></i>Nýjustu tilkynningar</h4>
 
 @if (Model.Notifications != null)
@@ -73,3 +87,5 @@ else
 {
     <p>Engar nýjar tilkynningar</p>
 }
+</div>
+</ul>

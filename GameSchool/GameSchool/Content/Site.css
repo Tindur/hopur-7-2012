@@ -1,6 +1,45 @@
 ﻿
-
 /*OUR OWN CSS*/
+
+.RankList
+{
+    display: inline-block;
+}
+
+#Ranking
+{
+    padding-bottom: 8px;
+    border: 2px solid #70D6EE;
+}
+
+.PictureBoyz
+{
+    width: 480px;
+    height: 390px;
+}
+
+.TheBoyz
+{
+    font-size: 130%;
+    font-weight: bold;
+    padding-bottom: 15px;
+}
+
+#Slogan
+{
+    font-size: 100%;
+    color: White;
+    float: right;
+}
+
+#SloganDiv
+{
+    display: inline-block;
+    float: right;
+    position: relative;
+    right: 50px;
+    margin-top: 10px;
+}
 
 .comments
 {
@@ -359,11 +398,13 @@ tr:nth-of-type(odd)
 .NewStuffForStudents
 {
     margin-left: 0;
+    margin-right: -60px;
 }
 
 .HeadingsForNewStuff
 {
     margin-bottom: 8px;
+    margin-right: -60px;
 }
 
 .navig
@@ -374,6 +415,46 @@ tr:nth-of-type(odd)
 .LevelDesc > h3
 {
     padding-top: 10px;
+}
+
+#StudentNewsFeed1
+{
+    float: left;
+}
+
+#StudentNewsFeed2
+{
+    float: left;
+    margin-left: 40px;
+}
+
+#StudentNewsFeed3
+{
+    display: inline-block;
+    margin-left: 67px;
+    margin-right: -20px;
+}
+
+#StudentNewsFeed4
+{
+    display: inline-block;
+    width: 500px;
+}
+
+.thumbnailImg
+{
+    height: 160px;
+    width: 160px;
+}
+
+#Home
+{
+    margin: 25px 0 0 25px;
+}
+
+.StudentCourseStuff
+{
+    margin-left: 25px;
 }
 
 /* CSS fyrir navigation bar */
@@ -402,6 +483,11 @@ tr:nth-of-type(odd)
     font-weight: bold;
 }
 
+#TheTeachers
+{
+    margin-right: -30px;
+}
+
 /* Style fyrir Side scroller í navigation */
 #demo-frame > div.demo { padding: 10px !important; }
 .scroll-pane { overflow: auto; width: 99%; float:left; }
@@ -423,7 +509,7 @@ tr:nth-of-type(odd)
     padding : 7px 9px;
     position: relative; 
     top:-20px;
-    right: -100px;
+    right: -125px;
 }
 #profileimage
 {
