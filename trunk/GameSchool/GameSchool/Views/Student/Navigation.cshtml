@@ -28,12 +28,13 @@ else
             <li class="nav">@Html.ActionLink(item.Name, "/GetCourse/" + item.ID, "Student")</li>
     }
     
+<div id="TheTeachers"> 
     <li class ="nav-header" id="YourTeachers">Kennarar þínir</li>
-    foreach (var item in Model.TeachersImages)
-    {                    
-        <img class="YourTeachersFace" src="@item.Source" alt="Mynd af kennaranum þínum" />                  
-    }
-                
+        @foreach (var item in Model.TeachersImages)
+        {                    
+            <img class="YourTeachersFace" src="@item.Source" alt="Mynd af kennaranum þínum" />                  
+        }
+  </div>
 }
 
 <script type="text/javascript">
