@@ -10,6 +10,7 @@ namespace GameSchool.Models.Repositories
     public class CourseXPRepository : ICourseXPRepository
     {
         XPDBDataContext m_XPDB = new XPDBDataContext();
+        UsersDBDataContext m_UserDB = new UsersDBDataContext();
 
         public CourseXP GetCourseXPByUserName(string UserName)
         {
@@ -37,6 +38,19 @@ namespace GameSchool.Models.Repositories
         public void Save()
         {
             m_XPDB.SubmitChanges();
+        }
+        public IQueryable<int> GetXPForStudentsInCourse()
+        {
+            var result = from x in m_XPDB.CourseXPs
+                         select x.XP.Value;
+            return result;
+        }
+        public int GetXPForCurrentUserInCourse(string User)
+        {
+            var result = (from x in m_XPDB.CourseXPs
+                          where x.UserName == User
+                          select x.XP.Value).SingleOrDefault();
+            return result;
         }
     }
 }
