@@ -1,5 +1,6 @@
 ﻿@model  GameSchool.Models.ViewModels.NavigationViewModel
 
+
    <li class="nav-header">
         <div id="profile">
                 <div id="profileimage">
@@ -15,6 +16,7 @@
         </div>
                 <progress  id="xpbar" value="@Model.TheXP" title="@Model.TheXP / 100" max="100"></progress>
    </li>
+
 
 @if (Model.TheCourses.Count() == 0)
 {
@@ -36,6 +38,7 @@ else
         }
   </div>
 }
+
 
 <script type="text/javascript">
 	$(function() {
