@@ -1,6 +1,6 @@
 ﻿@model GameSchool.Models.ViewModels.TeacherViewModels.CourseLectureViewModel
 
-@foreach (var level in Model.Levels)
+<!--@foreach (var level in Model.Levels)
 {
     <div>
         <h3>@level.NumberInCourse. @level.Name</h3>
@@ -12,4 +12,123 @@
             }
 	    }
     </div>
+}-->
+
+@foreach (var level in Model.Levels)
+{
+    <h3>@level.NumberInCourse. @level.Name</h3>
+    foreach (var lecture in Model.Lectures)
+    {
+        if (lecture.LevelID == level.ID)
+        {
+            <p><a href="#" class="video_link" id='video_ @lecture.ID' onclick="get_video(@lecture.ID)"> @lecture.Name</a></p>
+        }
+    }
 }
+
+<div class="span7">
+    <div id="video_span"></div>
+</div>
+
+<script id="comment_template" type="text/html">
+    <li class ="comments" id="comment_${ID}">
+        <div class="commentBody">
+           <a href="http://www.pen.is"><img src='${UserImage}' alt="Notandi" </a>
+			<a href="http://www.pen.is">${Name}</a>
+			<span>${CommentText}</span>
+			<div>
+				<abbr>${LongCommentDate} ${ShortCommentDate}</abbr>
+				<a class="like" id="${ID}"><i class="icon-thumbs-up"></i></a>
+                <p id="like_${ID}"></p>
+			</div>
+		</div>
+	</li>
+</script>
+
+<!--Comment Template-->
+<script id="addComment_template" type="text/html">
+  <div id="AddComment">
+      <ul class="commentList">
+			    <textarea id="CommentText" name="CommentText" rows="3" cols="20"></textarea>
+			    <label>
+				    <input id="${ID}" class="submit_comment" type="submit" value="Skrifa athugasemd" />
+			    </label>
+			    @Html.ValidationMessage( "CommentText" )
+        </ul>   
+    </div>
+</script>
+
+<!--Likes Template For One-->
+<script id="like_template_one" type="text/html">
+    <a class="liker" href="http://www.ru.is">${UserName}</a> líkar þetta <br>
+</script>
+
+<!--Likes Template For More than One-->
+<script id="like_template_two" type="text/html">
+    <abbr title="test">test</abbr>
+</script>
+
+<!--Error Template-->
+    <script id="error_template" type="text/html">
+        <p id="error">Slakaðu á djeng, þú ert nú þegar búinn að líka þetta</p>
+    </script>
+
+<!--Video Template-->
+<script id="video_template" type="text/html">
+    <h3>${Name}</h3>
+    <p>${Description}</p>
+    <iframe width="420" height="315" src="${Source}" frameborder="0" allowfullscreen="allowfullscreen" id="${ID}"></iframe>
+</script>
+
+<script type="text/javascript">
+    //Gets video, comment and likes
+    function get_video(id) {
+        $("#video_span > *").remove();
+        $.getJSON("~/Comment/GetLectureByID", { id: id }, function (data) {
+            $("#video_template").tmpl(data).appendTo("#video_span");
+            $("#addComment_template").tmpl(data).appendTo("#video_span");
+        });
+        $.getJSON("Comment/GetCommentsByID", { id: id }, function (data) {
+            $("#comment_template").tmpl(data, get_likes(id)).insertBefore("#AddComment");
+        });
+        get_likes(id);
+    }
+    function get_likes(like_id) {
+        $.getJSON("/Comment/GetLikesForLecture", { LectureID: like_id }, function (data) {
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                $("#like_template_one").tmpl(item).appendTo("#like_" + item.CommentID);
+            }
+        });
+    }
+
+    //Post a comment!
+    $(".submit_comment").live("click", function () {
+        var lecid = parseInt($(this).attr('id'));
+        var param = $("#CommentText").val();
+        $.post("/Comment/CreateCommentForLecture", { CommentText: param, id: lecid }, function (data) {
+            // processComments(data.Comments);
+            $(".comments").remove();
+            $("#comment_template").tmpl(data).insertBefore("#AddComment");
+            get_likes(lecid);
+            $("#CommentText").val("");
+        });
+    });
+
+    //Post a like!
+    $(".like").live("click", (function () {
+        var like = parseInt($(this).attr('id'));
+        $.post("/Comment/CreateLikeForComment", { CommentID: like }, function (data) {
+            if (data != "") {
+                $("#like_template").tmpl(data).appendTo("#like_" + like);
+            }
+            else {
+                $("#error_template").tmpl(data).appendTo("#like_" + like);
+                $("#error").fadeOut(5000, function () {
+                    $("#error").remove();
+                });
+            }
+        });
+    }));    
+
+</script>
