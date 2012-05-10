@@ -25,8 +25,14 @@ namespace GameSchool.Models.Repositories
                          where x.CourseID == CourseID
                          select x;
             return result;
+        }
 
-
+        public IQueryable<TestModel> GetFiveLatest(int CourseID)
+        {
+            var result = (from x in m_testDB.TestModels
+                         where x.CourseID == CourseID
+                         select x).Take(5);
+            return result;
         }
         public IQueryable<QuestionModel> GetAllQuestionsForTest(int TheTestID)
         {

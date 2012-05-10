@@ -5,7 +5,7 @@
 <div class="span4">
     @foreach (var video in Model)
     {
-        <p>@video.DateAdded: <a href="#" class="video_link" id='video_ @video.ID' onclick="get_video(@video.ID)"> @video.Name</a></p>
+        <p><a href="#" class="video_link" id='video_ @video.ID' onclick="get_video(@video.ID)"> @video.Name @video.Points XP</a></p>
     }
 </div>
 
@@ -23,7 +23,7 @@
 			<span>${CommentText}</span>
 			<div>
 				<abbr>${LongCommentDate} ${ShortCommentDate}</abbr>
-				<a class="like" id="${ID}">Líkar þetta</a>
+				<a class="like" id="${ID}"><i class="icon-thumbs-up"></i></a>
                 <p id="like_${ID}"></p>
 			</div>
 		</div>
@@ -43,11 +43,15 @@
     </div>
 </script>
 
-<!--Likes Template-->
-<script id="like_template" type="text/html">
+<!--Likes Template For One-->
+<script id="like_template_one" type="text/html">
     <a class="liker" href="http://www.ru.is">${UserName}</a> líkar þetta <br>
 </script>
 
+<!--Likes Template For More than One-->
+<script id="like_template_two" type="text/html">
+    <abbr title="test">test</abbr>
+</script>
 
 <!--Error Template-->
     <script id="error_template" type="text/html">
@@ -92,7 +96,7 @@
         $.getJSON("/Student/GetLikesForLecture", { LectureID: like_id }, function (data) {
             for (var i = 0; i < data.length; i++) {
                 var item = data[i];
-                $("#like_template").tmpl(item).appendTo("#like_" + item.CommentID);
+                $("#like_template_one").tmpl(item).appendTo("#like_" + item.CommentID);
             }
         });
     }
