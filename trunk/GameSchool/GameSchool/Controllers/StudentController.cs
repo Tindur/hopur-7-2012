@@ -77,7 +77,8 @@ namespace GameSchool.Controllers
                                         m_theTests = m_TestRepo.GetTestsForCourse(id.Value),
                                         m_CompletedLevels = m_lvlRepo.GetAmountOfCompletedLevels(theUser, id.Value),
                                         m_finishedLvlID = null,
-                                        m_FinishedAssignments = m_AssignmentRepo.GetFinishedAssignmentsForUser(User.Identity.Name, id.Value)
+                                        m_FinishedAssignments = m_AssignmentRepo.GetFinishedAssignmentsForUser(User.Identity.Name, id.Value),
+                                        m_FinishedTestsID = m_TestRepo.GetFinishedTestsInCourse(theUser, id.Value)
                                     });
             }
             else
@@ -420,10 +421,9 @@ namespace GameSchool.Controllers
 
         public ActionResult TakeTest(int? testID)
         {
-            var studentID = m_UserRepo.GetUserByName(User.Identity.Name).UserId;
             if (testID.HasValue)
             {
-                if (!m_TestRepo.UserHasFinishedTest(studentID, testID.Value))
+                if (!m_TestRepo.UserHasFinishedTest(User.Identity.Name, testID.Value))
                 {
                     TakeTestViewModel model = new TakeTestViewModel();
                     model.Test = m_TestRepo.GetTestByID(testID.Value);
@@ -434,7 +434,7 @@ namespace GameSchool.Controllers
                     {
                         model.Answers.AddRange(m_TestRepo.GetAllAnswersForQuestion(question.ID));
                     }
-                    model.StudentID = m_UserRepo.GetUserByName(User.Identity.Name).UserId;
+                    model.StudentName = User.Identity.Name;
 
                     return View(model);
                 }
@@ -473,7 +473,6 @@ namespace GameSchool.Controllers
                     {
                         model.Score += m_TestRepo.GetQuestionByID(answer.QuestionID).Points.Value;
                         model.correctAnswers++;
-                        //TODO: Hækkka XP
                     }
                 }
 
@@ -482,11 +481,26 @@ namespace GameSchool.Controllers
                 m_TestRepo.RegisterTestCompletion(new TestCompletion
                 {
                     LevelID = model.Test.LevelID,
-                    StudentID = new Guid(formdata[0]),
+                    StudentName = formdata[0],
                     TestID = model.Test.ID
                 });
                 //Bætum XP við nemanda
+                //Updating CourseXP
+                CourseXP TheUserCourseXP = m_CourseXPRepo.GetCourseXPByUserName(User.Identity.Name);
+                if (TheUserCourseXP == null)
+                {
+                    TheUserCourseXP = m_CourseXPRepo.CreateNewXPForUserName(User.Identity.Name, m_lvlRepo.GetLevelCourse(model.Test.LevelID));
+                    m_CourseXPRepo.RegisterXPForCourse(TheUserCourseXP);
+                }
 
+                TheUserCourseXP.XP += model.Score;
+                m_CourseXPRepo.Save();
+
+                //Updating UserXP
+                aspnet_User TheUser = m_UserRepo.GetUserByName(User.Identity.Name);
+
+                TheUser.XP += model.Score;
+                m_UserRepo.Save();
 
                 return View("TestCompleted", model);
             }

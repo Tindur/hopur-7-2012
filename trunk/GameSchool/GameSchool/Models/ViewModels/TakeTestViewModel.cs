@@ -11,6 +11,6 @@ namespace GameSchool.Models.ViewModels
         public TestModel Test { get; set; }
         public List<QuestionModel> Questions { get; set; }
         public List<AnswerModel> Answers { get; set; }
-        public Guid StudentID { get; set; }
+        public string StudentName { get; set; }
     }
 }
