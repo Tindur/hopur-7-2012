@@ -142,6 +142,7 @@ namespace GameSchool.Controllers
             }
         }*/
 
+        #region Tests
         public ActionResult CreateTest(int? levelID, int? CourseID)
         {
             if (levelID.HasValue && CourseID.HasValue)
@@ -171,6 +172,94 @@ namespace GameSchool.Controllers
             else
                 return View("Error");
         }
+
+        public ActionResult EditTest(int? theTestID)
+        {
+            if (theTestID.HasValue)
+            {
+                TestModel theTest = m_TestRepo.GetTestByID(theTestID.Value);
+
+                EditTestViewModel model = new EditTestViewModel
+                {
+                    Test = theTest,
+                    Questions = m_TestRepo.GetAllQuestionsForTest(theTest.ID).ToList(),
+                    Answers = new List<AnswerModel>(),
+                    newQuestion = new QuestionModel {TestID = theTestID.Value },
+                    newAnswers = new List<AnswerModel>(),
+                };
+
+                for (int i = 0; i < 4; i++)
+                {
+                    model.newAnswers.Add(new AnswerModel());
+                }
+
+                foreach (var question in model.Questions)
+                {
+                    model.Answers.AddRange(m_TestRepo.GetAllAnswersForQuestion(question.ID));
+                }
+
+                return View(model);
+            }
+            else
+                return View("Error");
+        }
+
+        [HttpPost]
+        public ActionResult EditTest(FormCollection formdata)
+        {
+            if(formdata.Count != 0)
+            {
+                QuestionModel newQuestion = new QuestionModel
+                {
+                    Question = Convert.ToString(formdata["newQuestion.Question"]),
+                    Points = Convert.ToInt32(formdata["newQuestion.Points"]),
+                    TestID = Convert.ToInt32(formdata["Test.ID"])
+                };
+                m_TestRepo.AddQuestion(newQuestion);
+
+                int questID = m_TestRepo.FindTestID(newQuestion);
+
+                //Fyrsta svar alltaf sett sem rétt == ekki gott.  
+                //Röðum svörunum því í handahófskennda röð áður en við vistum þau í gagnagrunninn
+                List<AnswerModel> list = new List<AnswerModel>();
+                list.Add(new AnswerModel
+                    {
+                        Answer = formdata[3],
+                        Correct = true,
+                        QuestionID = questID
+                    });
+                for (int i = 4; i < 7; i++)
+                {
+                    list.Add(new AnswerModel
+                            {
+                                Answer = formdata[i],
+                                Correct = false,
+                                QuestionID = questID
+                            });
+                }
+
+                List<AnswerModel> list2 = new List<AnswerModel>();
+                Random r = new Random(DateTime.Now.Millisecond);
+                AnswerModel answer;
+                while (list2.Count < 4)
+                {
+                    r = new Random(DateTime.Now.Millisecond);
+                    answer = list.ElementAt(r.Next() % 4);
+                    if (!list2.Contains(answer))
+                        list2.Add(answer);
+                }
+
+                m_TestRepo.AddAnswers(list2);
+
+                return RedirectToAction("EditTest", new {theTestID = newQuestion.TestID });
+            }
+            else
+                return View("Error");
+        }
+
+        #endregion
+
+        #region Assignments
         public ActionResult CreateAssignment()
         {
             return View(new AssignmentModel());
@@ -193,7 +282,9 @@ namespace GameSchool.Controllers
                 return View("Error");
             }
         }
+        #endregion
 
+        #region Notifications
         public ActionResult CreateNotification(int? id)
         {
             if (id.HasValue)
@@ -222,30 +313,6 @@ namespace GameSchool.Controllers
             }
             return View("Error");
         }
-        public ActionResult EditTest(int? theTestID)
-        {
-            if (theTestID.HasValue)
-            {
-                TestModel theTest = m_TestRepo.GetTestByID(theTestID.Value);
-
-                EditTestViewModel model = new EditTestViewModel
-                {
-                    Test = theTest,
-                    Questions = m_TestRepo.GetAllQuestionsForTest(theTest.ID).ToList(),
-                    Answers = new List<AnswerModel>()
-                };
-
-                foreach (var question in model.Questions)
-                {
-                    model.Answers.AddRange(m_TestRepo.GetAllAnswersForQuestion(question.ID));
-                }
-
-                return View(model);
-            }
-            else
-                return View("Error");
-        }
-
-            
+        #endregion    
     }
 }

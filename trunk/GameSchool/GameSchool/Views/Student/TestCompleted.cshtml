@@ -1,0 +1,11 @@
+﻿@model GameSchool.Models.ViewModels.TestCompletedViewModel
+@{
+    ViewBag.Title = "TestCompleted";
+}
+
+<h2>@Model.Test.Name</h2>
+<h3>Til hamingju!  Þú hefur klárað prófið</h3>
+<ul>
+    <li>Stig: @Model.Score</li>
+    <li>Rétt Svör: @Model.correctAnswers / @Model.numberOfQuestions</li>
+</ul>

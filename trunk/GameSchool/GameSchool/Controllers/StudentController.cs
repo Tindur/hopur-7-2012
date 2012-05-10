@@ -364,5 +364,75 @@ namespace GameSchool.Controllers
             model.m_CurrentXP = CurrentXP;
             return PartialView("XPListView", model);
         }
+
+        public ActionResult TakeTest(int? testID)
+        {
+            if (testID.HasValue)
+            {
+
+                TakeTestViewModel model = new TakeTestViewModel();
+                model.Test = m_TestRepo.GetTestByID(testID.Value);
+                model.Questions = m_TestRepo.GetAllQuestionsForTest(model.Test.ID).ToList();
+                model.Answers = new List<AnswerModel>();
+                foreach (var question in model.Questions)
+                {
+                    model.Answers.AddRange(m_TestRepo.GetAllAnswersForQuestion(question.ID));
+                }
+                model.StudentID = m_UserRepo.GetUserByName(User.Identity.Name).UserId;
+
+                return View(model);
+            }
+            else
+                return View("Error");
+        }
+
+        [HttpPost]
+        public ActionResult TakeTest(FormCollection formdata)
+        {
+            if (formdata.Count != 0)
+            {
+                //Búum til nýtt módel til að birta niðurstöðurnar
+                TestCompletedViewModel model = new TestCompletedViewModel 
+                { 
+                    correctAnswers = 0,
+                    numberOfQuestions = 0,
+                    Score = 0,
+                    Test = m_TestRepo.GetTestByID(Convert.ToInt32(formdata[1]))
+                };
+
+                //Sækjum svörin sem nemandi svaraði
+                List<AnswerModel> answers = new List<AnswerModel>();
+                for (int i = 2; i < formdata.Count; i++)
+                {
+                    answers.Add(m_TestRepo.GetAnswerByID(Convert.ToInt32(formdata[i])));
+                }
+                //Förum yfir prófið
+                foreach (var answer in answers)
+                {
+                    model.numberOfQuestions++;
+                    if (answer.Correct == true)
+                    {
+                        model.Score += m_TestRepo.GetQuestionByID(answer.QuestionID).Points.Value;
+                        model.correctAnswers++;
+                        //TODO: Hækkka XP
+                    }
+                }
+
+                //TODO: Skrá í gagnagrunn
+                //Að nemandi hafi klárað prófið
+                m_TestRepo.RegisterTestCompletion(new TestCompletion
+                {
+                    LevelID = model.Test.LevelID,
+                    StudentID = new Guid(formdata[0]),
+                    TestID = model.Test.ID
+                });
+                //Bætum XP við nemanda
+
+
+                return View("TestCompleted", model);
+            }
+            else
+                return View("Error");
+        }
     }
 }

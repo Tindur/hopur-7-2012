@@ -3,41 +3,81 @@
     ViewBag.Title = "Edit Test";
 }
 
-<h2>Edit @Model.Test.Name</h2>
+<h2>Edit: @Model.Test.Name</h2>
 @foreach (var question in Model.Questions)
 {
-    <h3>@question.Question</h3>
+    <h3>@question.Question (@question.Points)</h3>
+    foreach (var answer in Model.Answers)
+    {
+        <ul>
+        @if (answer.QuestionID == question.ID)
+        {
+            <li>@answer.Answer</li>
+        }
+        </ul>
+    }
 }
 
 <div id="new_question_position">
-    <p><a id="newQuestion" onclick="addQuestionTempl()">Búa til nýja spurningu</a></p>
+    <p><br /><a id="newQuestion" onclick="addQuestionTempl()">Búa til nýja spurningu</a></p>
 </div>
 
 <script type="text/html" id="new_question_template">
-    <div id="add_question">
-      <ul>
-			    <textarea id="question_body" name="question_body" rows="3" cols="50"></textarea>
-			    <label>
-				    <input id="question_levelID" class="submit_question" type="submit" value="Búa til spurningu" />
-			    </label>
-			    @Html.ValidationMessage( "question_body" )
-        </ul>
-        <ul class=" AddAnswer">
-            
-            <span id="herpDerp"></span>
-            <li><a onclick="addAnswerTemplate()">Bæta við svarmöguleika</a></li>
-        </ul>
+@using (Html.BeginForm("EditTest", "Teacher", IsPost)) {
+    @Html.ValidationSummary(true)
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.newQuestion.Question, "Spurning")
     </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.newQuestion.Question)
+        @Html.ValidationMessageFor(model => model.newQuestion.Question)
+    </div>
+    
+    <div class="editor-label">
+        @Html.LabelFor(model => model.newQuestion.Points, "Stigagildi Spurningar")
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.newQuestion.Points)
+        @Html.ValidationMessageFor(model => model.newQuestion.Points)
+    </div>
+
+    @Html.HiddenFor(model => model.Test.ID)
+
+    for ( int i = 0; i < 4; i++)
+    {
+        <div class="editor-label">
+            @Html.LabelFor(model => model.newAnswers[i].Answer)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.newAnswers[i].Answer)
+            @Html.ValidationMessageFor(model => model.newAnswers[i].Answer)
+        </div>
+    }
+    
+    <input type="submit" value="Búa til spurningu" />
+}
 </script>
+
+<script type="text/javascript">
+    function addQuestionTempl() {
+        $("#new_question_template").tmpl().appendTo("#new_question_position");
+        $("#newQuestion").remove();
+    }
+</script>
+
+
+<!-- Þessi kóði á að gefa kennaranum möguleikann á að ráða hversu margar spurningar eru í prófi.
+    Vantar að geta tekið inn hvaða fjölda sem er af svörum fyrir spurningar
 
 <script type="text/html" id="new_question_link_template">
     <p><a id="newQuestion" href=""></a>Búa til nýja spurningu</p>
 </script>
 
 <script type="text/html" id="add_answer_template">
-    <label for="answer_text"> svarmögleiki </label>
-    <input type="radio" name="answer" value="radiobutton"></br>
-    <li><textarea class="answer_text" name="answer_text" rows="1" cols="30"></textarea></li>
+    <label for="answer_text"></label>
+    <li><textarea class="answer_text" name="answer_text" rows="1" cols="30" autofocus="autofocus"></textarea>
+    <input type="radio" name="answer">Rétt svar<br/></li>
 </script>
 
 <script type="text/javascript">
@@ -50,3 +90,4 @@
         $("#add_answer_template").tmpl().insertBefore("#herpDerp");
     }
 </script>
+-->

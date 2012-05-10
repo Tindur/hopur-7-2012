@@ -35,6 +35,7 @@
     </div>
     <div class="tab-pane" id="tab5">
        <legend><h3 class="StudentHeadings">Borð</h3></legend>
+       @Html.Action("LevelsForCourse", "Teacher", new { courseID = Model.m_theCourse.ID})
     </div>
     <div class="tab-pane" id="tab6">
         <legend><h3 class="StudentHeadings">Tilkynningar</h3></legend>

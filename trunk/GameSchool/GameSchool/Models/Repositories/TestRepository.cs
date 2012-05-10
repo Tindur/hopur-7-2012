@@ -66,5 +66,50 @@ namespace GameSchool.Models.Repositories
             m_testDB.TestModels.InsertOnSubmit(test);
             m_testDB.SubmitChanges();
         }
+
+        public void AddQuestion(QuestionModel newQuestion)
+        {
+            m_testDB.QuestionModels.InsertOnSubmit(newQuestion);
+            m_testDB.SubmitChanges();
+        }
+
+        public int FindTestID(QuestionModel Question)
+        {
+            var result = (from x in m_testDB.QuestionModels
+                         where Question.ID == x.ID
+                         select x.ID).SingleOrDefault();
+            return result;
+        }
+
+        public void AddAnswers(IEnumerable<AnswerModel> list)
+        {
+            foreach (var answer in list)
+            {
+                m_testDB.AnswerModels.InsertOnSubmit(answer);
+                m_testDB.SubmitChanges();
+            }
+        }
+
+        public AnswerModel GetAnswerByID(int p)
+        {
+            var result = (from x in m_testDB.AnswerModels
+                          where x.ID == p
+                          select x).SingleOrDefault();
+            return result;
+        }
+
+        public QuestionModel GetQuestionByID(int p)
+        {
+            var result = (from question in m_testDB.QuestionModels
+                          where question.ID == p
+                          select question).SingleOrDefault();
+            return result;
+        }
+
+        public void RegisterTestCompletion(TestCompletion testCompletion)
+        {
+            m_testDB.TestCompletions.InsertOnSubmit(testCompletion);
+            m_testDB.SubmitChanges();
+        }
     }
 }

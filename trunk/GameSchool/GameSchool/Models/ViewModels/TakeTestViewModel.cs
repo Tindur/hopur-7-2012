@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using GameSchool.Models.dbLINQ;
-using System.ComponentModel.DataAnnotations;
-using System.Collections.Specialized;
 
-namespace GameSchool.Models.ViewModels.TeacherViewModels
+namespace GameSchool.Models.ViewModels
 {
-    public class EditTestViewModel
+    public class TakeTestViewModel
     {
         public TestModel Test { get; set; }
         public List<QuestionModel> Questions { get; set; }
         public List<AnswerModel> Answers { get; set; }
-        public QuestionModel newQuestion { get; set; }
-        public List<AnswerModel> newAnswers { get; set; }
+        public Guid StudentID { get; set; }
     }
 }

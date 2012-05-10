@@ -25,9 +25,15 @@ namespace GameSchool.Models.Repositories
 
         public string GetNameOfTeacher(int id)
         {
-            var result = (from x in m_NewsFeedDB.NotificationModels
+            /*var result = (from x in m_NewsFeedDB.NotificationModels
                          where x.CourseID == id
                          select x.UserName).SingleOrDefault();
+            return result;*/
+
+            //Fiff
+            var result = (from x in m_NewsFeedDB.NotificationModels
+                          where x.CourseID == id
+                          select x.UserName).First();
             return result;
         }
 
