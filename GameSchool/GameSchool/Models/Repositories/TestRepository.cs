@@ -111,5 +111,16 @@ namespace GameSchool.Models.Repositories
             m_testDB.TestCompletions.InsertOnSubmit(testCompletion);
             m_testDB.SubmitChanges();
         }
+
+        public bool UserHasNotFinishedTest(Guid studentID, int testID)
+        {
+            var result = (from x in m_testDB.TestCompletions
+                          where x.StudentID == studentID && x.TestID == testID
+                          select x).SingleOrDefault();
+            if (result != null)
+                return true;
+            else
+                return false;
+        }
     }
 }

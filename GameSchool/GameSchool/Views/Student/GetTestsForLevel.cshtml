@@ -3,6 +3,6 @@
 @foreach (var item in Model)
 {
     <div class="TestList">
-        @Html.ActionLink(item.Name, "GetTest/" + item.ID, "Student")
+        @Html.ActionLink(item.Name, "TakeTest", new { testID = item.ID })
     </div>
 }
