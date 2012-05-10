@@ -50,9 +50,15 @@ namespace GameSchool.Models.Repositories
             return result;
         }
 
-        public bool HasStudentFinishedAssignment(aspnet_User Student, AssignmentModel Assignment)
+        public bool HasStudentFinishedAssignment(string StudentName, int AssignmentID)
         {
-            throw new NotImplementedException();
+            var result = (from x in m_assignmentDB.AssignmentCompletions
+                          where x.AssignmentID == AssignmentID && x.UserName == StudentName
+                          select x).SingleOrDefault();
+            if (result != null)
+                return true;
+            else
+                return false;
         }
 
         public void RegisterAssignmentCompletion(AssignmentCompletion TheCompletion)

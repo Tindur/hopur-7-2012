@@ -162,9 +162,11 @@ namespace GameSchool.Controllers
         [HttpPost]
         public ActionResult CreateTest(CreateTestViewModel model)
         {
-            //Virkar ekki því prófin eru aldrei tengd við borðið (þ.e. levelID == 0, alltaf)
             if (model != null)
             {
+                model.Test.DateAdded = DateTime.Now;
+                model.Test.Points = 0;
+                model.Test.CourseID = model.CourseID;
                 m_TestRepo.AddTest(model.Test);
 
                 return RedirectToAction("GetCourse", "Teacher", m_CourseRepo.GetCourseById(model.CourseID));
@@ -215,6 +217,7 @@ namespace GameSchool.Controllers
                     Points = Convert.ToInt32(formdata["newQuestion.Points"]),
                     TestID = Convert.ToInt32(formdata["Test.ID"])
                 };
+                m_TestRepo.AddPointsToTest(newQuestion.TestID, newQuestion.Points.Value);
                 m_TestRepo.AddQuestion(newQuestion);
 
                 int questID = m_TestRepo.FindTestID(newQuestion);

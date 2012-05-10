@@ -113,7 +113,7 @@ namespace GameSchool.Controllers
                 List<AssignmentModel> Assignments = m_AssignmentRepo.GetAllAssignmentsForLevel(LevelID.Value).ToList();
                 foreach (var assignment in Assignments)
                 {
-                    if (!m_AssignmentRepo.HasStudentFinishedAssignment(m_UserRepo.GetUserByName(StudentName), assignment))
+                    if (!m_AssignmentRepo.HasStudentFinishedAssignment(StudentName, assignment.ID))
                         return false;
                 }
 
@@ -202,6 +202,11 @@ namespace GameSchool.Controllers
 
                     TheUser.XP += model.Points.Value;
                     m_UserRepo.Save();
+                }
+
+                if (checkForLevelCompletion(model.LevelID, User.Identity.Name))
+                {
+                    m_lvlRepo.RegisterLevelCompletion(model.LevelID, User.Identity.Name);
                 }
 
                 //Returning the video to the user!
@@ -360,7 +365,14 @@ namespace GameSchool.Controllers
                     return View(model);
                 }
                 else
-                    return View("TestAlreadyCompleted");
+                {
+                    TestModel test = m_TestRepo.GetTestByID(testID.Value);
+                    return View("TestAlreadyCompleted", new TestAlreadyCompletedViewModel
+                    {
+                        Test = test,
+                        StudentScore = m_TestRepo.GetStudentScoreInTest(test.ID, User.Identity.Name)
+                    });
+                }
             }
             else
                 return View("Error");
@@ -403,7 +415,8 @@ namespace GameSchool.Controllers
                 {
                     LevelID = model.Test.LevelID,
                     StudentName = formdata[0],
-                    TestID = model.Test.ID
+                    TestID = model.Test.ID,
+                    Points = model.Score
                 });
                 //Bætum XP við nemanda
                 //Updating CourseXP
@@ -422,6 +435,11 @@ namespace GameSchool.Controllers
 
                 TheUser.XP += model.Score;
                 m_UserRepo.Save();
+
+                if (checkForLevelCompletion(model.Test.LevelID, User.Identity.Name))
+                {
+                    m_lvlRepo.RegisterLevelCompletion(model.Test.LevelID, User.Identity.Name);
+                }
 
                 return View("TestCompleted", model);
             }
@@ -445,8 +463,13 @@ namespace GameSchool.Controllers
         {
             if (id.HasValue)
             {
-                AssignmentModel model = m_AssignmentRepo.GetAssignmentById(id.Value);
-                return View(model);
+                if (!m_AssignmentRepo.HasStudentFinishedAssignment(User.Identity.Name, id.Value))
+                {
+                    AssignmentModel model = m_AssignmentRepo.GetAssignmentById(id.Value);
+                    return View(model);
+                }
+                else
+                    return View("AssignmentAlreadyCompleted");
             }
             return View("Error");
         }
@@ -469,7 +492,6 @@ namespace GameSchool.Controllers
                 Completion.UserName = User.Identity.Name;
                 Completion.CourseID = model.CourseID;
 
-
                 m_AssignmentRepo.RegisterAssignmentCompletion(Completion);
                 m_AssignmentRepo.Save();
 
@@ -490,8 +512,10 @@ namespace GameSchool.Controllers
                 TheUser.XP += model.Points.Value;
                 m_UserRepo.Save();
 
-                
-
+                if (checkForLevelCompletion(model.LevelID, User.Identity.Name))
+                {
+                    m_lvlRepo.RegisterLevelCompletion(model.LevelID, User.Identity.Name);
+                }
 
                 return RedirectToAction("GetCourse", "Student", model.CourseID.Value);
             }

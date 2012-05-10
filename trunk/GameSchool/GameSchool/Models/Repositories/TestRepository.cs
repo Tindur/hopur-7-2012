@@ -31,6 +31,7 @@ namespace GameSchool.Models.Repositories
         {
             var result = (from x in m_testDB.TestModels
                          where x.CourseID == CourseID
+                         orderby x.DateAdded descending
                          select x).Take(5);
             return result;
         }
@@ -150,6 +151,24 @@ namespace GameSchool.Models.Repositories
                           select x.TestID);
 
             return result;
+        }
+
+        public int GetStudentScoreInTest(int testID, string studentName)
+        {
+            var result = (from x in m_testDB.TestCompletions
+                         where x.TestID == testID && x.StudentName == studentName
+                         select x.Points).SingleOrDefault();
+            return result.Value;
+        }
+
+        public void AddPointsToTest(int testID, int points)
+        {
+            var test = (from x in m_testDB.TestModels
+                        where x.ID == testID
+                        select x).SingleOrDefault();
+
+            test.Points += points;
+            m_testDB.SubmitChanges();
         }
     }
 }

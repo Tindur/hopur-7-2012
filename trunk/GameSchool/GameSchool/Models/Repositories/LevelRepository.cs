@@ -31,12 +31,11 @@ namespace GameSchool.Models.Repositories
             m_levelDB.SubmitChanges();
         }
 
-        public bool HasStudentFinishedLevel(string userName)
+        public bool HasStudentFinishedLevel(string userName, int levelID)
         {
-            var result = (from student in m_levelDB.LevelCompletions
-                          where student.StudentName == userName
-                          select student).SingleOrDefault();
-
+            var result = (from x in m_levelDB.LevelCompletions
+                          where x.StudentName == userName && x.LevelID == levelID
+                          select x).SingleOrDefault();
             if (result != null)
                 return true;
             else
@@ -46,6 +45,7 @@ namespace GameSchool.Models.Repositories
 
         public int GetCurrentLevelForStudent(string userName, int courseID)  //Added by Björn
         {
+            
             var result = (from x in m_levelDB.LevelAmountCompletions
                          where x.CourseID == courseID
                          select x.LevelsCompleted.Value).SingleOrDefault();
@@ -55,6 +55,23 @@ namespace GameSchool.Models.Repositories
                           select x.ID).Min();
             
             var result3 = result2 + result;
+            
+
+           /* //Finnum öll borðin í áfanga
+            var levelsInCourse = (from x in m_levelDB.LevelModels
+                          where x.CourseID == courseID
+                          select x);
+
+            List<LevelModel> lev = new List<LevelModel>();
+            foreach (var level in levelsInCourse)
+            {
+                if (!HasStudentFinishedLevel(userName, level.ID))
+                    lev.Add(level);
+            }
+
+            var result = (from c in lev
+                          orderby c.NumberInCourse ascending
+                          select c.ID).FirstOrDefault();*/
 
             return result3;
         }
@@ -65,6 +82,7 @@ namespace GameSchool.Models.Repositories
             complete.StudentName = studentName;
             complete.LevelID = idLevel;
             m_levelDB.LevelCompletions.InsertOnSubmit(complete);
+            m_levelDB.SubmitChanges();
         }
 
         public LevelModel GetLevelByID(int levelID)

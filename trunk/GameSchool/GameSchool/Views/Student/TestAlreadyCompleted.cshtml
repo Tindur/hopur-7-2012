@@ -1,6 +1,10 @@
-﻿@{
+﻿@model GameSchool.Models.ViewModels.TestAlreadyCompletedViewModel
+@{
     ViewBag.Title = "TestAlreadyCompleted";
 }
 
-<h2>Þú hefur nú þegar lokið þessu prófi</h2>
-@Html.ActionLink("Heim", "StudentIndex", "Student")
+<h2>@Model.Test.Name</h2>
+<h3>Þú hefur nú þegar lokið þessu prófi</h3>
+<p>Þú fékkst @Model.StudentScore stig af @Model.Test.Points mögulegum</p>
+
+@Html.ActionLink("Tilbaka í áfanga", "GetCourse/" + Model.Test.CourseID, "Student")

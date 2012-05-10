@@ -3,7 +3,8 @@
     ViewBag.Title = "Edit Test";
 }
 
-<h2>Edit: @Model.Test.Name</h2>
+<h2>Edit: @Model.Test.Name (@Model.Test.Points)</h2>
+<p>@Model.Test.Description</p>
 @foreach (var question in Model.Questions)
 {
     <h3>@question.Question (@question.Points)</h3>
