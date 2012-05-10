@@ -36,7 +36,7 @@ namespace GameSchool.Models.ViewModels
 
         public int m_CurrentLevel { get; set; }
 
-        public IQueryable<AssignmentCompletion> m_FinishedAssignments { get; set; }
+        public IQueryable<int> m_FinishedAssignments { get; set; }
 
         public IQueryable<int> m_FinishedTestsID { get; set; }
 

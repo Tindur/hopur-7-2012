@@ -42,11 +42,12 @@ namespace GameSchool.Models.Repositories
             return result;
         }
 
-        public IQueryable<AssignmentCompletion> GetFinishedAssignmentsForUser(string UserName, int CourseID)
+        public IQueryable<int> GetFinishedAssignmentsForUser(string UserName, int CourseID)
         {
-            /*var result = from x in m_assignmentDB.AssignmentCompletions
-                         where x.*/
-            return null;
+            var result = from x in m_assignmentDB.AssignmentCompletions
+                         where x.CourseID == CourseID && x.UserName == UserName
+                         select x.ID;
+            return result;
         }
 
         public bool HasStudentFinishedAssignment(aspnet_User Student, AssignmentModel Assignment)

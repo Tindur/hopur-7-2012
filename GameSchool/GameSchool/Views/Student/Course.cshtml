@@ -100,7 +100,17 @@
                 {
                     if (assignment.LevelID == lvl.ID)
                     {
-                        <p class="navig">@assignment.Name</p>
+                       
+                        <p class="navig">@assignment.Name
+                        @if (Model.m_FinishedAssignments.Contains(assignment.ID))
+                        {
+                            <i class="icon-ok"></i>
+                        }
+                        else
+                        {
+                            <i class="icon-fire"></i>
+                        }
+                        </p>
                         //TODO checkbox
                     }
                 }
@@ -111,9 +121,13 @@
                     if (test.LevelID == lvl.ID)
                     {
                         <p class="navig">@test.Name
-                        @if(Model.m_FinishedTestsID.Contains(test.ID))
+                        @if (Model.m_FinishedTestsID.Contains(test.ID))
                         {
                             <i class="icon-ok"></i>
+                        }
+                        else
+                        {
+                            <i class="icon-fire"></i>
                         }
                         </p>   
                         //TODO checkbox
