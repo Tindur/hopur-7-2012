@@ -70,7 +70,9 @@ namespace GameSchool.Controllers
             {
                 IEnumerable<LevelModel> levels = m_lvlRepo.GetAllLevelsForCourse(id.Value);
                 string theUser = m_UserRepo.GetUserByName(User.Identity.Name).UserName;
-
+                
+                
+           
                 return View("Course", new CourseView
                                     {
                                         m_theCourse = m_CourseRepo.GetCourseById(id.Value),
@@ -638,7 +640,7 @@ namespace GameSchool.Controllers
             model.m_Counter = Counter;
             return PartialView("XPListView", model);
         }
-        #endregion
+        
         [HttpGet]
         public ActionResult XPCourseList()
         {
@@ -652,5 +654,6 @@ namespace GameSchool.Controllers
             model.m_Counter = Counter;
             return PartialView("XPCourseList", model);
         }
+        #endregion
     }
 }
