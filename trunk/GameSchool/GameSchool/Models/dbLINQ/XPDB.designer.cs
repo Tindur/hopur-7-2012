@@ -22,6 +22,7 @@ namespace GameSchool.Models.dbLINQ
 	using System;
 	
 	
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="verk2012_hopur07")]
 	public partial class XPDBDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -29,7 +30,16 @@ namespace GameSchool.Models.dbLINQ
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
+    partial void InsertCourseXP(CourseXP instance);
+    partial void UpdateCourseXP(CourseXP instance);
+    partial void DeleteCourseXP(CourseXP instance);
     #endregion
+		
+		public XPDBDataContext() : 
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["verk2012_hopur07ConnectionString"].ConnectionString, mappingSource)
+		{
+			OnCreated();
+		}
 		
 		public XPDBDataContext(string connection) : 
 				base(connection, mappingSource)
@@ -53,6 +63,148 @@ namespace GameSchool.Models.dbLINQ
 				base(connection, mappingSource)
 		{
 			OnCreated();
+		}
+		
+		public System.Data.Linq.Table<CourseXP> CourseXPs
+		{
+			get
+			{
+				return this.GetTable<CourseXP>();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CourseXP")]
+	public partial class CourseXP : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _UserName;
+		
+		private int _CourseID;
+		
+		private System.Nullable<int> _XP;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnUserNameChanging(string value);
+    partial void OnUserNameChanged();
+    partial void OnCourseIDChanging(int value);
+    partial void OnCourseIDChanged();
+    partial void OnXPChanging(System.Nullable<int> value);
+    partial void OnXPChanged();
+    #endregion
+		
+		public CourseXP()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserName", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string UserName
+		{
+			get
+			{
+				return this._UserName;
+			}
+			set
+			{
+				if ((this._UserName != value))
+				{
+					this.OnUserNameChanging(value);
+					this.SendPropertyChanging();
+					this._UserName = value;
+					this.SendPropertyChanged("UserName");
+					this.OnUserNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CourseID", DbType="Int NOT NULL")]
+		public int CourseID
+		{
+			get
+			{
+				return this._CourseID;
+			}
+			set
+			{
+				if ((this._CourseID != value))
+				{
+					this.OnCourseIDChanging(value);
+					this.SendPropertyChanging();
+					this._CourseID = value;
+					this.SendPropertyChanged("CourseID");
+					this.OnCourseIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_XP", DbType="Int")]
+		public System.Nullable<int> XP
+		{
+			get
+			{
+				return this._XP;
+			}
+			set
+			{
+				if ((this._XP != value))
+				{
+					this.OnXPChanging(value);
+					this.SendPropertyChanging();
+					this._XP = value;
+					this.SendPropertyChanged("XP");
+					this.OnXPChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

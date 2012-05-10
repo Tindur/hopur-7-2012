@@ -41,14 +41,22 @@ namespace GameSchool.Models.Repositories
                          select x).SingleOrDefault();
             return result;
         }
+
+        public IQueryable<AssignmentCompletion> GetFinishedAssignmentsForUser(string UserName, int CourseID)
+        {
+            /*var result = from x in m_assignmentDB.AssignmentCompletions
+                         where x.*/
+            return null;
+        }
+
         public bool HasStudentFinishedAssignment(aspnet_User Student, AssignmentModel Assignment)
         {
             throw new NotImplementedException();
         }
 
-        public void RegisterAssignmentCompletion(int AssignmentID, string StudentID, double Grade)
+        public void RegisterAssignmentCompletion(AssignmentCompletion TheCompletion)
         {
-            throw new NotImplementedException();
+            m_assignmentDB.AssignmentCompletions.InsertOnSubmit(TheCompletion);
         }
         public void AddAssignmnet(AssignmentModel TheAssignment)
         {

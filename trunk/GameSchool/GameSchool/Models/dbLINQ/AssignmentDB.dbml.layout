@@ -2,10 +2,16 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="AssignmentDB">
   <DataContextMoniker Name="/AssignmentDBDataContext" />
   <nestedChildShapes>
-    <classShape Id="c5aea78e-9196-4dd9-bfcf-f5a3a9754e2a" absoluteBounds="2, 1.375, 2, 2.1554996744791666">
+    <classShape Id="c5aea78e-9196-4dd9-bfcf-f5a3a9754e2a" absoluteBounds="3.625, 1.375, 2, 2.1554996744791666">
       <DataClassMoniker Name="/AssignmentDBDataContext/AssignmentModel" />
       <nestedChildShapes>
-        <elementListCompartment Id="7077cc09-3f58-4515-b18b-9c6041e734c6" absoluteBounds="2.015, 1.835, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="7077cc09-3f58-4515-b18b-9c6041e734c6" absoluteBounds="3.64, 1.835, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="04e7e47b-0278-4afa-aee8-939804b7f93e" absoluteBounds="1.125, 2, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/AssignmentDBDataContext/AssignmentCompletion" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5f2e48b4-f2db-4a39-bd9c-8b07b40b1b91" absoluteBounds="1.1400000000000001, 2.46, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
