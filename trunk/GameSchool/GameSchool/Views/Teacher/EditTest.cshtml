@@ -13,7 +13,12 @@
         <ul>
         @if (answer.QuestionID == question.ID)
         {
-            <li>@answer.Answer</li>
+            <li>@answer.Answer
+            @if(answer.Correct == true)
+            {
+                <i class="icon-ok"></i>
+            }
+            </li>
         }
         </ul>
     }

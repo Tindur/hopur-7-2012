@@ -56,6 +56,7 @@ namespace GameSchool.Models.Repositories
             
             var result3 = result2 + result;*/
             
+            //Ekki að virka sem skyldi!!
 
            //Finnum öll borðin í áfanga
             var levelsInCourse = (from x in m_levelDB.LevelModels
