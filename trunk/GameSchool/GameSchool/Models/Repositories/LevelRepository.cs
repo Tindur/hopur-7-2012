@@ -46,7 +46,7 @@ namespace GameSchool.Models.Repositories
         public int GetCurrentLevelForStudent(string userName, int courseID)  //Added by Björn
         {
             
-            var result = (from x in m_levelDB.LevelAmountCompletions
+         /*   var result = (from x in m_levelDB.LevelAmountCompletions
                          where x.CourseID == courseID
                          select x.LevelsCompleted.Value).SingleOrDefault();
 
@@ -54,10 +54,10 @@ namespace GameSchool.Models.Repositories
                           where x.CourseID == courseID
                           select x.ID).Min();
             
-            var result3 = result2 + result;
+            var result3 = result2 + result;*/
             
 
-           /* //Finnum öll borðin í áfanga
+           //Finnum öll borðin í áfanga
             var levelsInCourse = (from x in m_levelDB.LevelModels
                           where x.CourseID == courseID
                           select x);
@@ -71,9 +71,9 @@ namespace GameSchool.Models.Repositories
 
             var result = (from c in lev
                           orderby c.NumberInCourse ascending
-                          select c.ID).FirstOrDefault();*/
+                          select c.ID).FirstOrDefault();
 
-            return result3;
+            return result;
         }
 
         public void RegisterLevelCompletion(int idLevel, string studentName)
