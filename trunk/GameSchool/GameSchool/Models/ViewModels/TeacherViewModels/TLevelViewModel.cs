@@ -8,6 +8,7 @@ namespace GameSchool.Models.ViewModels.TeacherViewModels
 {
     public class TLevelViewModel
     {
+        public int CourseID { get; set; }
         public List<LevelModel> Levels { get; set; }
         public List<AssignmentModel> Assignments { get; set; }
         public List<TestModel> Tests { get; set; }

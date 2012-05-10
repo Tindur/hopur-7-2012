@@ -105,27 +105,36 @@ namespace GameSchool.Controllers
                 //TODO: Athuga hvort nemandi sé búinn með:
                 //Öll próf
                 List<TestModel> Tests = m_TestRepo.GetAllTestsForLevel(LevelID.Value).ToList();
-                foreach (var test in Tests)
+                if (Tests.Count != 0)
                 {
-                    //Ef nemandi hefur ekki lokið einherju prófi
-                    if (!m_TestRepo.UserHasFinishedTest(StudentName, test.ID))
-                        return false;
+                    foreach (var test in Tests)
+                    {
+                        //Ef nemandi hefur ekki lokið einherju prófi
+                        if (!m_TestRepo.UserHasFinishedTest(StudentName, test.ID))
+                            return false;
+                    }
                 }
 
                 //Öll verkefni
                 List<AssignmentModel> Assignments = m_AssignmentRepo.GetAllAssignmentsForLevel(LevelID.Value).ToList();
-                foreach (var assignment in Assignments)
+                if (Assignments.Count != 0)
                 {
-                    if (!m_AssignmentRepo.HasStudentFinishedAssignment(StudentName, assignment.ID))
-                        return false;
+                    foreach (var assignment in Assignments)
+                    {
+                        if (!m_AssignmentRepo.HasStudentFinishedAssignment(StudentName, assignment.ID))
+                            return false;
+                    }
                 }
 
                 //Allir fyrirlestrar
                 List<LectureModel> Lectures = m_LectureRepo.GetLecturesForLevel(LevelID.Value).ToList();
-                foreach (var lecture in Lectures)
+                if (Lectures.Count != 0)
                 {
-                    if (!m_LectureRepo.HasStudentFinishedLecture(lecture.ID, StudentName))
-                        return false;
+                    foreach (var lecture in Lectures)
+                    {
+                        if (!m_LectureRepo.HasStudentFinishedLecture(lecture.ID, StudentName))
+                            return false;
+                    }
                 }
 
                 //Ef við komumst hingað hefur nemandi lokið borðinu
