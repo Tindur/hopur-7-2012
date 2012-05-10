@@ -19,4 +19,12 @@
       <Column Name="CourseID" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.LectureCompletion" Member="LectureCompletions">
+    <Type Name="LectureCompletion">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="LectureID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CourseID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
 </Database>

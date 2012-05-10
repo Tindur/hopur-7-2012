@@ -11,6 +11,7 @@ namespace GameSchool.Models.Interfaces
         IQueryable<LectureModel> GetLecturesForLevel(int LevelID);
         IQueryable<LectureModel> GetLecturesForCourse(int CourseID);
         IQueryable<LectureModel> GetFiveLatest(int LevelID);
+        void RegisterLectureCompletion(LectureCompletion TheCompletion);
         void AddLecture(LectureModel TheLecture);
         void Save();
     }

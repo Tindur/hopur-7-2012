@@ -79,7 +79,8 @@ namespace GameSchool.Controllers
                                         m_CompletedLevels = m_lvlRepo.GetAmountOfCompletedLevels(theUser, id.Value),
                                         m_finishedLvlID = null,
                                         m_FinishedAssignments = m_AssignmentRepo.GetFinishedAssignmentsForUser(User.Identity.Name, id.Value),
-                                        m_FinishedTestsID = m_TestRepo.GetFinishedTestsInCourse(theUser, id.Value)
+                                        m_FinishedTestsID = m_TestRepo.GetFinishedTestsInCourse(theUser, id.Value),
+                                        m_FinishedLecturesID = m_LectureRepo.GetFinishedLecturesInCourse(theUser, id.Value)
                                     });
             }
             else
@@ -135,10 +136,41 @@ namespace GameSchool.Controllers
         [HttpGet]
         public ActionResult GetLectureByID(int? id)
         {
-            //Todo: útfæra þetta fall og svipað fall í LectureRepository // fuck you that's done! kv bjafki
             if(id.HasValue)
             {
-                var model = m_LectureRepo.GetLectureByID(id.Value);
+                LectureModel model = m_LectureRepo.GetLectureByID(id.Value); //Find the lecture
+                //Check if student has already watched the lecture
+                if(!m_LectureRepo.HasStudentFinishedLecture(id.Value, User.Identity.Name))
+                {
+                    //Marking Lecture as completed
+                    int cID = m_LectureRepo.GetCourseIDByLectureID(id.Value);
+                    LectureCompletion Completion = new LectureCompletion();
+                    Completion.LectureID = id.Value;
+                    Completion.UserName = User.Identity.Name;
+                    Completion.CourseID = cID;
+                    m_LectureRepo.RegisterLectureCompletion(Completion);
+                    m_LectureRepo.Save();
+
+                    //Updating CourseXP
+                
+                    CourseXP TheUserCourseXP = m_CourseXPRepo.GetCourseXPByUserName(User.Identity.Name);
+                    if (TheUserCourseXP == null)
+                    {
+                        TheUserCourseXP = m_CourseXPRepo.CreateNewXPForUserName(User.Identity.Name, model.CourseID.Value);
+                        m_CourseXPRepo.RegisterXPForCourse(TheUserCourseXP);
+                    }
+
+                    TheUserCourseXP.XP += model.Points.Value;
+                    m_CourseXPRepo.Save();
+
+                    //Updating UserXP
+                    aspnet_User TheUser = m_UserRepo.GetUserByName(User.Identity.Name);
+
+                    TheUser.XP += model.Points.Value;
+                    m_UserRepo.Save();
+                }
+
+                //Returning the video to the user!
                 return Json(model, JsonRequestBehavior.AllowGet);
             }
             else
@@ -304,12 +336,14 @@ namespace GameSchool.Controllers
                 IQueryable<LectureModel> TheLectures = m_LectureRepo.GetFiveLatest(id.Value);
                 IQueryable<AssignmentModel> TheAssignments = m_AssignmentRepo.GetFiveLatest(id.Value);
                 IQueryable<NotificationModel> TheNotifications = m_NotificationRepo.GetFiveLatest(id.Value);
+                IQueryable<TestModel> TheTests = m_TestRepo.GetFiveLatest(id.Value);
                 if (TheNotifications.Any())
                 {
                     string SourceTeacherImage = m_UserRepo.GetImageForName(m_NotificationRepo.GetNameOfTeacher(id.Value));
                     NewsFeedViewModel model = new NewsFeedViewModel();
                     model.Lectures = TheLectures;
                     model.Assignments = TheAssignments;
+                    model.Tests = TheTests;
                     model.Notifications = TheNotifications;
                     model.SourceTeacherImage = SourceTeacherImage;
                     return PartialView(model);
@@ -319,6 +353,7 @@ namespace GameSchool.Controllers
                     NewsFeedViewModel model = new NewsFeedViewModel();
                     model.Lectures = TheLectures;
                     model.Assignments = TheAssignments;
+                    model.Tests = TheTests;
                     model.Notifications = null;
                     model.SourceTeacherImage = null;
                     return PartialView(model);

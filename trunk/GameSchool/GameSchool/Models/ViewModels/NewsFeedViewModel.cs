@@ -17,5 +17,7 @@ namespace GameSchool.Models.ViewModels
         public string SourceTeacherImage { get; set; }
 
         public IQueryable<NotificationComment> NotifComments { get; set; }
+
+        public IQueryable<TestModel> Tests { get; set; }
     }
 }
