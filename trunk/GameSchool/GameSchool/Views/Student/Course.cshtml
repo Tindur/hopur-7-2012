@@ -69,11 +69,11 @@
             string finished;
             foreach (var lvl in Model.m_theLevels)
             {
-                if (Model.m_CurrentLevel == lvl.ID)
+                if (Model.m_CurrentLevel == lvl.NumberInCourse)
                 {
                     finished = "alert-info";
                 }
-                else if (Model.m_CurrentLevel > lvl.ID)
+                else if (Model.m_CurrentLevel < lvl.NumberInCourse)
                 {
                     finished = "alert-error";
                 }
