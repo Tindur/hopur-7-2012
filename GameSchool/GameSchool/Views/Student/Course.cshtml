@@ -37,7 +37,7 @@
         </div>
         <div id="CourseStuff">
             <legend><h3 class="StudentHeadings">Áfangastraumur</h3></legend>
-            @Html.Action("NewsFeed", "Student", new { id = Model.m_theCourse.ID })
+            @Html.Action("NewsFeed", "Student", new { id = Model.m_CurrentLevel })
         </div>
     </div>
     <div class="tab-pane" id="tab2">
@@ -68,11 +68,11 @@
             string finished;
             foreach (var lvl in Model.m_theLevels)
             {
-                if (Model.m_CurrentLevel == lvl.NumberInCourse)
+                if (lvl.ID == Model.m_CurrentLevel)
                 {
                     finished = "alert-info";
                 }
-                else if (Model.m_CurrentLevel < lvl.NumberInCourse)
+                else if (lvl.ID > Model.m_CurrentLevel)
                 {
                     finished = "alert-error";
                 }

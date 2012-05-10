@@ -72,6 +72,7 @@ namespace GameSchool.Models.Repositories
             complete.StudentName = studentName;
             complete.LevelID = idLevel;
             m_levelDB.LevelCompletions.InsertOnSubmit(complete);
+            m_levelDB.SubmitChanges();
         }
 
         public LevelModel GetLevelByID(int levelID)
