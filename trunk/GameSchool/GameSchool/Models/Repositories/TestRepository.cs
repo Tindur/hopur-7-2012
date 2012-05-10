@@ -27,10 +27,10 @@ namespace GameSchool.Models.Repositories
             return result;
         }
 
-        public IQueryable<TestModel> GetFiveLatest(int CourseID)
+        public IQueryable<TestModel> GetFiveLatest(int LevelID)
         {
             var result = (from x in m_testDB.TestModels
-                         where x.CourseID == CourseID
+                         where x.LevelID == LevelID
                          orderby x.DateAdded descending
                          select x).Take(5);
             return result;
