@@ -90,16 +90,42 @@ namespace GameSchool.Controllers
         }
 
         //TODO: útfæra
-        public bool checkForLevelCompletion(int LevelID, string StudentName)
+        public bool checkForLevelCompletion(int? LevelID, string StudentName)
         {
-            //TODO: Athuga hvort nemandi sé búinn með:
-            //Öll próf
+            if (LevelID.HasValue)
+            {
+                //TODO: Athuga hvort nemandi sé búinn með:
+                //Öll próf
+                List<TestModel> Tests = m_TestRepo.GetAllTestsForLevel(LevelID.Value).ToList();
+                foreach (var test in Tests)
+                {
+                    //Ef nemandi hefur ekki lokið einherju prófi
+                    if (!m_TestRepo.UserHasFinishedTest(StudentName, test.ID))
+                        return false;
+                }
 
-            //Öll verkefni
+                //Öll verkefni
+                List<AssignmentModel> Assignments = m_AssignmentRepo.GetAllAssignmentsForLevel(LevelID.Value).ToList();
+                foreach (var assignment in Assignments)
+                {
+                    if (!m_AssignmentRepo.HasStudentFinishedAssignment(m_UserRepo.GetUserByName(StudentName), assignment))
+                        return false;
+                }
 
-            //Allir fyrirlestrar
+                //Allir fyrirlestrar
+                List<LectureModel> Lectures = m_LectureRepo.GetLecturesForLevel(LevelID.Value).ToList();
+                foreach (var lecture in Lectures)
+                {
+                    if (!m_LectureRepo.HasStudentFinishedLecture(lecture.ID, StudentName))
+                        return false;
+                }
 
-            return false;
+                //Ef við komumst hingað hefur nemandi lokið borðinu
+                return true;
+            }
+            //Ef annað hvort nafn nemanda eða LevelID eru null skilum við false
+            else
+                return false;
         }   
 
         public ActionResult GetLevel(int? id)
