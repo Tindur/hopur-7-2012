@@ -23,6 +23,7 @@ namespace GameSchool.Controllers
         AssignmentRepository m_AssignmentRepo = new AssignmentRepository();
         UsersRepository m_UserRepo = new UsersRepository();
         NotificationRepository m_NotificationRepo = new NotificationRepository();
+        CourseXPRepository m_CourseXPRepo = new CourseXPRepository();
 
 
         public ActionResult StudentIndex()
@@ -64,15 +65,19 @@ namespace GameSchool.Controllers
             if (id.HasValue)
             {
                 IEnumerable<LevelModel> levels = m_lvlRepo.GetAllLevelsForCourse(id.Value);
+                string theUser = m_UserRepo.GetUserByName(User.Identity.Name).UserName;
 
                 return View("Course", new CourseView
                                     {
                                         m_theCourse = m_CourseRepo.GetCourseById(id.Value),
                                         m_theLevels = levels.ToList(),
-                                        m_finishedLvlID = m_lvlRepo.GetFinishedLevelsForStudent(User.Identity.Name).ToList(),
+                                        m_CurrentLevel = m_lvlRepo.GetCurrentLevelForStudent(User.Identity.Name, id.Value),
                                         m_theLectures = m_LectureRepo.GetLecturesForCourse(id.Value),
                                         m_theAssignments = m_AssignmentRepo.GetAssignmentsForCourse(id.Value),
-                                        m_theTests = m_TestRepo.GetTestsForCourse(id.Value)
+                                        m_theTests = m_TestRepo.GetTestsForCourse(id.Value),
+                                        m_CompletedLevels = m_lvlRepo.GetAmountOfCompletedLevels(theUser, id.Value),
+                                        m_finishedLvlID = null,
+                                        m_FinishedAssignments = m_AssignmentRepo.GetFinishedAssignmentsForUser(User.Identity.Name, id.Value)
                                     });
             }
             else
@@ -217,14 +222,56 @@ namespace GameSchool.Controllers
             }
             return View("Error");
         }
+
         public ActionResult GetAssignment(int? id)
         {
             if (id.HasValue)
             {
-                var model = m_AssignmentRepo.GetAssignmentById(id.Value);
+                AssignmentModel model = m_AssignmentRepo.GetAssignmentById(id.Value);
                 return View(model);
             }
             return View("Error");
+        }
+
+        [HttpPost]
+        public ActionResult GetAssignment(AssignmentModel model)
+        {
+            if (model != null)
+            {
+                //Marking assignment as completed
+                AssignmentCompletion Completion = new AssignmentCompletion();
+                Completion.AssignmentID = model.ID;
+                Completion.UserName = User.Identity.Name;
+
+
+                m_AssignmentRepo.RegisterAssignmentCompletion(Completion);
+                m_AssignmentRepo.Save();
+
+                //Updating CourseXP
+                CourseXP TheUserCourseXP = m_CourseXPRepo.GetCourseXPByUserName(User.Identity.Name);
+                if (TheUserCourseXP == null)
+                {
+                    TheUserCourseXP = m_CourseXPRepo.CreateNewXPForUserName(User.Identity.Name, model.CourseID.Value);
+                    m_CourseXPRepo.RegisterXPForCourse(TheUserCourseXP);
+                }
+                
+                TheUserCourseXP.XP += model.Points.Value;
+                m_CourseXPRepo.Save();
+
+                //Updating UserXP
+                aspnet_User TheUser = m_UserRepo.GetUserByName(User.Identity.Name);
+
+                TheUser.XP += model.Points.Value;
+                m_UserRepo.Save();
+
+                //Updating Assignment Completion
+
+
+                return RedirectToAction("GetCourse", "Student", model.CourseID.Value);
+            }
+            else
+                return View("Error");
+
         }
 
         public ActionResult NewsFeed(int? id)
@@ -370,7 +417,7 @@ namespace GameSchool.Controllers
             var studentID = m_UserRepo.GetUserByName(User.Identity.Name).UserId;
             if (testID.HasValue)
             {
-                if (!m_TestRepo.UserHasNotFinishedTest(studentID, testID.Value))
+                if (!m_TestRepo.UserHasFinishedTest(studentID, testID.Value))
                 {
                     TakeTestViewModel model = new TakeTestViewModel();
                     model.Test = m_TestRepo.GetTestByID(testID.Value);

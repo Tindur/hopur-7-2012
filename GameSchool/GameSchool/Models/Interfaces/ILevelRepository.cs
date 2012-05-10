@@ -12,9 +12,10 @@ namespace GameSchool.Models.Interfaces
         IQueryable<dbLINQ.LevelModel> GetAllLevelsForCourse(int courseID);
         void AddLevel(LevelModel level);
         bool HasStudentFinishedLevel(string userName);
-        IQueryable<int> GetFinishedLevelsForStudent(string userName);  //Added by Björn
+        int GetCurrentLevelForStudent(string userName, int courseID);  //Added by Björn
         void RegisterLevelCompletion(int idLevel, string studentName);
         LevelModel GetLevelByID(int levelID);
+        int GetAmountOfCompletedLevels(string theUser, int CourseID);
       /*
         IQueryable<LectureModel> GetLecturesForLevel(int levelID);
    

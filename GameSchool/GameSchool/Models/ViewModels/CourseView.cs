@@ -32,6 +32,15 @@ namespace GameSchool.Models.ViewModels
 
         public IQueryable<TestModel> m_theTests { get; set; }
 
+        public int m_CompletedLevels { get; set; }
+
+        public int m_CurrentLevel { get; set; }
+
+        public IQueryable<AssignmentCompletion> m_FinishedAssignments { get; set; }
+
+        
+
+
         //TODO:  Setja í CourseViewModel Próf, Verkefni, Tilkynningar, glósur, kennara? e.t.v. fl.  Kv Björn
 
         //public List<TeacherRegistration> m_theTeachersID { get; set; }

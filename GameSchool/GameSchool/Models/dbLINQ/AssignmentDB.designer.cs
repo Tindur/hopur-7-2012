@@ -33,6 +33,9 @@ namespace GameSchool.Models.dbLINQ
     partial void InsertAssignmentModel(AssignmentModel instance);
     partial void UpdateAssignmentModel(AssignmentModel instance);
     partial void DeleteAssignmentModel(AssignmentModel instance);
+    partial void InsertAssignmentCompletion(AssignmentCompletion instance);
+    partial void UpdateAssignmentCompletion(AssignmentCompletion instance);
+    partial void DeleteAssignmentCompletion(AssignmentCompletion instance);
     #endregion
 		
 		public AssignmentDBDataContext() : 
@@ -70,6 +73,14 @@ namespace GameSchool.Models.dbLINQ
 			get
 			{
 				return this.GetTable<AssignmentModel>();
+			}
+		}
+		
+		public System.Data.Linq.Table<AssignmentCompletion> AssignmentCompletions
+		{
+			get
+			{
+				return this.GetTable<AssignmentCompletion>();
 			}
 		}
 	}
@@ -235,6 +246,140 @@ namespace GameSchool.Models.dbLINQ
 					this._Points = value;
 					this.SendPropertyChanged("Points");
 					this.OnPointsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CourseID", DbType="Int")]
+		public System.Nullable<int> CourseID
+		{
+			get
+			{
+				return this._CourseID;
+			}
+			set
+			{
+				if ((this._CourseID != value))
+				{
+					this.OnCourseIDChanging(value);
+					this.SendPropertyChanging();
+					this._CourseID = value;
+					this.SendPropertyChanged("CourseID");
+					this.OnCourseIDChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AssignmentCompletion")]
+	public partial class AssignmentCompletion : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _UserName;
+		
+		private int _AssignmentID;
+		
+		private System.Nullable<int> _CourseID;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnUserNameChanging(string value);
+    partial void OnUserNameChanged();
+    partial void OnAssignmentIDChanging(int value);
+    partial void OnAssignmentIDChanged();
+    partial void OnCourseIDChanging(System.Nullable<int> value);
+    partial void OnCourseIDChanged();
+    #endregion
+		
+		public AssignmentCompletion()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserName", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string UserName
+		{
+			get
+			{
+				return this._UserName;
+			}
+			set
+			{
+				if ((this._UserName != value))
+				{
+					this.OnUserNameChanging(value);
+					this.SendPropertyChanging();
+					this._UserName = value;
+					this.SendPropertyChanged("UserName");
+					this.OnUserNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AssignmentID", DbType="Int NOT NULL")]
+		public int AssignmentID
+		{
+			get
+			{
+				return this._AssignmentID;
+			}
+			set
+			{
+				if ((this._AssignmentID != value))
+				{
+					this.OnAssignmentIDChanging(value);
+					this.SendPropertyChanging();
+					this._AssignmentID = value;
+					this.SendPropertyChanged("AssignmentID");
+					this.OnAssignmentIDChanged();
 				}
 			}
 		}

@@ -12,9 +12,10 @@ namespace GameSchool.Models.Interfaces
         IQueryable<AssignmentModel> GetAssignmentsForCourse(int CourseID);
         IQueryable<AssignmentModel> GetFiveLatest(int LevelID);
         AssignmentModel GetAssignmentById(int AssignmentID);
-        bool HasStudentFinishedAssignment(aspnet_User Student, AssignmentModel Assignment);
-        void RegisterAssignmentCompletion(int AssignmentID, string StudentID, double Grade);
-        void AddAssignmnet(AssignmentModel TheAssignment);
+        void RegisterAssignmentCompletion(AssignmentCompletion TheCompletion);
+        bool HasStudentFinishedAssignment(aspnet_User Student, AssignmentModel Assignment);//ekki verið að nota
+        void AddAssignmnet(AssignmentModel TheAssignment);//ekki verið að nota
         void Save();
+        IQueryable<AssignmentCompletion> GetFinishedAssignmentsForUser(string UserName, int CourseID);
     }
 }

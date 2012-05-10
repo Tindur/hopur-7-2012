@@ -23,11 +23,11 @@ namespace GameSchool.Models.Repositories
             m_NewsFeedDB.NotificationModels.InsertOnSubmit(TheNotification);
         }
 
-        public string GetNameOfTeacher(int id)
+        public String GetNameOfTeacher(int id)
         {
             /*var result = (from x in m_NewsFeedDB.NotificationModels
                          where x.CourseID == id
-                         select x.UserName).SingleOrDefault();
+                         select x.UserName).FirstOrDefault();
             return result;*/
 
             //Fiff

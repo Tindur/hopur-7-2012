@@ -110,13 +110,23 @@ namespace GameSchool.Models.Repositories
 
         public string GetImageForName(string name)
         {
-                var NameID = GetUserByNamez(name).UserId;
-                var result = (from x in m_usersDB.ImageModels
-                              where x.UserID == NameID
-                              select x.Source).SingleOrDefault();
-                return result;
+
+            var NameID = GetUserByNamez(name).UserId;
+            var result = (from x in m_usersDB.ImageModels
+                            where x.UserID == NameID
+                            select x.Source).SingleOrDefault();
+            return result;
         }
         
+        public string GetSingleImageForUser(string name)
+        {
+            var NameID = GetUserByNamez(name).UserId;
+            var result = (from x in m_usersDB.ImageModels
+                         where x.UserID == NameID
+                         select x.Source).FirstOrDefault();
+            return result;
+        }
+
         public class TeacherForStudent
         {
             public string TeacherName { get; set; }

@@ -44,14 +44,19 @@ namespace GameSchool.Models.Repositories
 
         }
 
-        public IQueryable<int> GetFinishedLevelsForStudent(string userName)  //Added by Björn
+        public int GetCurrentLevelForStudent(string userName, int courseID)  //Added by Björn
         {
-            //TODO breyta LevelCompletion þannig hún hafi StudentUsername í stað StudentID //done!
-            var result = from levelID in m_levelDB.LevelCompletions
-                         where levelID.StudentName == userName
-                         select levelID.LevelID;
+            var result = (from x in m_levelDB.LevelAmountCompletions
+                         where x.CourseID == courseID
+                         select x.LevelsCompleted.Value).SingleOrDefault();
 
-            return result;
+            var result2 = (from x in m_levelDB.LevelModels
+                          where x.CourseID == courseID
+                          select x.ID).Min();
+            
+            var result3 = result2 + result;
+
+            return result3;
         }
 
         public void RegisterLevelCompletion(int idLevel, string studentName)
@@ -118,6 +123,14 @@ namespace GameSchool.Models.Repositories
             //throw new NotImplementedException();
         }
 
+        public int GetAmountOfCompletedLevels(string theUser, int courseID)
+        {
+            var result = (from x in m_levelDB.LevelAmountCompletions
+                          where x.StudentName == theUser && x.CourseID == courseID
+                          select x.LevelsCompleted.Value).SingleOrDefault();
+            return result;
+        }
+
        /* public bool HasStudentFinishedAssignment(string username)
         {
             throw new NotImplementedException();
@@ -150,6 +163,5 @@ namespace GameSchool.Models.Repositories
         {
             throw new NotImplementedException();
         }
-
     }
 }

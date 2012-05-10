@@ -37,11 +37,12 @@
         </div>
         <div id="CourseStuff">
             <legend><h3 class="StudentHeadings">Áfangastraumur</h3></legend>
-            @{Html.RenderAction("NewsFeed", "Student");}
+            @Html.Action("NewsFeed", "Student", new { id = Model.m_CurrentLevel })
         </div>
     </div>
     <div class="tab-pane" id="tab2">
-         @{Html.RenderAction("GetLecturesForLevel", "Student");}
+        
+        @Html.Action("GetLecturesForLevel", "Student", new { id = Model.m_CurrentLevel })
     </div>
     <div class="tab-pane" id="tab3">
       <legend><h3 class="StudentHeadings">Glósur</h3></legend>
@@ -51,11 +52,11 @@
     </div>
     <div class="tab-pane" id="tab5">
         <legend><h3 class="StudentHeadings">Próf</h3></legend>
-        @{Html.RenderAction("GetTestsForLevel", "Student");}
+        @Html.Action("GetTestsForLevel", "Student", new { id = Model.m_CurrentLevel })
     </div>
     <div class="tab-pane" id="tab6">
         <legend><h3 class="StudentHeadings">Verkefni</h3></legend>
-        @{Html.RenderAction("GetAssignmentsForLevel", "Student");}
+        @Html.Action("GetAssignmentsForLevel", "Student", new { id = Model.m_CurrentLevel })
     </div>
   </div>
 
@@ -68,17 +69,21 @@
             string finished;
             foreach (var lvl in Model.m_theLevels)
             {
-                if (Model.m_finishedLvlID.Contains(lvl.ID))
+                if (Model.m_CurrentLevel == lvl.ID)
                 {
-                    finished = "alert-success";
+                    finished = "alert-info";
                 }
-                else 
+                else if (Model.m_CurrentLevel < lvl.ID)
                 {
                     finished = "alert-error";
                 }
+                else
+                {
+                    finished = "alert-success";
+                }
         
-                <li class="alert @finished">@Html.ActionLink("Borð " + lvl.NumberInCourse + ": " + lvl.Name, 
-                                                                    "/GetLevel/" + lvl.ID , "Student")
+                <li class="alert @finished">@Html.ActionLink("Borð " + lvl.NumberInCourse + ": " + lvl.Name,
+                                                                    "/GetLevel/" + lvl.ID, "Student")
                 
                 <p class="nav-header">Fyrirlestrar</p>
                 @foreach (var lecture in Model.m_theLectures)
@@ -106,6 +111,7 @@
                     if (test.LevelID == lvl.ID)
                     {
                         <p class="navig">@test.Name</p>
+                        <p></p>
                         //TODO checkbox
                     }
                 }
