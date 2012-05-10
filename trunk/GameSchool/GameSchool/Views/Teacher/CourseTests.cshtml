@@ -1,0 +1,15 @@
+﻿@model GameSchool.Models.ViewModels.TeacherViewModels.CourseTestViewModel
+
+@foreach (var level in Model.Levels)
+{
+    <div>
+        <h3>@level.NumberInCourse. @level.Name</h3>
+        @foreach (var test in Model.Tests)
+	    {
+            if (test.LevelID == level.ID)
+            {
+                <p>@test.Name</p>
+            }
+	    }
+    </div>
+}

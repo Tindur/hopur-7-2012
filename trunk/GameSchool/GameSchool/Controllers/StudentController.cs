@@ -16,6 +16,12 @@ namespace GameSchool.Controllers
     [Authorize(Roles = "Student")]  
     public class StudentController : Controller
     {
+        public ActionResult StudentIndex()
+        {
+            return View();
+        }
+        
+        #region Repos
         CourseRepository m_CourseRepo = new CourseRepository();
         LevelRepository m_lvlRepo = new LevelRepository();
         LectureRepository m_LectureRepo = new LectureRepository();
@@ -25,13 +31,8 @@ namespace GameSchool.Controllers
         UsersRepository m_UserRepo = new UsersRepository();
         NotificationRepository m_NotificationRepo = new NotificationRepository();
         CourseXPRepository m_CourseXPRepo = new CourseXPRepository();
-
-
-        public ActionResult StudentIndex()
-        {
-            return View();
-        }
-
+        #endregion
+      
         #region Navigation
         public ActionResult Navigation()
         {
@@ -504,7 +505,7 @@ namespace GameSchool.Controllers
                     TheUserCourseXP = m_CourseXPRepo.CreateNewXPForUserName(User.Identity.Name, model.CourseID.Value);
                     m_CourseXPRepo.RegisterXPForCourse(TheUserCourseXP);
                 }
-                
+
                 TheUserCourseXP.XP += model.Points.Value;
                 m_CourseXPRepo.Save();
 
@@ -518,6 +519,7 @@ namespace GameSchool.Controllers
                 {
                     m_lvlRepo.RegisterLevelCompletion(model.LevelID, User.Identity.Name);
                 }
+
 
                 return RedirectToAction("GetCourse", "Student", model.CourseID.Value);
             }
@@ -641,6 +643,7 @@ namespace GameSchool.Controllers
             return PartialView("XPListView", model);
         }
         
+
         [HttpGet]
         public ActionResult XPCourseList()
         {

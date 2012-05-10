@@ -1,5 +1,7 @@
 ﻿@model GameSchool.Models.ViewModels.TeacherViewModels.TLevelViewModel
 
+@Html.ActionLink("Búa til borð", "CreateLevel", new { CourseID = Model.Levels[0].CourseID})
+
 @foreach (var lvl in Model.Levels)
 {
     <h3>@lvl.NumberInCourse. @lvl.Name</h3>
@@ -14,7 +16,8 @@
                 }
             }
         </ul>
-            @Html.ActionLink("Búa til nýtt próf", "CreateTest", new { levelID = lvl.ID, courseID = lvl.CourseID })
+        @Html.ActionLink("Búa til nýtt próf", "CreateTest", new { levelID = lvl.ID, courseID = lvl.CourseID })
+
         <h4>Verkefni</h4>
         <ul>
             @foreach (var verk in Model.Assignments)
@@ -25,6 +28,7 @@
                 }
             }
         </ul>
+        @Html.ActionLink("Búa til nýtt verkefni", "CreateAssignment", new { levelID = lvl.ID, courseID = lvl.CourseID })
 
         <h4>Fyrirlestrar</h4>
         <ul>
@@ -35,5 +39,6 @@
                     <li>@lc.Name</li>
                 }
             }
-        </ul>    
+        </ul>
+        @Html.ActionLink("Búa til nýjan fyrirlestur", "CreateLecture", new{ levelID = lvl.ID, courseID = lvl.CourseID })    
 }

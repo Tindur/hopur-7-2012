@@ -37,11 +37,10 @@
         </div>
         <div id="CourseStuff">
             <legend><h3 class="StudentHeadings">Áfangastraumur</h3></legend>
-            @Html.Action("NewsFeed", "Student", new { id = Model.m_CurrentLevel })
+            @Html.Action("NewsFeed", "Student", new { id = Model.m_theCourse.ID })
         </div>
     </div>
     <div class="tab-pane" id="tab2">
-        
         @Html.Action("GetLecturesForLevel", "Student", new { id = Model.m_CurrentLevel })
     </div>
     <div class="tab-pane" id="tab3">

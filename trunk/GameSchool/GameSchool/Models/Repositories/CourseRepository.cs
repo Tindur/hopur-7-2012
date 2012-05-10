@@ -99,5 +99,12 @@ namespace GameSchool.Models.Repositories
 
             m_courseDB.CourseRegistrations.DeleteOnSubmit(cReg);
         }
+
+        public IQueryable<TeacherRegistration> GetTeacherRegistrations()
+        {
+            var result = from x in m_courseDB.TeacherRegistrations
+                         select x;
+            return result;
+        }
     }
 }
