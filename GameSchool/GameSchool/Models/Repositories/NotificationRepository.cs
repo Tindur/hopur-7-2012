@@ -18,6 +18,12 @@ namespace GameSchool.Models.Repositories
                          select x).Take(5);
             return result;
         }
+        public IQueryable<NotificationModel> GetAllFiveLatest()
+        {
+            var result = (from x in m_NewsFeedDB.NotificationModels
+                          select x).Take(5);
+            return result;
+        }
         public void AddNotification(NotificationModel TheNotification)
         {
             m_NewsFeedDB.NotificationModels.InsertOnSubmit(TheNotification);

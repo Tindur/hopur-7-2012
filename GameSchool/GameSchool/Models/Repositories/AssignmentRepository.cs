@@ -34,6 +34,13 @@ namespace GameSchool.Models.Repositories
                           select x).Take(5);
             return result;
         }
+        public IQueryable<AssignmentModel> GetAllFiveLatest()
+        {
+            var result = (from x in m_assignmentDB.AssignmentModels
+                          orderby x.DateAdded descending
+                          select x).Take(5);
+            return result;
+        }
         public AssignmentModel GetAssignmentById(int AssignmentID)
         {
             var result = (from x in m_assignmentDB.AssignmentModels

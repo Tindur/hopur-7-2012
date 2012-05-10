@@ -559,14 +559,41 @@ namespace GameSchool.Controllers
                     model.SourceTeacherImage = null;
                     return PartialView(model);
                 }
-
-
-                
-
-                
-
             }
             return View("Error");
+        }
+        public ActionResult StudentIndexNewsFeed()
+        {
+            
+                IQueryable<LectureModel> TheLectures = m_LectureRepo.GetAllFiveLatest();
+                IQueryable<AssignmentModel> TheAssignments = m_AssignmentRepo.GetAllFiveLatest();
+                IQueryable<NotificationModel> TheNotifications = m_NotificationRepo.GetAllFiveLatest();
+                IQueryable<TestModel> TheTests = m_TestRepo.GetAllFiveLatest();
+              //  CourseModel TheCourse = m_CourseRepo.GetCourseById(id.Value);
+                if (TheNotifications.Any())
+                {
+                    //string SourceTeacherImage = m_UserRepo.GetImageForName(m_NotificationRepo.GetNameOfTeacher(id.Value));
+                    StudentIndexViewModel model = new StudentIndexViewModel();
+                    model.Lectures = TheLectures;
+                    model.Assignments = TheAssignments;
+                    model.Tests = TheTests;
+                    model.Notifications = TheNotifications;
+                    //model.SourceTeacherImage = SourceTeacherImage;
+                  //  model.Course = TheCourse;
+                    return PartialView(model);
+                }
+                else
+                {
+                    NewsFeedViewModel model = new NewsFeedViewModel();
+                    model.Lectures = TheLectures;
+                    model.Assignments = TheAssignments;
+                    model.Tests = TheTests;
+                    model.Notifications = null;
+                    model.SourceTeacherImage = null;
+                    return PartialView(model);
+                }
+
+
         }
         #endregion
 

@@ -36,6 +36,13 @@ namespace GameSchool.Models.Repositories
                          select x).Take(5);
             return result;
         }
+        public IQueryable<LectureModel> GetAllFiveLatest()
+        {
+            var result = (from x in m_lectureDB.LectureModels
+                          orderby x.CourseID descending
+                          select x).Take(5);
+            return result;
+        }
 
         public LectureModel GetLectureByID(int id)
         {
