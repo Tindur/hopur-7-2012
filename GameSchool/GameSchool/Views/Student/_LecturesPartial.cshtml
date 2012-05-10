@@ -44,7 +44,7 @@
 </script>
 
 <!--Likes Template For One-->
-<script id="like_template_one" type="text/html">
+<script id="like_template" type="text/html">
     <a class="liker" href="http://www.ru.is">${UserName}</a> líkar þetta <br>
 </script>
 
@@ -96,7 +96,7 @@
         $.getJSON("/Student/GetLikesForLecture", { LectureID: like_id }, function (data) {
             for (var i = 0; i < data.length; i++) {
                 var item = data[i];
-                $("#like_template_one").tmpl(item).appendTo("#like_" + item.CommentID);
+                $("#like_template").tmpl(item).appendTo("#like_" + item.CommentID);
             }
         });
     }

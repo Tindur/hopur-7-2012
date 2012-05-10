@@ -175,8 +175,7 @@ namespace GameSchool.Controllers
 
         }
 
-        [Authorize(Roles = "Student")]
-        [Authorize(Roles = "Teacher")]
+        [Authorize]
         [HttpPost]
         public ActionResult ProfileManagement(ProfileManagementView model)
         {

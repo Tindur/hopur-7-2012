@@ -144,7 +144,7 @@ namespace GameSchool.Controllers
                 TLevelViewModel model = new TLevelViewModel
                 {
                     Levels = m_lvlRepo.GetAllLevelsForCourse(courseID.Value).ToList(),
-                    Lectures = m_LectureRepo.GetLecturesForLevel(courseID.Value).ToList(),
+                    Lectures = m_LectureRepo.GetLecturesForCourse(courseID.Value).ToList(),
                     Assignments = new List<AssignmentModel>(),
                     Tests = new List<TestModel>()
 
