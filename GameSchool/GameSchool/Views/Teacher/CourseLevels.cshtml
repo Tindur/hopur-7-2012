@@ -1,6 +1,6 @@
 ﻿@model GameSchool.Models.ViewModels.TeacherViewModels.TLevelViewModel
 
-@Html.ActionLink("Búa til borð", "CreateLevel", new { CourseID = Model.Levels[0].CourseID})
+@Html.ActionLink("Búa til borð", "CreateLevel", new { CourseID = Model.CourseID})
 
 @foreach (var lvl in Model.Levels)
 {
