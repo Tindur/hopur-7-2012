@@ -1,37 +1,42 @@
 ﻿@model GameSchool.Models.ViewModels.NewsFeedViewModel
            
+
 <h4 class="HeadingsForNewStuff">Nýjustu fyrirlestrar</h4>
 
-@if (Model.Lectures.Count() != 0)
-{
-    <ul class="NewStuffForStudents">
-        @foreach (var lectures in Model.Lectures)
-            {
-                <!--<li>@lectures.DateAdded: @Html.ActionLink(lectures.Name, "GetLecture/" + lectures.ID, "Student")</li>-->
-                <li class="ListOfNewThings">@lectures.DateAdded: <a href="#tab2" data-toggle="tab">@lectures.Name</a></li>
-            }
-    </ul>
-}
-else
-{
-    <p>Engir nýjir fyrirlestrar</p>
-}
-
-<h4 class="HeadingsForNewStuff">Nýjustu verkefni</h4>
-
-@if(Model.Assignments.Count() != 0)
-{
-    <ul class="NewStuffForStudents">
-        @foreach (var assignments in Model.Assignments)
+        @if (Model.Lectures.Count() != 0)
         {
-            <li class="ListOfNewThings">@Html.ActionLink(assignments.Name, "GetAssignment/" + assignments.ID, "Student")</li>
+            <ul class="NewStuffForStudents">
+                @foreach (var lectures in Model.Lectures)
+                    {
+                        <!--<li>@lectures.DateAdded: @Html.ActionLink(lectures.Name, "GetLecture/" + lectures.ID, "Student")</li>-->
+                        <li class="ListOfNewThings">@lectures.DateAdded: <a href="#tab2" data-toggle="tab">@lectures.Name</a></li>
+                    }
+            </ul>
         }
-    </ul>
-}
-else
-{
-    <p>Engin ný verkefni</p>
-}
+        else
+        {
+            <p>Engir nýjir fyrirlestrar</p>
+        }
+
+        <h4 class="HeadingsForNewStuff">Nýjustu verkefni</h4>
+
+        @if(Model.Assignments.Count() != 0)
+        {
+            <ul class="NewStuffForStudents">
+                @foreach (var assignments in Model.Assignments)
+                {
+                    <li class="ListOfNewThings">@Html.ActionLink(assignments.Name, "GetAssignment/" + assignments.ID, "Student")</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>Engin ný verkefni</p>
+        }
+
+        <h4 class="HeadingsForNewStuff">Nýjustu Próf</h4>
+
+        <p>Vinsamlegast bætið inn virkni fyrir þau!</p>
 
 <h4 class="HeadingsForNewStuff">Nýjustu tilkynningar</h4>
 
@@ -55,4 +60,3 @@ else
 {
     <p>Engar nýjar tilkynningar</p>
 }
- 

@@ -16,6 +16,6 @@ namespace GameSchool.Models.Interfaces
         bool HasStudentFinishedAssignment(aspnet_User Student, AssignmentModel Assignment);//ekki verið að nota
         void AddAssignmnet(AssignmentModel TheAssignment);//ekki verið að nota
         void Save();
-        IQueryable<AssignmentCompletion> GetFinishedAssignmentsForUser(string UserName, int CourseID);
+        IQueryable<int> GetFinishedAssignmentsForUser(string UserName, int CourseID);
     }
 }

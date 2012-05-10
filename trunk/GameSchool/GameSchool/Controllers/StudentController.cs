@@ -9,6 +9,7 @@ using GameSchool.Models.dbLINQ;
 using GameSchool.Models.ViewModels;
 using System.Web.Routing;
 using System.Web.Security;
+using System.IO;
 
 namespace GameSchool.Controllers
 {
@@ -86,6 +87,19 @@ namespace GameSchool.Controllers
                 return RedirectToAction("StudentIndex");
             }
         }
+
+        //TODO: útfæra
+        public bool checkForLevelCompletion(int LevelID, string StudentName)
+        {
+            //TODO: Athuga hvort nemandi sé búinn með:
+            //Öll próf
+
+            //Öll verkefni
+
+            //Allir fyrirlestrar
+
+            return false;
+        }   
 
         public ActionResult GetLevel(int? id)
         {
@@ -235,14 +249,22 @@ namespace GameSchool.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetAssignment(AssignmentModel model)
+        public ActionResult GetAssignment(AssignmentModel model /*, HttpPostedFileBase file*/)
         {
+            /*if (file.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/App_Data/Uploads"), fileName);
+                file.SaveAs(path);
+            }*/
+
             if (model != null)
             {
                 //Marking assignment as completed
                 AssignmentCompletion Completion = new AssignmentCompletion();
                 Completion.AssignmentID = model.ID;
                 Completion.UserName = User.Identity.Name;
+                Completion.CourseID = model.CourseID;
 
 
                 m_AssignmentRepo.RegisterAssignmentCompletion(Completion);
@@ -265,7 +287,7 @@ namespace GameSchool.Controllers
                 TheUser.XP += model.Points.Value;
                 m_UserRepo.Save();
 
-                //Updating Assignment Completion
+                
 
 
                 return RedirectToAction("GetCourse", "Student", model.CourseID.Value);
