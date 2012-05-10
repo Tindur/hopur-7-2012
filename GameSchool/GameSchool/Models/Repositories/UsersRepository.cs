@@ -116,7 +116,7 @@ namespace GameSchool.Models.Repositories
                               select x.Source).SingleOrDefault();
                 return result;
         }
-
+        
         public class TeacherForStudent
         {
             public string TeacherName { get; set; }
