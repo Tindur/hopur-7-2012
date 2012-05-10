@@ -6,5 +6,7 @@
         <li><a href="@Url.Action("GetLecturesForLevel", "Student", new { id = Model.ID })" data-toggle="tab">Fyrirlestrar</a></li>
         <li><a href="#" data-toggle="tab">Glósur</a></li>
         <li><a href="#" data-toggle="tab">Tilkynningar frá kennara</a></li>
+        <li><a href="@Html.Action("XPCourseList", "Student", new { id = Model.ID })" data-toggle="tab">Stig</a></li>
       </ul>
    </div>
+    

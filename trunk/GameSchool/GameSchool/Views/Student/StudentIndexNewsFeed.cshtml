@@ -1,0 +1,76 @@
+﻿@model GameSchool.Models.ViewModels.StudentIndexViewModel
+
+<h3>Forsíða</h3>
+<br />
+<h4 class="HeadingsForNewStuff"><i class="icon-info-sign"></i>Nýjustu fyrirlestrar</h4>
+
+        @if (Model.Lectures.Count() != 0)
+        {
+            <ul class="NewStuffForStudents">
+                @foreach (var lectures in Model.Lectures)
+                    {
+                        <!--<li>@lectures.DateAdded: @Html.ActionLink(lectures.Name, "GetLecture/" + lectures.ID, "Student")</li>-->
+                        <li class="ListOfNewThings"><a href="#tab2" data-toggle="tab">@lectures.Name</a></li>
+                    }
+            </ul>
+        }
+        else
+        {
+            <p>Engir nýjir fyrirlestrar</p>
+        }
+
+        <h4 class="HeadingsForNewStuff"><i class="icon-info-sign"></i>Nýjustu verkefni</h4>
+
+        @if(Model.Assignments.Count() != 0)
+        {
+            <ul class="NewStuffForStudents">
+                @foreach (var assignments in Model.Assignments)
+                {
+                    <li class="ListOfNewThings">@Html.ActionLink(assignments.Name, "GetAssignment/" + assignments.ID, "Student")</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>Engin ný verkefni</p>
+        }
+
+        <h4 class="HeadingsForNewStuff"><i class="icon-info-sign"></i>Nýjustu Próf</h4>
+
+        @if (Model.Tests.Count() != 0)
+        {
+            <ul class="NewStuffForStudents">
+                @foreach (var tests in Model.Tests)
+                {
+                    <li class="ListOfNewThings">@Html.ActionLink(tests.Name, "TakeTest", new { testID = tests.ID })</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>Engin ný próf</p>
+        }
+
+
+<h4 class="HeadingsForNewStuff"><i class="icon-info-sign"></i>Nýjustu tilkynningar</h4>
+
+@if (Model.Notifications != null)
+{
+    foreach (var notification in Model.Notifications)
+    {   
+		 <li class ="comments" id="comment_${ID}">
+            <div class="commentBody">
+              <!-- <a href="http://www.pen.is"><img src='@Model.SourceTeacherImage' alt="Notandi" </a> -->
+		        <a href="http://www.pen.is">@notification.UserName</a>
+		        <span>@notification.Text</span>
+		        <div>
+			        <abbr>@notification.DateAdded</abbr>
+		        </div>
+	        </div>
+        </li>
+    }
+}
+else
+{
+    <p>Engar nýjar tilkynningar</p>
+}

@@ -35,6 +35,13 @@ namespace GameSchool.Models.Repositories
                          select x).Take(5);
             return result;
         }
+        public IQueryable<TestModel> GetAllFiveLatest()
+        {
+            var result = (from x in m_testDB.TestModels
+                          orderby x.DateAdded descending
+                          select x).Take(5);
+            return result;
+        }
         public IQueryable<QuestionModel> GetAllQuestionsForTest(int TheTestID)
         {
             var result = from x in m_testDB.QuestionModels

@@ -1,15 +1,12 @@
-﻿@{
+﻿@model GameSchool.Models.ViewModels.CourseView
+@{
     ViewBag.Title = "GameSchool";
 }
 
 <h2>@ViewBag.Message</h2>
-
-    <img src="http://i.imgur.com/8QzMo.gif" id="filler"/>
-
+ @Html.Action("StudentIndexNewsFeed", "Student")
 <div class="offset7 span3">
-    <div class="RankList">
-        <ul id="Ranking" class="nav-pills nav-stacked">
-            @Html.Action("XPList", "Student")
-        </ul>
-    </div>
+<ul class="nav-pills nav-stacked">
+     @Html.Action("XPList", "Student")
+</ul>
 </div>
