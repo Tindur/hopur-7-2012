@@ -367,20 +367,26 @@ namespace GameSchool.Controllers
 
         public ActionResult TakeTest(int? testID)
         {
+            var studentID = m_UserRepo.GetUserByName(User.Identity.Name).UserId;
             if (testID.HasValue)
             {
-
-                TakeTestViewModel model = new TakeTestViewModel();
-                model.Test = m_TestRepo.GetTestByID(testID.Value);
-                model.Questions = m_TestRepo.GetAllQuestionsForTest(model.Test.ID).ToList();
-                model.Answers = new List<AnswerModel>();
-                foreach (var question in model.Questions)
+                if (!m_TestRepo.UserHasNotFinishedTest(studentID, testID.Value))
                 {
-                    model.Answers.AddRange(m_TestRepo.GetAllAnswersForQuestion(question.ID));
-                }
-                model.StudentID = m_UserRepo.GetUserByName(User.Identity.Name).UserId;
+                    TakeTestViewModel model = new TakeTestViewModel();
+                    model.Test = m_TestRepo.GetTestByID(testID.Value);
+                    model.Questions = m_TestRepo.GetAllQuestionsForTest(model.Test.ID).ToList();
+                    model.Answers = new List<AnswerModel>();
 
-                return View(model);
+                    foreach (var question in model.Questions)
+                    {
+                        model.Answers.AddRange(m_TestRepo.GetAllAnswersForQuestion(question.ID));
+                    }
+                    model.StudentID = m_UserRepo.GetUserByName(User.Identity.Name).UserId;
+
+                    return View(model);
+                }
+                else
+                    return View("TestAlreadyCompleted");
             }
             else
                 return View("Error");
