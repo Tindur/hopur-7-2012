@@ -377,6 +377,7 @@ namespace GameSchool.Controllers
         public ActionResult CreateLikeForComment(int CommentID)
         {
             string theLiker = m_UserRepo.GetUserByName(User.Identity.Name).Name;
+            string theChecker = m_CommentRepo.GetNameForComment(CommentID);
             //Kanna hvort notandinn hafi like'að commentið áður
             var check = m_CommentRepo.GetLikesForComment(CommentID);
             foreach (var item in check)
@@ -391,8 +392,11 @@ namespace GameSchool.Controllers
             //Bæti like'inu í gagnagrunninn
             m_CommentRepo.AddLike(newLike);
             //TODO Redda því að checka á hvort commentari sé að likea commentið sitt.
-                var shit = m_UserRepo.GetUserByName(User.Identity.Name);
+            if (theLiker != theChecker)
+            {
+                var shit = m_UserRepo.GetUserByName(theChecker);
                 shit.XP += 10;
+            }
             
             m_UserRepo.Save();
             //Sæki nýjasta like'ið fyrir Json

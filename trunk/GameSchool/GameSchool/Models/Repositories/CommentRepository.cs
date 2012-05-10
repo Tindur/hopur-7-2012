@@ -87,5 +87,12 @@ namespace GameSchool.Models.Repositories
             m_commentsDB.LectureComments.InsertOnSubmit(lecCom);
             m_commentsDB.SubmitChanges();
         }
+        public string GetNameForComment(int CommentID)
+        {
+            string result = (from x in m_commentsDB.CommentModels
+                             where x.ID == CommentID
+                             select x.UserName).SingleOrDefault();
+            return result;
+        }
     }
 }
