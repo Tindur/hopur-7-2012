@@ -44,7 +44,9 @@
         @Html.Action("GetLecturesForLevel", "Student", new { id = Model.m_CurrentLevel })
     </div>
     <div class="tab-pane" id="tab3">
-      @Html.Action("XPCourseList", "Student", new { id = Model.m_theCourse.ID })
+        <div id="XPTab">
+           @Html.Action("XPCourseList", "Student", new { id = Model.m_theCourse.ID })
+        </div>
     </div>
     <div class="tab-pane" id="tab4">
         <legend><h3 class="StudentHeadings">Tilkynningar</h3></legend>
