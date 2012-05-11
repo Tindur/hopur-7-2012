@@ -20,8 +20,15 @@
 
         <p>@Model.Assignment.Description</p>
 
-        @Html.LabelFor(model => model.File)
-        <input type="file" name="File" id="File" />
+        <div class="editor-label">
+            @Html.LabelFor(model => model.File)
+        </div>
+        <div class="editor-field">
+            <input type="file" name="File" id="File" />
+            @Html.ValidationMessageFor(model => model.File)
+        </div>
+
+
         <p>
             <input class="SaveChanges" type="submit" value="Vista" />
         </p>
@@ -29,5 +36,5 @@
 }
 
 
-    @Html.ActionLink("Til baka", "StudentIndex")
+    @Html.ActionLink("Til baka", "GetCourse/" + Model.Assignment.CourseID)
 </div>
