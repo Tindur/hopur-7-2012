@@ -443,10 +443,12 @@ tr:nth-of-type(odd)
     display: inline-block;
     width: 500px;
 }
+
 #StudentNewsFeed5
 {
     display:inline-block;
 }
+
 #StudentNewsFeed6
 {
     display: inline-block;
@@ -455,6 +457,7 @@ tr:nth-of-type(odd)
     border-radius: 14px;
     
 }
+
 .thumbnailImg
 {
     height: 160px;
@@ -502,6 +505,38 @@ tr:nth-of-type(odd)
 #TestQuestions > ul > li
 {
     padding-bottom: 5px;
+}
+
+#TestCompletion
+{
+    padding-top: 15px;
+}
+
+#TestCompletionList
+{
+    padding-top: 10px;
+}
+
+#TestCompletionList > li
+{
+    padding-bottom: 8px;
+}
+
+#AssignmentCompletion
+{
+    padding-top: 15px;
+}
+
+#XPTab
+{
+    padding: 20px 0 20px  30px;
+    border: 1px dashed #70D6EE;
+    margin-right: 550px;
+}
+
+#XPTab > li
+{
+    list-style: none;
 }
 
 /* CSS fyrir navigation bar */
