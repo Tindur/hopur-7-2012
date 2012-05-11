@@ -7,14 +7,14 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend class="Form">Notaðu formið að neðan til að búa til nýtt verkefni</legend>
+        <legend>Notaðu formið að neðan til að búa til nýtt verkefni</legend>
 
         @Html.HiddenFor(model => model.ID)
         @Html.HiddenFor(model => model.CourseID)
         @Html.HiddenFor(model => model.LevelID)
 
         <div class="editor-label">
-            <p>Nafn</p>
+            @Html.Label("Nafn")
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Name)
@@ -22,10 +22,10 @@
         </div>
 
         <div class="editor-label">
-            <p>Lýsing</p>
+            @Html.Label("Lýsing")
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Description)
+            @Html.TextAreaFor(model => model.Description)
             @Html.ValidationMessageFor(model => model.Description)
         </div>
 
