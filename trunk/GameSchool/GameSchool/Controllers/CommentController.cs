@@ -50,7 +50,7 @@ namespace GameSchool.Controllers
             else
             {
                 //TODO?
-                return RedirectToAction("StudentIndex");
+                return RedirectToAction("TeacherIndex");
             }
         }
 
@@ -119,5 +119,23 @@ namespace GameSchool.Controllers
             return Json(latest);
         }
         #endregion
+
+        [HttpGet]
+        public ActionResult GetLectureByID(int? id)
+        {
+            if (id.HasValue)
+            {
+                //Find the lecture
+                LectureModel model = m_LectureRepo.GetLectureByID(id.Value); 
+
+                //Returning the video to the user!
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                //ATH TODO!! bjarkfi
+                return RedirectToAction("StudentIndex");
+            }
+        }
     }
 }

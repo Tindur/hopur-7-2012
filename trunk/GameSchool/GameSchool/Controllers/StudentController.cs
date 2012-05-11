@@ -233,8 +233,9 @@ namespace GameSchool.Controllers
 
         #endregion
 
+        //Ath, Student notar CommentController til að sjá um Athugasemdir og Like
         #region Comments
-        [HttpGet]
+        /*[HttpGet]
         public ActionResult GetCommentsByID(int? id)
         {
             if (id.HasValue)
@@ -264,7 +265,7 @@ namespace GameSchool.Controllers
         {
                 CommentModel model = new CommentModel();
                 model.CommentText = CommentText;
-                model.UserName = m_UserRepo.GetUserByName(User.Identity.Name).UserName/*.Name*/;
+                model.UserName = m_UserRepo.GetUserByName(User.Identity.Name).UserName;
             
                 m_CommentRepo.AddComment(model);
                 m_CommentRepo.ConnectCommentToLecture(model, id);
@@ -319,7 +320,7 @@ namespace GameSchool.Controllers
             var latest = (from x in m_CommentRepo.GetLikesForComment(CommentID)
                           select x).ToList().Last();
             return Json(latest);
-        }
+        }*/
         #endregion
 
         #region Tests

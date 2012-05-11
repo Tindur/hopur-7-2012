@@ -114,7 +114,8 @@
 
 #AddComment
 {
-    float: left;
+    padding-left: 25px;
+    /*float: left;*/
 }
 
 .commentList

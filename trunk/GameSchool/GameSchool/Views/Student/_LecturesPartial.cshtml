@@ -73,11 +73,11 @@
     //Gets video, comment and likes
     function get_video(id) {
         $("#video_span > *").remove();
-        $.getJSON("/Student/GetLectureByID", { id: id }, function (data) {
+        $.getJSON("/Comment/GetLectureByID", { id: id }, function (data) {
             $("#video_template").tmpl(data).appendTo("#video_span");
             $("#addComment_template").tmpl(data).appendTo("#video_span");
         });
-        $.getJSON("/Student/GetCommentsByID", { id: id }, function (data) {
+        $.getJSON("/Comment/GetCommentsByID", { id: id }, function (data) {
             $("#comment_template").tmpl(data, get_likes(id)).insertBefore("#AddComment");
         });
         /*$.getJSON("/Student/GetCommentsByID", { id: id }, function (data) {
@@ -93,7 +93,7 @@
         }*/
     }
     function get_likes(like_id) {
-        $.getJSON("/Student/GetLikesForLecture", { LectureID: like_id }, function (data) {
+        $.getJSON("/Comment/GetLikesForLecture", { LectureID: like_id }, function (data) {
             for (var i = 0; i < data.length; i++) {
                 var item = data[i];
                 $("#like_template").tmpl(item).appendTo("#like_" + item.CommentID);
@@ -121,7 +121,7 @@
     $(".submit_comment").live("click", function () {
         var lecid = parseInt($(this).attr('id'));
         var param = $("#CommentText").val();
-        $.post("/Student/CreateCommentForLecture", { CommentText: param, id: lecid }, function (data) {
+        $.post("/Comment/CreateCommentForLecture", { CommentText: param, id: lecid }, function (data) {
             // processComments(data.Comments);
             $(".comments").remove();
             $("#comment_template").tmpl(data).insertBefore("#AddComment");
@@ -174,7 +174,7 @@
     //Post a like!
     $(".like").live("click", (function () {
         var like = parseInt($(this).attr('id'));
-        $.post("/Student/CreateLikeForComment", { CommentID: like }, function (data) {
+        $.post("/Comment/CreateLikeForComment", { CommentID: like }, function (data) {
             if (data != "") {
                 $("#like_template").tmpl(data).appendTo("#like_" + like);
             }

@@ -1,0 +1,20 @@
+﻿@model GameSchool.Models.ViewModels.NavigationViewModel
+
+
+   <li class="nav-header">
+        <div id="profile">
+                <div id="profileimage">
+                    <img src="@Model.TheImage.Source" alt="Mynd af þínu fési"/>
+                </div>
+                 <div id="profileinfo">
+                    <p>@Html.ActionLink(@Model.TheUser.m_User.Name, "ProfileManagement", "Account")</p>
+                 </div>
+        </div>
+   </li>
+       
+   <li class="nav-header">Áfangar þínir</li>
+
+   @foreach (var item in Model.TheCourses)
+    {
+            <li>@Html.ActionLink(item.Name, "/GetCourse/" + item.ID, "Teacher")</li>
+    }
