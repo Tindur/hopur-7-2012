@@ -4,7 +4,7 @@
 }
 
 <h2>@Model.Test.Name</h2>
-<p>@Model.Test.Description</p>
+<p id="StudentTestDesc">@Model.Test.Description</p>
 
 @using(Html.BeginForm("TakeTest", "Student", FormMethod.Post))
 {
@@ -13,7 +13,7 @@
 
     foreach (var question in Model.Questions)
     {
-        <fieldset>
+        <fieldset id="TestQuestions">
             <p>@question.Question (@question.Points)</p>
             <ul>
             @foreach (var answer in Model.Answers)

@@ -475,6 +475,34 @@ tr:nth-of-type(odd)
     list-style: none;
 }
 
+#StudentAssignments > p
+{
+    padding-top: 15px;
+}
+
+#StudentAssignments > label
+{
+    padding-top: 10px;
+    padding-bottom: 5px;
+    font-size: 120%;
+    font-weight: bold;
+}
+
+#StudentTestDesc
+{
+    padding-top: 15px;
+}
+
+#TestQuestions
+{
+    padding-top: 10px;
+}
+
+#TestQuestions > ul > li
+{
+    padding-bottom: 5px;
+}
+
 /* CSS fyrir navigation bar */
 
 #profileimage
