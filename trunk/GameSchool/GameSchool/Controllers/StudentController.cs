@@ -479,7 +479,7 @@ namespace GameSchool.Controllers
                 if (!m_AssignmentRepo.HasStudentFinishedAssignment(User.Identity.Name, id.Value))
                 {
                     AssignmentModel model = m_AssignmentRepo.GetAssignmentById(id.Value);
-                    return View(model);
+                    return View(new AssignmentViewModel { Assignment = model });
                 }
                 else
                     return View("AssignmentAlreadyCompleted");
@@ -488,22 +488,31 @@ namespace GameSchool.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetAssignment(AssignmentModel model /*, HttpPostedFileBase file*/)
+        public ActionResult GetAssignment(AssignmentViewModel model)
         {
-            /*if (file.ContentLength > 0)
-            {
-                var fileName = Path.GetFileName(file.FileName);
-                var path = Path.Combine(Server.MapPath("~/App_Data/Uploads"), fileName);
-                file.SaveAs(path);
-            }*/
-
             if (model != null)
             {
+                if (model.File.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(model.File.FileName);
+                    var path = Path.Combine(Server.MapPath("~/App_Data/Uploads"), 
+                        m_CourseRepo.GetCourseById(model.Assignment.CourseID.Value).Name , 
+                        model.Assignment.Name, User.Identity.Name);
+
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+
+                    path = Path.Combine(path, model.File.FileName);
+                    model.File.SaveAs(path);
+                }
+                else
+                    return View("Error");
+
                 //Marking assignment as completed
                 AssignmentCompletion Completion = new AssignmentCompletion();
-                Completion.AssignmentID = model.ID;
+                Completion.AssignmentID = model.Assignment.ID;
                 Completion.UserName = User.Identity.Name;
-                Completion.CourseID = model.CourseID;
+                Completion.CourseID = model.Assignment.CourseID;
 
                 m_AssignmentRepo.RegisterAssignmentCompletion(Completion);
                 m_AssignmentRepo.Save();
@@ -512,26 +521,26 @@ namespace GameSchool.Controllers
                 CourseXP TheUserCourseXP = m_CourseXPRepo.GetCourseXPByUserName(User.Identity.Name);
                 if (TheUserCourseXP == null)
                 {
-                    TheUserCourseXP = m_CourseXPRepo.CreateNewXPForUserName(User.Identity.Name, model.CourseID.Value);
+                    TheUserCourseXP = m_CourseXPRepo.CreateNewXPForUserName(User.Identity.Name, model.Assignment.CourseID.Value);
                     m_CourseXPRepo.RegisterXPForCourse(TheUserCourseXP);
                 }
 
-                TheUserCourseXP.XP += model.Points.Value;
+                TheUserCourseXP.XP += model.Assignment.Points.Value;
                 m_CourseXPRepo.Save();
 
                 //Updating UserXP
                 aspnet_User TheUser = m_UserRepo.GetUserByName(User.Identity.Name);
 
-                TheUser.XP += model.Points.Value;
+                TheUser.XP += model.Assignment.Points.Value;
                 m_UserRepo.Save();
 
-                if (checkForLevelCompletion(model.LevelID, User.Identity.Name))
+                if (checkForLevelCompletion(model.Assignment.LevelID, User.Identity.Name))
                 {
-                    m_lvlRepo.RegisterLevelCompletion(model.LevelID, User.Identity.Name);
+                    m_lvlRepo.RegisterLevelCompletion(model.Assignment.LevelID, User.Identity.Name);
                 }
 
 
-                return RedirectToAction("GetCourse", "Student", model.CourseID.Value);
+                return RedirectToAction("GetCourse", "Student", model.Assignment.CourseID.Value);
             }
             else
                 return View("Error");
