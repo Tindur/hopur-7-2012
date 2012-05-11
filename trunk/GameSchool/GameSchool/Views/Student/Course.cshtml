@@ -37,7 +37,7 @@
         </div>
         <div id="CourseStuff">
             <legend><h3 class="StudentHeadings">Áfangastraumur</h3></legend>
-            @Html.Action("NewsFeed", "Student", new { id = Model.m_CurrentLevel })
+            @Html.Action("NewsFeed", "Student", new { LevelID = Model.m_CurrentLevel, CourseID = Model.m_theCourse.ID })
         </div>
     </div>
     <div class="tab-pane" id="tab2">
@@ -89,7 +89,7 @@
                 {
                     if (lecture.LevelID == lvl.ID)
                     {
-                        <p class="navig">@lecture.Name
+                        <p class="navig">@lecture.Name [@lecture.Points XP]
                         @if (Model.m_FinishedLecturesID.Contains(lecture.ID))
                         {
                             <i class="icon-ok"></i>
@@ -107,7 +107,7 @@
                 {
                     if (assignment.LevelID == lvl.ID)
                     {
-                        <p class="navig">@assignment.Name
+                        <p class="navig">@assignment.Name [@assignment.Points XP]
                         @if (Model.m_FinishedAssignments.Contains(assignment.ID))
                         {
                             <i class="icon-ok"></i>
@@ -125,7 +125,7 @@
                 {
                     if (test.LevelID == lvl.ID)
                     {
-                        <p class="navig">@test.Name
+                        <p class="navig">@test.Name [@test.Points XP]
                         @if (Model.m_FinishedTestsID.Contains(test.ID))
                         {
                             <i class="icon-ok"></i>

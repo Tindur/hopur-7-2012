@@ -540,17 +540,17 @@ namespace GameSchool.Controllers
         #endregion
 
         #region NewsFeed
-        public ActionResult NewsFeed(int? id)
+        public ActionResult NewsFeed(int? LevelID, int? CourseID)
         {
-            if(id.HasValue)
+            if(LevelID.HasValue && CourseID.HasValue)
             {
-                IQueryable<LectureModel> TheLectures = m_LectureRepo.GetFiveLatest(id.Value);
-                IQueryable<AssignmentModel> TheAssignments = m_AssignmentRepo.GetFiveLatest(id.Value);
-                IQueryable<NotificationModel> TheNotifications = m_NotificationRepo.GetFiveLatest(id.Value);
-                IQueryable<TestModel> TheTests = m_TestRepo.GetFiveLatest(id.Value);
+                IQueryable<LectureModel> TheLectures = m_LectureRepo.GetFiveLatest(LevelID.Value);
+                IQueryable<AssignmentModel> TheAssignments = m_AssignmentRepo.GetFiveLatest(LevelID.Value);
+                IQueryable<NotificationModel> TheNotifications = m_NotificationRepo.GetFiveLatest(CourseID.Value);
+                IQueryable<TestModel> TheTests = m_TestRepo.GetFiveLatest(LevelID.Value);
                 if (TheNotifications.Any())
                 {
-                    string SourceTeacherImage = m_UserRepo.GetImageForName(m_NotificationRepo.GetNameOfTeacher(id.Value));
+                    string SourceTeacherImage = m_UserRepo.GetImageForName(m_NotificationRepo.GetNameOfTeacher(CourseID.Value));
                     NewsFeedViewModel model = new NewsFeedViewModel();
                     model.Lectures = TheLectures;
                     model.Assignments = TheAssignments;
