@@ -1,20 +1,21 @@
 ﻿@model  GameSchool.Models.ViewModels.UserViewModel
-        <li>Þú ert með: @Model.m_CurrentXP stig</li>
-        <li>Hæstu stig: @Model.m_XP.Max()</li>
-        <li>Lægstu stig: @Model.m_XP.Min()</li>
-        <li>Fjöldi nemanda: @Model.m_Counter</li>
-        @if (Model.m_CurrentXP == Model.m_XP.Max())
+        <li class="span3">
+       <div id="StudentNewsFeed6">
+        <p>Þú ert með: @Model.m_CurrentXP stig</p>
+        <p>Hæstu stig: @Model.m_XP.Max()</p>
+        <p>Lægstu stig: @Model.m_XP.Min()</p>
+        <p>Fjöldi nemanda: @Model.m_Counter</p>
+         @if (Model.m_CurrentXP == Model.m_XP.Max())
         {
-            <li>Þú ert efst(ur)</li>
+            <p>Þú ert efst(ur)</p>
         }
         @if (Model.m_CurrentXP == Model.m_XP.Min())
         {
-            <li>Úff þú er neðst(ur). Þarft að fara bæta þig</li>
+            <p>Úff þú er neðst(ur). Þarft að fara bæta þig</p>
         }
-        <progress title="@Model.m_CurrentXP / @Model.m_XP.Max()" id="XpProgress" class="example3" min="@Model.m_XP.Min()" max="@Model.m_XP.Max()" value ="@Model.m_CurrentXP"></progress>
-      
-     
- 
-    
+         <progress title="@Model.m_CurrentXP / @Model.m_XP.Max()" id="XpProgress" class="example3" min="@Model.m_XP.Min()" max="@Model.m_XP.Max()" value ="@Model.m_CurrentXP"></progress>
+        </div>
+        </li>
+
 
     
