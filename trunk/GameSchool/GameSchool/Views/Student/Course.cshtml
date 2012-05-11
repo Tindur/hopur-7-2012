@@ -23,7 +23,7 @@
       <ul class="nav nav-tabs">
         <li class="active"><a href="#tab1" data-toggle="tab">@Model.m_theCourse.Name</a></li>
         <li><a href="#tab2" data-toggle="tab">Fyrirlestrar</a></li>
-        <li><a href="#tab3" data-toggle="tab">Glósur</a></li>
+        <li><a href="#tab3" data-toggle="tab">Stig</a></li>
         <li><a href="#tab4" data-toggle="tab">Tilkynningar frá kennara</a></li>
         <li><a href="#tab5" data-toggle="tab">Próf</a></li>
         <li><a href="#tab6" data-toggle="tab">Verkefni</a></li>
@@ -44,7 +44,7 @@
         @Html.Action("GetLecturesForLevel", "Student", new { id = Model.m_CurrentLevel })
     </div>
     <div class="tab-pane" id="tab3">
-      <legend><h3 class="StudentHeadings">Glósur</h3></legend>
+      @Html.Action("XPCourseList", "Student", new { id = Model.m_theCourse.ID })
     </div>
     <div class="tab-pane" id="tab4">
         <legend><h3 class="StudentHeadings">Tilkynningar</h3></legend>
