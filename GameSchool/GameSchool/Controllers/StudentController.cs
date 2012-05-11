@@ -333,7 +333,7 @@ namespace GameSchool.Controllers
             }
             return View("Error");
         }
-        
+
         public ActionResult GetTest(int? id)
         {
             if (id.HasValue)
@@ -358,6 +358,7 @@ namespace GameSchool.Controllers
             return View("Error");
         }
 
+        [OutputCache(NoStore = true, Duration = 0)]
         public ActionResult TakeTest(int? testID)
         {
             if (testID.HasValue)
@@ -472,6 +473,7 @@ namespace GameSchool.Controllers
             return View("Error");
         }
 
+        [OutputCache(NoStore = true, Duration = 0)]
         public ActionResult GetAssignment(int? id)
         {
             if (id.HasValue)
@@ -541,8 +543,7 @@ namespace GameSchool.Controllers
                     m_lvlRepo.RegisterLevelCompletion(model.Assignment.LevelID, User.Identity.Name);
                 }
 
-
-                return RedirectToAction("GetCourse", "Student", new { id = model.Assignment.CourseID.Value });
+                return View("AssignmentCompleted", model.Assignment);
             }
             else
                 return View("Error");
