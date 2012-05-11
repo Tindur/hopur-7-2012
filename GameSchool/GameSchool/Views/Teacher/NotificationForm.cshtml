@@ -7,13 +7,13 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend class="Form">Notaðu formið að neðan til að búa til nýja tilkynningu</legend>
+        <legend>Notaðu formið að neðan til að búa til nýja tilkynningu</legend>
 
         @Html.HiddenFor(model => model.ID)
         @Html.HiddenFor(model => model.CourseID)
 
         <div class="editor-label">
-            <p>Texti</p>
+            @Html.Label("Texti")
         </div>
         <div class="editor-field">
             @Html.TextAreaFor(model => model.Text)

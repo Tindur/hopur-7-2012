@@ -6,11 +6,11 @@
 <div class="offset3">
     @using (Html.BeginForm()) {
         @Html.ValidationSummary(true)
-        <fieldset>
-            <legend>Próf</legend>
+        <fieldset id="TeacherTest">
+            <legend>Notaðu formið að neðan til að búa til nýtt próf</legend>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.Test.Name)
+                @Html.Label("Nafn")
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.Test.Name)
@@ -18,10 +18,10 @@
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.Test.Description)
+                @Html.Label("Lýsing")
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.Test.Description)
+                @Html.TextAreaFor(model => model.Test.Description)
                 @Html.ValidationMessageFor(model => model.Test.Description)
             </div>
             <div class="editor-label">
@@ -31,7 +31,7 @@
                 @Html.HiddenFor(model => model.Test.LevelID)
             </div>
             <p>
-                <input type="submit" value="Create" />
+                <input class="SaveChanges" type="submit" value="Vista" />
             </p>
         </fieldset>
     }

@@ -470,6 +470,11 @@ tr:nth-of-type(odd)
     margin-left: 25px;
 }
 
+#tab3 > li
+{
+    list-style: none;
+}
+
 /* CSS fyrir navigation bar */
 
 #profileimage
@@ -587,9 +592,9 @@ progress::-webkit-progress-value
 
 .CreateLevel
 {
-    padding-bottom: 20px;
     border: 1px dashed #70D6EE;
     margin-right: 150px;
+    margin-top: 30px;
 }
 
 .CreateLevelSub
@@ -623,4 +628,13 @@ progress::-webkit-progress-value
     padding-top: 8px;
 }
 
-    
+#TeacherTest
+{
+    position: relative;
+    right: 340px;
+}
+
+#TestDesc
+{
+    padding-top: 15px;
+}
