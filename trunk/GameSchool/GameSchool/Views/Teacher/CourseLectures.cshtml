@@ -1,31 +1,20 @@
 ﻿@model GameSchool.Models.ViewModels.TeacherViewModels.CourseLectureViewModel
 
-<!--@foreach (var level in Model.Levels)
-{
-    <div class="TeacherCourseLectures">
-        <h3>@level.NumberInCourse. @level.Name</h3>
-        @foreach (var lecture in Model.Lectures)
-	    {
-            <div class="Lectures">
-            if (lecture.LevelID == level.ID)
-            {
-                <p>@lecture.Name</p>
-            }
-            </div>
-	    }
-    </div>
-}-->
 
 @foreach (var level in Model.Levels)
 {
-    <h3>@level.NumberInCourse. @level.Name</h3>
-    foreach (var lecture in Model.Lectures)
+    <div class="TeacherCourseAssignmentsTestsLectures">
+        <h3>@level.NumberInCourse. @level.Name</h3>
+    @foreach (var lecture in Model.Lectures)
     {
         if (lecture.LevelID == level.ID)
         {
-            <p><a href="#" class="video_link" id='video_ @lecture.ID' onclick="get_video(@lecture.ID)"> @lecture.Name</a></p>
+            <div class="TeacherAssignmentsTestsLectures">
+                <p><a href="#" class="video_link" id='video_ @lecture.ID' onclick="get_video(@lecture.ID)"> @lecture.Name</a></p>
+            </div>
         }
     }
+    </div>
 }
 
 <div class="span7">
