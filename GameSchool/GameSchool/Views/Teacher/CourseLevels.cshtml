@@ -4,10 +4,14 @@
 
 @foreach (var lvl in Model.Levels)
 {
-    <div class="CreateLevelSub">
+    <div class="CreateLevel">
+        <div class="Table">
+            <img src="http://www.thefurniture.com/store/images/klaussner/dining/ashton-table.jpg" alt="Borð" />
+        </div>
 
     <h3>@lvl.NumberInCourse. @lvl.Name</h3>
     
+    <div class="CreateLevelSub">
         <h4>Próf</h4>
         <ul>
             @foreach (var test in Model.Tests)
@@ -19,9 +23,9 @@
             }
         </ul>
         @Html.ActionLink("Búa til nýtt próf", "CreateTest", new { levelID = lvl.ID, courseID = lvl.CourseID })
+    </div>
 
-
-
+    <div class="CreateLevelSub">
         <h4>Verkefni</h4>
         <ul>
             @foreach (var verk in Model.Assignments)
@@ -33,8 +37,9 @@
             }
         </ul>
         @Html.ActionLink("Búa til nýtt verkefni", "CreateAssignment", new { levelID = lvl.ID, courseID = lvl.CourseID })
+    </div>
 
-
+    <div class="CreateLevelSub">
         <h4>Fyrirlestrar</h4>
         <ul>
             @foreach (var lc in Model.Lectures)
@@ -46,5 +51,6 @@
             }
         </ul>
         @Html.ActionLink("Búa til nýjan fyrirlestur", "CreateLecture", new{ levelID = lvl.ID, courseID = lvl.CourseID })    
+    </div>
     </div>
 }
