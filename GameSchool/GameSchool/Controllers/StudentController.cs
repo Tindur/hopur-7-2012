@@ -476,13 +476,15 @@ namespace GameSchool.Controllers
         {
             if (id.HasValue)
             {
+                AssignmentModel model = m_AssignmentRepo.GetAssignmentById(id.Value);
                 if (!m_AssignmentRepo.HasStudentFinishedAssignment(User.Identity.Name, id.Value))
                 {
-                    AssignmentModel model = m_AssignmentRepo.GetAssignmentById(id.Value);
                     return View(new AssignmentViewModel { Assignment = model });
                 }
                 else
-                    return View("AssignmentAlreadyCompleted");
+                {
+                    return View("AssignmentAlreadyCompleted", model.CourseID);
+                }
             }
             return View("Error");
         }
@@ -490,7 +492,7 @@ namespace GameSchool.Controllers
         [HttpPost]
         public ActionResult GetAssignment(AssignmentViewModel model)
         {
-            if (model != null)
+            if (model != null && model.File != null)
             {
                 if (model.File.ContentLength > 0)
                 {
@@ -540,7 +542,7 @@ namespace GameSchool.Controllers
                 }
 
 
-                return RedirectToAction("GetCourse", "Student", model.Assignment.CourseID.Value);
+                return RedirectToAction("GetCourse", "Student", new { id = model.Assignment.CourseID.Value });
             }
             else
                 return View("Error");

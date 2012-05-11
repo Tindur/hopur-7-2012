@@ -1,5 +1,8 @@
-﻿@{
+﻿@model System.Int32
+@{
     ViewBag.Title = "AssignmentCompleted";
 }
 
-<h2>Assignment Already Completed!</h2>
+<h2>Þú hefur nú þegar klárað þetta verkefni</h2>
+
+@Html.ActionLink("Til baka í áfanga", "GetCourse", new { id = Model})
