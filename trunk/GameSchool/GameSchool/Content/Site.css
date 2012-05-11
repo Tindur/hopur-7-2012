@@ -134,7 +134,6 @@
 	font-size: 11px;
 	padding: 3px;
 	margin: 3px;
-	left: -29px;
 	position: relative;
 }
 
@@ -586,10 +585,47 @@ progress::-webkit-progress-value
 
 /* CSS fyrir kennara */
 
+.CreateLevel
+{
+    padding-bottom: 20px;
+    border: 1px dashed #70D6EE;
+    margin-right: 150px;
+}
+
 .CreateLevelSub
 {
     padding-bottom: 20px;
-    float: left;
+}
+
+.CreateLevelSub >h4
+{
+    padding-bottom: 8px;
+    padding-top: 5px;
+}
+
+.Table
+{
+    width: 260px;
+    height: 195px;
+    float: right;
+    margin-top: 55px;
+}
+
+.TeacherCourseLectures
+{
+    padding-bottom: 15px;
+}
+
+.TeacherCourseAssignmentsTests
+{
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border: 1px dashed #70D6EE;
+}
+
+.TeacherAssignmentsTests
+{
+    padding-top: 8px;
 }
 
     

@@ -2,13 +2,15 @@
 
 @foreach (var level in Model.Levels)
 {
-    <div>
+    <div class="TeacherCourseAssignmentsTests">
         <h3>@level.NumberInCourse. @level.Name</h3>
         @foreach (var test in Model.Tests)
 	    {
             if (test.LevelID == level.ID)
-            {
-                <p>@test.Name</p>
+            {   
+                <div class="TeacherAssignmentsTests">
+                    <p>@test.Name</p>
+                </div>
             }
 	    }
     </div>
