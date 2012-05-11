@@ -611,19 +611,14 @@ progress::-webkit-progress-value
     margin-top: 55px;
 }
 
-.TeacherCourseLectures
-{
-    padding-bottom: 15px;
-}
-
-.TeacherCourseAssignmentsTests
+.TeacherCourseAssignmentsTestsLectures
 {
     padding-bottom: 15px;
     margin-bottom: 15px;
     border: 1px dashed #70D6EE;
 }
 
-.TeacherAssignmentsTests
+.TeacherAssignmentsTestsLectures
 {
     padding-top: 8px;
 }
